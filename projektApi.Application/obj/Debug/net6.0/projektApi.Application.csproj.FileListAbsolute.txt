@@ -1,0 +1,15 @@
+C:\Users\USER\source\repos\projektApi\projektApi.Application\bin\Debug\net6.0\projektApi.Application.deps.json
+C:\Users\USER\source\repos\projektApi\projektApi.Application\bin\Debug\net6.0\projektApi.Application.dll
+C:\Users\USER\source\repos\projektApi\projektApi.Application\bin\Debug\net6.0\projektApi.Application.pdb
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\projektApi.Application.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\projektApi.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\projektApi.Application.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\projektApi.Application.AssemblyInfo.cs
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\projektApi.Application.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\projektApi.Application.dll
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\refint\projektApi.Application.dll
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\projektApi.Application.pdb
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\ref\projektApi.Application.dll
+C:\Users\USER\source\repos\projektApi\projektApi.Application\bin\Debug\net6.0\projektApi.Domain.dll
+C:\Users\USER\source\repos\projektApi\projektApi.Application\bin\Debug\net6.0\projektApi.Domain.pdb
+C:\Users\USER\source\repos\projektApi\projektApi.Application\obj\Debug\net6.0\projektApi.Application.csproj.CopyComplete
