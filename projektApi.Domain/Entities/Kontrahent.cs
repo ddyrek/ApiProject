@@ -14,8 +14,8 @@ namespace projektApi.Domain.Entities
         public string? Numer_budynku { get; set; }
         public string? Numer_lokalu { get; set; }
         public decimal? Nip { get; set; }
-        public DateTime? Utworzono { get; set; }
-        public DateTime? Zmodyfikowano { get; set; }
+        //public DateTime? Utworzono { get; set; }
+        //public DateTime? Zmodyfikowano { get; set; }
         public ICollection<Klient> Klienci { get; set; }
         public ICollection<Pies> Psy { get; set; }
     }

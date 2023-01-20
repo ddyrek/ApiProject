@@ -41,7 +41,6 @@ namespace projektApi.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("InactivatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Kod_Kon_Id")
@@ -54,7 +53,6 @@ namespace projektApi.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone_number")
@@ -90,14 +88,12 @@ namespace projektApi.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("InactivatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Modified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nazwa_firmy")
@@ -118,12 +114,6 @@ namespace projektApi.Persistance.Migrations
                     b.Property<string>("Ulica")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Utworzono")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Zmodyfikowano")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.ToTable("Kontrahenci");
@@ -137,21 +127,7 @@ namespace projektApi.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Inactivated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InactivatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -167,13 +143,6 @@ namespace projektApi.Persistance.Migrations
                     b.Property<int>("KontrahentId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -181,9 +150,6 @@ namespace projektApi.Persistance.Migrations
                     b.Property<string>("Race")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
