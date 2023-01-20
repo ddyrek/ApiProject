@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace projektApi.Domain.Entities
 {
-    public class Pies : AuditableEntity
+    public class Pies
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
         public string Description { get; set; }
