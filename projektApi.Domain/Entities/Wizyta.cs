@@ -11,8 +11,8 @@ namespace projektApi.Domain.Entities
         public int Id { get; set; }
         public DateTime Data_wizyty { get; set; }
         public DateTime Godzina_wizyty { get; set; }
-        public long Opis { get; set; }
-        public double? Kwota { get; set; }
+        public string Opis { get; set; }
+        public decimal? Kwota { get; set; }
         public int Pies_id { get; set; }
         public Pies Pies { get; set; }
     }

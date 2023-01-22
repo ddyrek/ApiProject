@@ -43,7 +43,7 @@ namespace projektApi.Persistance.Migrations
                     b.Property<string>("InactivatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Kod_Kon_Id")
+                    b.Property<int>("Kod_Kon_Id")
                         .HasColumnType("int");
 
                     b.Property<int>("KontrahentId")
@@ -137,7 +137,7 @@ namespace projektApi.Persistance.Migrations
                     b.Property<int>("Klient_Id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Kod_Kon_Id")
+                    b.Property<int>("Kod_Kon_Id")
                         .HasColumnType("int");
 
                     b.Property<int>("KontrahentId")
@@ -174,11 +174,12 @@ namespace projektApi.Persistance.Migrations
                     b.Property<DateTime>("Godzina_wizyty")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("Kwota")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Kwota")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<long>("Opis")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PiesId")
                         .HasColumnType("int");
