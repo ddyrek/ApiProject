@@ -26,46 +26,46 @@ namespace projektApi.Persistance
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Kontrahent>().HasData(
-               new Kontrahent()
-               {
-                   Id = 1,
-                   StatusId = 1,
-                   Nazwa_firmy = "Top Dogs",
-                   Created = DateTime.Now,
-                   CreatedBy = "Dawid"
-               });
+            ////modelBuilder.Entity<Kontrahent>().HasData(
+            ////   new Kontrahent()
+            ////   {
+            ////       Id = 1,
+            ////       StatusId = 1,
+            ////       Nazwa_firmy = "Top Dogs",
+            ////       Created = DateTime.Now,
+            ////       CreatedBy = "Dawid"
+            ////   });
 
             //tu zobaczyć, kurs api - moduł 5 lekcja 4 - Context, to ma byc value object
             modelBuilder.Entity<Klient>().OwnsOne(p => p.KlientName); //ValeObject
-            modelBuilder.Entity<Klient>(k =>
-            {
-                k.HasData(new Klient()
-                {
-                    Id = 1,
-                    StatusId = 1,
-                    Phone_number = "+48 606327833",
-                    Created = DateTime.Now,
-                    CreatedBy = "Dawid",
-                    KontrahentId = 1
-                });
-                k.OwnsOne(k => k.KlientName).HasData(new { KlientId = 1, Name = "Andrzej", Surname = "Trycz" }); //tu wazny jest poprawna nazwa pola bo nie sprawdza
-            }
-                );
-            modelBuilder.Entity<Pies>().HasData(
-               new Pies() { Id = 1, KontrahentId = 1, KlientId = 1, Name = "Jackie" },
-               new Pies() { Id = 2, KontrahentId = 1, KlientId = 1, Name = "Fifi" }
-               );
-            modelBuilder.Entity<Wizyta>().HasData(
-                new Wizyta()
-                {
-                    Id = 1,
-                    Data_wizyty = DateTime.Now,
-                    Godzina_wizyty = DateTime.Now,
-                    Kwota = 350,
-                    Opis = "Strzyżenie",
-                    PiesId = 1
-                });
+            //modelBuilder.Entity<Klient>(k =>
+            //{
+            //    k.HasData(new Klient()
+            //    {
+            //        Id = 1,
+            //        StatusId = 1,
+            //        Phone_number = "+48 606327833",
+            //        Created = DateTime.Now,
+            //        CreatedBy = "Dawid",
+            //        KontrahentId = 1
+            //    });
+            //    k.OwnsOne(k => k.KlientName).HasData(new { KlientId = 1, Name = "Andrzej", Surname = "Trycz" }); //tu wazny jest poprawna nazwa pola bo nie sprawdza
+            //}
+            //    );
+            //modelBuilder.Entity<Pies>().HasData(
+            //   new Pies() { Id = 1, KontrahentId = 1, KlientId = 1, Name = "Jackie" },
+            //   new Pies() { Id = 2, KontrahentId = 1, KlientId = 1, Name = "Fifi" }
+            //   );
+            //modelBuilder.Entity<Wizyta>().HasData(
+            //    new Wizyta()
+            //    {
+            //        Id = 1,
+            //        Data_wizyty = DateTime.Now,
+            //        Godzina_wizyty = DateTime.Now,
+            //        Kwota = 350,
+            //        Opis = "Strzyżenie",
+            //        PiesId = 1
+            //    });
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

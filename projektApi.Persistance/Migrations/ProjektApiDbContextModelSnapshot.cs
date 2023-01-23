@@ -43,9 +43,6 @@ namespace projektApi.Persistance.Migrations
                     b.Property<string>("InactivatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Kod_Kon_Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("KontrahentId")
                         .HasColumnType("int");
 
@@ -134,12 +131,6 @@ namespace projektApi.Persistance.Migrations
                     b.Property<int>("KlientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Klient_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Kod_Kon_Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("KontrahentId")
                         .HasColumnType("int");
 
@@ -182,9 +173,6 @@ namespace projektApi.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PiesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Pies_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
