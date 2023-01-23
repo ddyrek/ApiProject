@@ -47,14 +47,14 @@ namespace projektApi.Persistance
                     Phone_number = "+48 606327833",
                     Created = DateTime.Now,
                     CreatedBy = "Dawid",
-                    Kod_Kon_Id = 1
+                    KontrahentId = 1
                 });
-                k.OwnsOne(k => k.KlientName).HasData(new { KlientId = 1, Name = "Andrzej", Surname = "Trycz" });
+                k.OwnsOne(k => k.KlientName).HasData(new { KlientId = 1, Name = "Andrzej", Surname = "Trycz" }); //tu wazny jest poprawna nazwa pola bo nie sprawdza
             }
                 );
             modelBuilder.Entity<Pies>().HasData(
-               new Pies() { Id = 1, Klient_Id = 1, Name = "Jackie" },
-               new Pies() { Id = 2, Klient_Id = 1, Name = "Fifi" }
+               new Pies() { Id = 1, KontrahentId = 1, KlientId = 1, Name = "Jackie" },
+               new Pies() { Id = 2, KontrahentId = 1, KlientId = 1, Name = "Fifi" }
                );
             modelBuilder.Entity<Wizyta>().HasData(
                 new Wizyta()
@@ -64,7 +64,7 @@ namespace projektApi.Persistance
                     Godzina_wizyty = DateTime.Now,
                     Kwota = 350,
                     Opis = "Strzyżenie",
-                    Pies_id = 1
+                    PiesId = 1
                 });
         }
 

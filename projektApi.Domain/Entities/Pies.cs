@@ -13,8 +13,8 @@ namespace projektApi.Domain.Entities
         public string Name { get; set; }
         public string Race { get; set; }
         public string Description { get; set; }
-        public int Klient_Id { get; set; }
-        public int Kod_Kon_Id { get; set; } // ? - Nullable, Delete Behaviuor (OnDelete) ustawiony na Set Null
+        public int KlientId { get; set; }
+        public int KontrahentId { get; set; } // ? - Nullable, Delete Behaviuor (OnDelete) ustawiony na Set Null
         public Klient Klient { get; set; }
         public Kontrahent Kontrahent { get; set; }
         public ICollection<Wizyta> Wizyty { get; set; }

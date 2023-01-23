@@ -14,7 +14,7 @@ namespace projektApi.Domain.Entities
         //public string Name { get; set; }
         //public string Surname { get; set; }
         public string Phone_number { get; set; }
-        public int Kod_Kon_Id { get; set; }
+        public int KontrahentId { get; set; }
         public Kontrahent Kontrahent { get; set; }
         public ICollection<Pies> Psy { get; set; } //ICollection po stornie jeden (klient) do wielu (pies) + public Klient Klient{get; set}
                                                     //Przy wiele do wiele ICollection po bu stronach, jesl inny ORM niz EF Core, musi być osrednia tabela

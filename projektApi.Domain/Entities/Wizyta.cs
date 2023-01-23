@@ -13,7 +13,7 @@ namespace projektApi.Domain.Entities
         public DateTime Godzina_wizyty { get; set; }
         public string Opis { get; set; }
         public decimal? Kwota { get; set; }
-        public int Pies_id { get; set; }
+        public int PiesId { get; set; }
         public Pies Pies { get; set; }
     }
 }
