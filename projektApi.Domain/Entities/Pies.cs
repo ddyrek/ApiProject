@@ -12,7 +12,7 @@ namespace projektApi.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public int KlientId { get; set; }
         public int KontrahentId { get; set; } // ? - Nullable, Delete Behaviuor (OnDelete) ustawiony na Set Null
         public Klient Klient { get; set; }

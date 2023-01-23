@@ -52,7 +52,7 @@ namespace projektApi.Persistance.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone_number")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -64,6 +64,17 @@ namespace projektApi.Persistance.Migrations
                     b.HasIndex("KontrahentId");
 
                     b.ToTable("Klienci");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2023, 1, 23, 22, 22, 41, 673, DateTimeKind.Local).AddTicks(8448),
+                            CreatedBy = "Dawid",
+                            KontrahentId = 1,
+                            PhoneNumber = "+48 606327833",
+                            StatusId = 1
+                        });
                 });
 
             modelBuilder.Entity("projektApi.Domain.Entities.Kontrahent", b =>
@@ -93,16 +104,16 @@ namespace projektApi.Persistance.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nazwa_firmy")
+                    b.Property<string>("NazwaFirmy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Nip")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Numer_budynku")
+                    b.Property<string>("Nip")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Numer_lokalu")
+                    b.Property<string>("NumerBudynku")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumerLokalu")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StatusId")
@@ -114,6 +125,16 @@ namespace projektApi.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Kontrahenci");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2023, 1, 23, 22, 22, 41, 672, DateTimeKind.Local).AddTicks(6790),
+                            CreatedBy = "Dawid",
+                            NazwaFirmy = "Top Dogs",
+                            StatusId = 1
+                        });
                 });
 
             modelBuilder.Entity("projektApi.Domain.Entities.Pies", b =>
@@ -125,7 +146,6 @@ namespace projektApi.Persistance.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("KlientId")
@@ -149,6 +169,24 @@ namespace projektApi.Persistance.Migrations
                     b.HasIndex("KontrahentId");
 
                     b.ToTable("Psy");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            KlientId = 1,
+                            KontrahentId = 1,
+                            Name = "Jackie",
+                            Race = "BORDER COLLIE"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            KlientId = 1,
+                            KontrahentId = 1,
+                            Name = "Fifi",
+                            Race = "BORDER TERRIER"
+                        });
                 });
 
             modelBuilder.Entity("projektApi.Domain.Entities.Wizyta", b =>
@@ -159,10 +197,10 @@ namespace projektApi.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("Data_wizyty")
+                    b.Property<DateTime>("DataWizyty")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Godzina_wizyty")
+                    b.Property<DateTime>("GodzinaWizyty")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("Kwota")
@@ -180,6 +218,17 @@ namespace projektApi.Persistance.Migrations
                     b.HasIndex("PiesId");
 
                     b.ToTable("Wizyty");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DataWizyty = new DateTime(2023, 1, 23, 22, 22, 41, 673, DateTimeKind.Local).AddTicks(8733),
+                            GodzinaWizyty = new DateTime(2023, 1, 23, 22, 22, 41, 673, DateTimeKind.Local).AddTicks(8737),
+                            Kwota = 350m,
+                            Opis = "Strzyżenie",
+                            PiesId = 1
+                        });
                 });
 
             modelBuilder.Entity("projektApi.Domain.Entities.Klient", b =>
@@ -209,6 +258,14 @@ namespace projektApi.Persistance.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("KlientId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    KlientId = 1,
+                                    Name = "Andrzej",
+                                    Surname = "Trycz"
+                                });
                         });
 
                     b.Navigation("KlientName")

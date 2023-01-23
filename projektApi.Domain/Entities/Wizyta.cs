@@ -9,8 +9,8 @@ namespace projektApi.Domain.Entities
     public class Wizyta
     {
         public int Id { get; set; }
-        public DateTime Data_wizyty { get; set; }
-        public DateTime Godzina_wizyty { get; set; }
+        public DateTime DataWizyty { get; set; }
+        public DateTime GodzinaWizyty { get; set; }
         public string Opis { get; set; }
         public decimal? Kwota { get; set; }
         public int PiesId { get; set; }

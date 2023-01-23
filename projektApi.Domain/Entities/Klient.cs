@@ -13,7 +13,7 @@ namespace projektApi.Domain.Entities
         public PersonName KlientName { get; set; }
         //public string Name { get; set; }
         //public string Surname { get; set; }
-        public string Phone_number { get; set; }
+        public string PhoneNumber { get; set; }
         public int KontrahentId { get; set; }
         public Kontrahent Kontrahent { get; set; }
         public ICollection<Pies> Psy { get; set; } //ICollection po stornie jeden (klient) do wielu (pies) + public Klient Klient{get; set}
