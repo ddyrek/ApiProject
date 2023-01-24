@@ -5,6 +5,7 @@ using projektApi.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,10 +26,8 @@ namespace projektApi.Persistance
         #endregion DbSety
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
-            //tu zobaczyć, kurs api - moduł 5 lekcja 4 - Context, to ma byc value object
-            modelBuilder.Entity<Klient>().OwnsOne(p => p.KlientName); //ValeObject
-
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());//wskazanie na konfigurację w Configuration Folderze dla FluentApi
             modelBuilder.SeedData();
         }
 

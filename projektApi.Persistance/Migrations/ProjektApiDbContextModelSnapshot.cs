@@ -69,7 +69,7 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 1, 23, 22, 22, 41, 673, DateTimeKind.Local).AddTicks(8448),
+                            Created = new DateTime(2023, 1, 24, 22, 27, 20, 314, DateTimeKind.Local).AddTicks(5647),
                             CreatedBy = "Dawid",
                             KontrahentId = 1,
                             PhoneNumber = "+48 606327833",
@@ -130,7 +130,7 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 1, 23, 22, 22, 41, 672, DateTimeKind.Local).AddTicks(6790),
+                            Created = new DateTime(2023, 1, 24, 22, 27, 20, 314, DateTimeKind.Local).AddTicks(5534),
                             CreatedBy = "Dawid",
                             NazwaFirmy = "Top Dogs",
                             StatusId = 1
@@ -156,7 +156,8 @@ namespace projektApi.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("Race")
                         .IsRequired()
@@ -223,8 +224,8 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            DataWizyty = new DateTime(2023, 1, 23, 22, 22, 41, 673, DateTimeKind.Local).AddTicks(8733),
-                            GodzinaWizyty = new DateTime(2023, 1, 23, 22, 22, 41, 673, DateTimeKind.Local).AddTicks(8737),
+                            DataWizyty = new DateTime(2023, 1, 24, 22, 27, 20, 314, DateTimeKind.Local).AddTicks(5794),
+                            GodzinaWizyty = new DateTime(2023, 1, 24, 22, 27, 20, 314, DateTimeKind.Local).AddTicks(5798),
                             Kwota = 350m,
                             Opis = "Strzyżenie",
                             PiesId = 1
@@ -246,11 +247,13 @@ namespace projektApi.Persistance.Migrations
 
                             b1.Property<string>("Name")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Name");
 
                             b1.Property<string>("Surname")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Surname");
 
                             b1.HasKey("KlientId");
 
