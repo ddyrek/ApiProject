@@ -14,7 +14,9 @@ namespace projektApi.Persistance.Configurations
         public void Configure(EntityTypeBuilder<Pies> builder)
         {
             builder.HasKey(x => x.Id); //jeśli inne pole jest PK, tu wskazujemy
-            builder.Property(x => x.Name).HasMaxLength(70).IsRequired();// mozemy nie ustawiać długości znaków, wtedy nvarchar(max)
+            builder.Property(x => x.Name).HasMaxLength(20).IsRequired();// mozemy nie ustawiać długości znaków, wtedy nvarchar(max)
+            builder.Property(x => x.Race).HasMaxLength(20).IsRequired();
+            builder.Property(x => x.Description).HasMaxLength(200).IsRequired(false);
         }
     }
 }

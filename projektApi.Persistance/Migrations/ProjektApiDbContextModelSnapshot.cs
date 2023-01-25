@@ -54,7 +54,8 @@ namespace projektApi.Persistance.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
@@ -69,7 +70,7 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 1, 24, 22, 27, 20, 314, DateTimeKind.Local).AddTicks(5647),
+                            Created = new DateTime(2023, 1, 25, 22, 20, 45, 5, DateTimeKind.Local).AddTicks(7246),
                             CreatedBy = "Dawid",
                             KontrahentId = 1,
                             PhoneNumber = "+48 606327833",
@@ -105,22 +106,28 @@ namespace projektApi.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NazwaFirmy")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("Nip")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("NumerBudynku")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("NumerLokalu")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.Property<string>("Ulica")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.HasKey("Id");
 
@@ -130,7 +137,7 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 1, 24, 22, 27, 20, 314, DateTimeKind.Local).AddTicks(5534),
+                            Created = new DateTime(2023, 1, 25, 22, 20, 45, 5, DateTimeKind.Local).AddTicks(7088),
                             CreatedBy = "Dawid",
                             NazwaFirmy = "Top Dogs",
                             StatusId = 1
@@ -146,7 +153,8 @@ namespace projektApi.Persistance.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("KlientId")
                         .HasColumnType("int");
@@ -156,12 +164,13 @@ namespace projektApi.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Race")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -205,11 +214,13 @@ namespace projektApi.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal?>("Kwota")
-                        .HasColumnType("decimal(18,2)");
+                        .HasMaxLength(2)
+                        .HasPrecision(8)
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<string>("Opis")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("PiesId")
                         .HasColumnType("int");
@@ -224,8 +235,8 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            DataWizyty = new DateTime(2023, 1, 24, 22, 27, 20, 314, DateTimeKind.Local).AddTicks(5794),
-                            GodzinaWizyty = new DateTime(2023, 1, 24, 22, 27, 20, 314, DateTimeKind.Local).AddTicks(5798),
+                            DataWizyty = new DateTime(2023, 1, 25, 22, 20, 45, 5, DateTimeKind.Local).AddTicks(7511),
+                            GodzinaWizyty = new DateTime(2023, 1, 25, 22, 20, 45, 5, DateTimeKind.Local).AddTicks(7518),
                             Kwota = 350m,
                             Opis = "Strzyżenie",
                             PiesId = 1
@@ -247,12 +258,14 @@ namespace projektApi.Persistance.Migrations
 
                             b1.Property<string>("Name")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)")
                                 .HasColumnName("Name");
 
                             b1.Property<string>("Surname")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)")
                                 .HasColumnName("Surname");
 
                             b1.HasKey("KlientId");

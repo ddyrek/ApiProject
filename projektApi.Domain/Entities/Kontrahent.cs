@@ -9,7 +9,7 @@ namespace projektApi.Domain.Entities
 {
     public class Kontrahent : AuditableEntity
     {
-        public string? NazwaFirmy { get; set; }
+        public string NazwaFirmy { get; set; }
         public string? Ulica { get; set; }
         public string? NumerBudynku { get; set; }
         public string? NumerLokalu { get; set; }

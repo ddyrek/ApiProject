@@ -15,8 +15,10 @@ namespace projektApi.Persistance.Configurations
         {
             //HasColumnName - wykorzystujemy też gdy chcemy zmapować pola na nazwy wałsne np. gdy podejście DBFirst
             //ValeObject
-            builder.OwnsOne(p => p.KlientName).Property(p => p.Name).HasColumnName("Name").IsRequired();
-            builder.OwnsOne(p => p.KlientName).Property(p => p.Surname).HasColumnName("Surname").IsRequired();
+            builder.OwnsOne(p => p.KlientName).Property(p => p.Name).HasColumnName("Name").HasMaxLength(20).IsRequired();
+            builder.OwnsOne(p => p.KlientName).Property(p => p.Surname).HasColumnName("Surname").HasMaxLength(20).IsRequired();
+
+            builder.Property(p => p.PhoneNumber).HasMaxLength(20);
         }
     }
 }
