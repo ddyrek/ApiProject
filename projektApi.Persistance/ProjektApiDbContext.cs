@@ -13,9 +13,10 @@ namespace projektApi.Persistance
 {
     public class ProjektApiDbContext : DbContext, IProjektApiDbContext
     {
-
-        public ProjektApiDbContext(DbContextOptions<ProjektApiDbContext> options) : base(options)
+        private readonly IDateTime _dateTime;
+        public ProjektApiDbContext(DbContextOptions<ProjektApiDbContext> options, IDateTime dateTime) : base(options)
         {
+            _dateTime = dateTime;
         }
 
         #region DbSety
@@ -39,7 +40,7 @@ namespace projektApi.Persistance
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedBy = string.Empty;
-                        entry.Entity.Created = DateTime.Now;
+                        entry.Entity.Created = DateTime.Now; // entry.Entity.Created = DateTime.Now;// pozamieniane dla jednego czasu
                         entry.Entity.StatusId = 1;
                         break;
                     case EntityState.Modified:
