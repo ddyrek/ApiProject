@@ -49,12 +49,12 @@ namespace projektApi.Persistance
                         break;
                     case EntityState.Modified:
                         entry.Entity.ModifiedBy = string.Empty;
-                        entry.Entity.Modified = _dateTime.Now;
+                        entry.Entity.Modified = _dateTime.Now; //wczesniej = DateTime.Now
                         break;
                     case EntityState.Deleted:
                         entry.Entity.ModifiedBy = string.Empty;
-                        entry.Entity.Modified = _dateTime.Now;
-                        entry.Entity.Inactivated = _dateTime.Now;
+                        entry.Entity.Modified = _dateTime.Now; //wczesniej = DateTime.Now
+                        entry.Entity.Inactivated = _dateTime.Now; //wczesniej = DateTime.Now
                         entry.Entity.InactivatedBy = string.Empty;
                         entry.Entity.StatusId = 0;
                         entry.State = EntityState.Modified;

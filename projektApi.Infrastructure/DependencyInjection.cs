@@ -14,7 +14,11 @@ namespace projektApi.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            //wstrzykniecie services do kontenera IOC
             services.AddTransient<IDateTime, DateTimeService>();
+            services.AddTransient<IFileStore, FileStore.FileStore>();
+            services.AddTransient<IFileWrapper, IFileWrapper>();
+            services.AddTransient<IDirectoryWrapper, IDirectoryWrapper>();
             return services;
         }
     }
