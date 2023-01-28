@@ -8,6 +8,6 @@ namespace projektApi.Application.Common.Interfaces
 {
     public interface IDateTime
     {
-        DateTime Time { get; }
+        DateTime Now { get; }
     }
 }

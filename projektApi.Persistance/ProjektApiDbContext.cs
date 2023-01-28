@@ -14,6 +14,10 @@ namespace projektApi.Persistance
     public class ProjektApiDbContext : DbContext, IProjektApiDbContext
     {
         private readonly IDateTime _dateTime;
+        public ProjektApiDbContext(DbContextOptions<ProjektApiDbContext> options) : base(options)
+        {
+        }
+
         public ProjektApiDbContext(DbContextOptions<ProjektApiDbContext> options, IDateTime dateTime) : base(options)
         {
             _dateTime = dateTime;
@@ -40,17 +44,17 @@ namespace projektApi.Persistance
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedBy = string.Empty;
-                        entry.Entity.Created = DateTime.Now; // entry.Entity.Created = DateTime.Now;// pozamieniane dla jednego czasu
+                        entry.Entity.Created = _dateTime.Now; // entry.Entity.Created = DateTime.Now;// pozamieniane dla jednego czasu
                         entry.Entity.StatusId = 1;
                         break;
                     case EntityState.Modified:
                         entry.Entity.ModifiedBy = string.Empty;
-                        entry.Entity.Modified = DateTime.Now;
+                        entry.Entity.Modified = _dateTime.Now;
                         break;
                     case EntityState.Deleted:
                         entry.Entity.ModifiedBy = string.Empty;
-                        entry.Entity.Modified = DateTime.Now;
-                        entry.Entity.Inactivated = DateTime.Now;
+                        entry.Entity.Modified = _dateTime.Now;
+                        entry.Entity.Inactivated = _dateTime.Now;
                         entry.Entity.InactivatedBy = string.Empty;
                         entry.Entity.StatusId = 0;
                         entry.State = EntityState.Modified;
