@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace projektApi.Infrastructure.ExternalAPI.GOVPL
 {
-    public class GovplClient : IGovplClient
+    public partial class GovplClient : IGovplClient
     {
         private string _baseUrl = "https://bdl.stat.gov.pl";
         private readonly HttpClient _httpClient;
