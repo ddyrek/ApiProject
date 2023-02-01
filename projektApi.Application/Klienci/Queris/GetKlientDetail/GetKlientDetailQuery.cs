@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace projektApi.Application.Koontrahenci.Queris.GetKlientDetail
+namespace projektApi.Application.Klienci.Queris.GetKlientDetail
 {
     // w tej klasie zawarty jest cały kontrakt
     // bedzie on nazywany GetKlientDetailQuery

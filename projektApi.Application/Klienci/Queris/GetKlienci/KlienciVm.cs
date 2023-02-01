@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace projektApi.Application.Koontrahenci.Queris.GetKlienci
+namespace projektApi.Application.Klienci.Queris.GetKlienci
 {
     public class KlienciVm
     {
