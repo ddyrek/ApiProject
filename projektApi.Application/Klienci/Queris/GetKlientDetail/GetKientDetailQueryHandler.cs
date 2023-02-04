@@ -22,7 +22,7 @@ namespace projektApi.Application.Klienci.Queris.GetKlientDetail
         }
         public async Task<KlientDetailVm> Handle(GetKlientDetailQuery request, CancellationToken cancellationToken)
         {
-            var klient = await _context.Klienci.Where(p => p.Id == request.KlientId).FirstOrDefaultAsync(cancellationToken);
+            var klient = await _context.Klienci.Include(p => p.Psy).Where(p => p.Id == request.KlientId).FirstOrDefaultAsync(cancellationToken);
 
             //opcja zamiast automappera(przed dodaniem automappera)
             //var klientVm = new KlientDetailVm()
