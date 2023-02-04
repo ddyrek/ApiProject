@@ -19,9 +19,9 @@ namespace projektApi.Application.Klienci.Commands.DeleteKlient
         }
         public async Task<Unit> Handle(DeleteKlientCommand request, CancellationToken cancellationToken)
         {
-            var director = await _context.Klienci.Where(p => p.Id == request.KlentId).FirstOrDefaultAsync(cancellationToken);
+            var klient = await _context.Klienci.Where(p => p.Id == request.KlentId).FirstOrDefaultAsync(cancellationToken);
 
-            _context.Klienci.Remove(director);
+            _context.Klienci.Remove(klient);
 
             await _context.SaveChangesAsync(cancellationToken);
 
