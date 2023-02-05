@@ -24,6 +24,11 @@ namespace projektApi.Application.Common.Behaviours
             {
                 var context = new ValidationContext<TRequest>(request);
 
+                //w metodzie select bedziemy wykonyawć validate na contextcie validacyjnym,
+                //a nastepnie bedziemy z rezulatów takiej validacji pobierać tylko errory,
+                //jezeli taki error nie bedzie pusty, to zwrócimy go do listy
+                //jesli po takiej operacji ilość błędów bedzie różna od zera,
+                //to bedziemy to logować (narazie expeption)
                 var failures = _validators.Select(v => v.Validate(context)).SelectMany(result => result.Errors).Where(f => f != null).ToList();
 
                 if (failures.Count != 0)
@@ -31,6 +36,7 @@ namespace projektApi.Application.Common.Behaviours
                     throw new ValidationException(failures);
                 }
             }
+            //na sam koniec zwracamy nasz Response, a w kontrolerze musimy zaimplementować metode HttpPost
             return await next();
         }
     }

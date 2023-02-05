@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Common.Behaviours
 {
+    // PerformanceBehaviour - to zachowanie które trwa cały czas Pipelineu czyli od Reqestu do Responsu
+    //pomaga monitorować po przez logi wydajność aplikacji na naszych zasobach sprzetowych
+    //ma on za zadanie policzyć jak długo wykonywany jest Reqest,
+    //jeżeli bedzie wykonywany dłuzej niż ustawiony czas, taka informacja zostanie zalogowana
+    //IPipelineBehavior  działa na całej długości Requestu
     public class PerformanceBehaviour<TRequest, TResponse>
 : IPipelineBehavior<TRequest, TResponse>
 where TRequest : IRequest<TResponse>
@@ -28,13 +33,13 @@ where TRequest : IRequest<TResponse>
 
             _timer.Stop();
 
-            var elapsed = _timer.ElapsedMilliseconds;
+            var elapsed = _timer.ElapsedMilliseconds; //przeliczenie ile czasu mineło
 
             if (elapsed > 500)
             {
                 var requestName = typeof(TRequest).Name;
 
-                _logger.LogInformation("Social Media Planner Long Running Request: {Name} ({elapsed} milliseconds) {@Request}",
+                _logger.LogInformation("Projekt Api Long Running Request: {Name} ({elapsed} milliseconds) {@Request}",
                     requestName, elapsed, request);
             }
 

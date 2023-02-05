@@ -17,11 +17,11 @@ namespace projektApi.Controllers
             return vm;
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateKlient(CreateKlientCommand command)
-        //{
-        //    var result = await Mediator.Send(command);
-        //    return Ok(result);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateKlient(CreateKlientCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

@@ -6,8 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Pipeline - wszystko co wykona się między Reqestem a Responsem, wykorzystują to Behaviours (midleware)
+
 namespace projektApi.Application.Common.Behaviours
 {
+    //LoggingBehaviour - jest odpowiedzialny za logowanie (logi) przed wykonaniem request (queris i command)
+    //IRequestPreProcessor<TRequest> - przed wykonaniem Pipelinea
     public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
     {
         private readonly ILogger _logger;
@@ -19,7 +23,7 @@ namespace projektApi.Application.Common.Behaviours
         {
             var requestName = typeof(TRequest).Name;
 
-            _logger.LogInformation("SocialMediaPlanner Request: {Name} {@Request}",
+            _logger.LogInformation("projektApi Request: {Name} {@Request}",
                 requestName, request);
         }
     }

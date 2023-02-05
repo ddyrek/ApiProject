@@ -1,9 +1,0 @@
-Rejestracja
-Proszę podać podczas rejestracji poprawny adres e-mail, gdyż na taki adres zostanie wysłany klucz klienta API.
-W przypadku podania niepoprawnego adresu e-mail korzystanie z wygenerowanego klucza nie będzie możliwe.
-
-Wygenerowano klienta: 4b50bcbc-81c3-4f88-25d8-08db01e842c3
-
-
-BdlApi
-https://api.stat.gov.pl/Home/BdlApi
