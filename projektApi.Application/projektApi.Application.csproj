@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\Exceptions\" />
     <Folder Include="Klienci\Commands\UpdateKlient\" />
     <Folder Include="Koontrahenci\Commands\" />
   </ItemGroup>

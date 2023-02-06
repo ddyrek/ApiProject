@@ -23,6 +23,14 @@ namespace projektApi.Application.Klienci.Commands.CreateKlient
                 KlientName = new Domain.ValueObjects.PersonName() { Name = request.Name, Surname = request.Surname }
             };
 
+            //DirectorBiography directorBiography = new()
+            //{
+            //    DoB = request.DoB,
+            //    PlaceOfBirth = request.PlaceOfBirth,
+            //    DirectorId = director.Id
+            //};
+
+
             _context.Klienci.Add(klient);
 
             await _context.SaveChangesAsync(cancellationToken);

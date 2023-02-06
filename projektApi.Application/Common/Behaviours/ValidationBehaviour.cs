@@ -28,12 +28,12 @@ namespace projektApi.Application.Common.Behaviours
                 //a nastepnie bedziemy z rezulatów takiej validacji pobierać tylko errory,
                 //jezeli taki error nie bedzie pusty, to zwrócimy go do listy
                 //jesli po takiej operacji ilość błędów bedzie różna od zera,
-                //to bedziemy to logować (narazie expeption)
+                //to bedziemy to logować (ValidationExceptions lub customwe Exceptions- lekcja 12 modul 6)
                 var failures = _validators.Select(v => v.Validate(context)).SelectMany(result => result.Errors).Where(f => f != null).ToList();
 
                 if (failures.Count != 0)
                 {
-                    throw new ValidationException(failures);
+                    throw new ValidationException(failures); //w dokumentacj FluentValidation przykłady uzycia
                 }
             }
             //na sam koniec zwracamy nasz Response, a w kontrolerze musimy zaimplementować metode HttpPost
