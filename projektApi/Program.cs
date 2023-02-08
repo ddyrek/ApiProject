@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using projektApi.Application;
 using projektApi.Persistance;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,24 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddApplication();
 builder.Services.AddPersistance(builder.Configuration); //dodano te¿ referencjê do projektu
+
+#region serilog - kod ze strony www.serilog
+var logger =  new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+#endregion
+
+#region Serilog (dodane intuicyjnie na podstawie projektu blazor SocialMediaPlaner)
+//dodne do serilog intuicyjnie
+//builder.Logging.ClearProviders();
+
+//var logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
+
+//builder.Logging.AddSerilog(logger);
+#endregion 
 
 builder.Services.AddSwaggerGen(options =>
 {
