@@ -30,6 +30,7 @@ namespace projektApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IEnumerable<WeatherForecast> Get()
         {
+            //_logger.LogInformation("Weather forecats executing....");//dodany log wykonania
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

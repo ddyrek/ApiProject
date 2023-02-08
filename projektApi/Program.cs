@@ -37,7 +37,7 @@ builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 #endregion
 
-#region Serilog (dodane intuicyjnie na podstawie projektu blazor SocialMediaPlaner)
+#region Serilog (dodane na podstawie projektu blazor SocialMediaPlaner.server)
 //dodne do serilog intuicyjnie
 //builder.Logging.ClearProviders();
 
