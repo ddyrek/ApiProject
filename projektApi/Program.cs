@@ -29,7 +29,7 @@ builder.Services.AddApplication();
 builder.Services.AddPersistance(builder.Configuration); //dodano te¿ referencjê do projektu
 
 #region serilog - kod ze strony www.serilog
-var logger =  new LoggerConfiguration()
+var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
     .CreateLogger();
