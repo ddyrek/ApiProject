@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
+    <Folder Include="Common\Wizyty\" />
+    <Folder Include="Common\Psy\" />
     <Folder Include="Klienci\Commands\UpdateKlient\" />
     <Folder Include="Koontrahenci\Commands\" />
   </ItemGroup>

@@ -12,5 +12,6 @@ namespace projektApi.Application.Klienci.Commands.CreateKlient
         public string Name { get; set; }
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
+        public int KontrahentId { get; set; }
     }
 }

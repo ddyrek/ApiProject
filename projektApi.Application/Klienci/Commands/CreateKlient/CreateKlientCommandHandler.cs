@@ -20,7 +20,11 @@ namespace projektApi.Application.Klienci.Commands.CreateKlient
         {
             Klient klient = new()
             {
-                KlientName = new Domain.ValueObjects.PersonName() { Name = request.Name, Surname = request.Surname }
+                KlientName = new Domain.ValueObjects.PersonName() { Name = request.Name, Surname = request.Surname },
+                PhoneNumber = request.PhoneNumber,
+                StatusId = 1,
+                KontrahentId = request.KontrahentId,
+                Created = DateTime.Now
             };
 
             //DirectorBiography directorBiography = new()
