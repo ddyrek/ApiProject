@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail
 {
-    public class GetKontrahentDetailQuery
+    public class GetKontrahentDetailQuery : IRequest<KontrahentDetailVm>
     {
+        public int KlientId { get; set; }
     }
 }
