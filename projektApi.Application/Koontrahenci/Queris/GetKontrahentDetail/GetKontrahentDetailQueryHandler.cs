@@ -29,7 +29,7 @@ namespace projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail
             //{
             //    //zmapowanie
             //    FullName = kontrahent.KontrahentName.ToString(),
-            //    LastPiesName = klient.Psy.OrderByDescending(p => p.Name).FirstOrDefault().Name
+            //    LastPiesName = kontrahent.Psy.OrderByDescending(p => p.Name).FirstOrDefault().Name
             //};
 
             var kontrahentVm = _mapper.Map<KontrahentDetailVm>(kontrahent); //pokazujemy AM co chcemy zmapować i na jaki element
