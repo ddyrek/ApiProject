@@ -9,6 +9,6 @@ namespace projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail
 {
     public class GetKontrahentDetailQuery : IRequest<KontrahentDetailVm>
     {
-        public int KlientId { get; set; }
+        public int KontrahentId { get; set; }
     }
 }

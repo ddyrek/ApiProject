@@ -22,7 +22,7 @@ namespace projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail
         }
         public async Task<KontrahentDetailVm> Handle(GetKontrahentDetailQuery request, CancellationToken cancellationToken)
         {
-            var kontrahent = await _context.Kontrahenci.Include(p => p.Psy).Where(p => p.Id == request.KlientId).FirstOrDefaultAsync(cancellationToken);
+            var kontrahent = await _context.Kontrahenci.Include(p => p.Psy).Where(p => p.Id == request.KontrahentId).FirstOrDefaultAsync(cancellationToken);
 
             //opcja zamiast automappera(przed dodaniem automappera)
             //var kontrahentVm = new KontrahentDetailVm()
