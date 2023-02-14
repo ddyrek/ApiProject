@@ -1,4 +1,4 @@
-﻿using projektApi.Domain.Entities;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Koontrahenci.Queris.GetKontrahenci
 {
-    public class KontrahenciVm
+    public class GetKontrahenciQuery : IRequest<KontrahenciVm>
     {
-        public ICollection<KontrahentDto> Kontrahenci { get; set; }
     }
 }

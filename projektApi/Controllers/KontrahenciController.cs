@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projektApi.Application.Koontrahenci.Queris.GetKontrahenci;
 using projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail;
 
 namespace projektApi.Controllers
@@ -12,6 +13,17 @@ namespace projektApi.Controllers
         public async Task<ActionResult<KontrahentDetailVm>> GetDetails(int id)
         {
             var vm = await Mediator.Send(new GetKontrahentDetailQuery() { KontrahentId = id });
+            return vm;
+        }
+
+        /// <summary>
+        /// Get Kontrahenci
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<KontrahenciVm>> GetKontrahenci()
+        {
+            var vm = await Mediator.Send(new GetKontrahenciQuery() { });
             return vm;
         }
 
