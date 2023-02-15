@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Koontrahenci.Queris.GetKontrahenci
 {
-    public class GetKontrahenciHandler : IRequestHandler<GetKontrahenciQuery, KontrahenciVm>
+    public class GetKontrahenciQueryHandler : IRequestHandler<GetKontrahenciQuery, KontrahenciVm>
     {
         private readonly IProjektApiDbContext _context;
         private IMapper _mapper;
-        public GetKontrahenciHandler(IProjektApiDbContext context, IMapper mapper)
+        public GetKontrahenciQueryHandler(IProjektApiDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

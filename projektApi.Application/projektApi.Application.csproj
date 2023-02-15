@@ -25,7 +25,7 @@
     <Folder Include="Common\Wizyty\" />
     <Folder Include="Common\Psy\" />
     <Folder Include="Klienci\Commands\UpdateKlient\" />
-    <Folder Include="Koontrahenci\Commands\" />
+    <Folder Include="Kontrahenci\Commands\" />
   </ItemGroup>
 
 </Project>

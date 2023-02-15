@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Koontrahenci.Queris.GetKontrahenci
 {
-    public class KontrahentDto //: IMapFrom<Kontrahent>
+    public class KontrahentDto : IMapFrom<Kontrahent>
     {
         public int Id { get; set; }
         public string NazwaFirmy { get; set; }
 
-        //public void Mapping(Profile profile)
-        //{
-        //    profile.CreateMap<Kontrahent, KontrahentDto>()
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Kontrahent, KontrahentDto>();
         //        .ForMember(x => x.Id, map => map.MapFrom(src => src.Id))
         //        .ForMember(x => x.NazwaFirmy, map => map.MapFrom(src => src.NazwaFirmy));
-        //}
+        }
     }
 }

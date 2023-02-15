@@ -20,7 +20,16 @@ namespace projektApi.Persistance
                    NazwaFirmy = "Top Dogs",
                    Created = DateTime.Now,
                    CreatedBy = "Dawid"
-               });
+               },
+               new Kontrahent()
+               {
+                   Id = 2,
+                   StatusId = 1,
+                   NazwaFirmy = "Free Sp. z o.o.",
+                   Created = DateTime.Now,
+                   CreatedBy = "Dawid"
+               }
+               );
 
             modelBuilder.Entity<Klient>(k =>
             {

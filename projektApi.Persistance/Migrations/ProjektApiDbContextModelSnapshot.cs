@@ -70,7 +70,7 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 1, 25, 22, 20, 45, 5, DateTimeKind.Local).AddTicks(7246),
+                            Created = new DateTime(2023, 2, 15, 22, 28, 18, 154, DateTimeKind.Local).AddTicks(4706),
                             CreatedBy = "Dawid",
                             KontrahentId = 1,
                             PhoneNumber = "+48 606327833",
@@ -137,9 +137,17 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 1, 25, 22, 20, 45, 5, DateTimeKind.Local).AddTicks(7088),
+                            Created = new DateTime(2023, 2, 15, 22, 28, 18, 154, DateTimeKind.Local).AddTicks(4559),
                             CreatedBy = "Dawid",
                             NazwaFirmy = "Top Dogs",
+                            StatusId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created = new DateTime(2023, 2, 15, 22, 28, 18, 154, DateTimeKind.Local).AddTicks(4592),
+                            CreatedBy = "Dawid",
+                            NazwaFirmy = "Free Sp. z o.o.",
                             StatusId = 1
                         });
                 });
@@ -235,8 +243,8 @@ namespace projektApi.Persistance.Migrations
                         new
                         {
                             Id = 1,
-                            DataWizyty = new DateTime(2023, 1, 25, 22, 20, 45, 5, DateTimeKind.Local).AddTicks(7511),
-                            GodzinaWizyty = new DateTime(2023, 1, 25, 22, 20, 45, 5, DateTimeKind.Local).AddTicks(7518),
+                            DataWizyty = new DateTime(2023, 2, 15, 22, 28, 18, 154, DateTimeKind.Local).AddTicks(4891),
+                            GodzinaWizyty = new DateTime(2023, 2, 15, 22, 28, 18, 154, DateTimeKind.Local).AddTicks(4894),
                             Kwota = 350m,
                             Opis = "Strzyżenie",
                             PiesId = 1
