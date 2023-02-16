@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projektApi.Application.Kontrahenci.Commands.CreateKontrahent;
 using projektApi.Application.Koontrahenci.Queris.GetKontrahenci;
 using projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail;
 
@@ -27,11 +28,16 @@ namespace projektApi.Controllers
             return vm;
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateKontrahent(CreateKontrahentCommand command)
-        //{
-        //    var result = await Mediator.Send(command);
-        //    return Ok(result);
-        //}
+        /// <summary>
+        /// Create Kontrahent
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<IActionResult> CreateKontrahent(CreateKontrahentCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
     }
 }
