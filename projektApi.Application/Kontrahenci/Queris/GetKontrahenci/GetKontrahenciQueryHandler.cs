@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using projektApi.Application.Common.Interfaces;
+using projektApi.Application.Kontrahenci.Queris.GetKontrahenci;
 using projektApi.Domain.Excpetions;
 using System;
 using System.Collections.Generic;

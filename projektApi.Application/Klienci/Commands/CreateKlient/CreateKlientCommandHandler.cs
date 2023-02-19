@@ -22,9 +22,9 @@ namespace projektApi.Application.Klienci.Commands.CreateKlient
             {
                 KlientName = new Domain.ValueObjects.PersonName() { Name = request.Name, Surname = request.Surname },
                 PhoneNumber = request.PhoneNumber,
-                StatusId = 1,
+                //StatusId = 1,
                 KontrahentId = request.KontrahentId,
-                Created = DateTime.Now
+                //Created = DateTime.Now
             };
 
             //DirectorBiography directorBiography = new()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projektApi.Application.Kontrahenci.Commands.CreateKontrahent;
+using projektApi.Application.Kontrahenci.Queris.GetKontrahenci;
 using projektApi.Application.Koontrahenci.Queris.GetKontrahenci;
 using projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail;
 

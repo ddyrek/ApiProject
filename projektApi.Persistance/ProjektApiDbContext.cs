@@ -59,6 +59,20 @@ namespace projektApi.Persistance
                         entry.Entity.StatusId = 0;
                         entry.State = EntityState.Modified;
                         break;
+                    default:
+                        break;
+                }
+            }
+
+            foreach (var entry in ChangeTracker.Entries<ValueObject>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Modified;
+                        break;
+                    default:
+                        break;
                 }
             }
             return base.SaveChangesAsync(cancellationToken);

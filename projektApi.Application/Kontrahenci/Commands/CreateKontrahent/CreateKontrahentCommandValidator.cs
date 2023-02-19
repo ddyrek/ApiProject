@@ -16,7 +16,7 @@ namespace projektApi.Application.Kontrahenci.Commands.CreateKontrahent
             RuleFor(x => x.NumerBudynku).MaximumLength(5).NotEmpty();
             RuleFor(x => x.NumerLokalu).MaximumLength(10);
             RuleFor(x => x.Nip).MaximumLength(10);
-            RuleFor(x => x.StatusId).NotEmpty();
+            //RuleFor(x => x.StatusId).NotEmpty();
         }
         //po stronie Projekt.Applicaction/DependencyInjection należy dodać serwis
         //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

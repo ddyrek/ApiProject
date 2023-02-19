@@ -21,7 +21,7 @@ namespace projektApi.Infrastructure
                 options.Timeout = new TimeSpan(0, 0, 10);
                 options.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             }).ConfigurePrimaryHttpMessageHandler(sp => new HttpClientHandler());
-
+  
             services.AddScoped<IGovplClient, GovplClient>();
             //wstrzykniecie services do kontenera IOC
             services.AddTransient<IDateTime, DateTimeService>();

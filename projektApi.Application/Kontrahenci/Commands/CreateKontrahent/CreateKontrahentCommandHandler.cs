@@ -23,12 +23,12 @@ namespace projektApi.Application.Kontrahenci.Commands.CreateKontrahent
                 //KontrahentName = new Domain.ValueObjects.PersonName() { Name = request.Name, Surname = request.Surname },
                 NazwaFirmy = request.NazwaFirmy,
                 Ulica = request.Ulica,
-                StatusId = 1,
+                //StatusId = 1,
                 NumerBudynku = request.NumerBudynku,
                 NumerLokalu = request.NumerLokalu,
                 Nip = request.Nip,
-                CreatedBy = request.CreatedBy,
-                Created = DateTime.Now
+                //CreatedBy = request.CreatedBy,
+                //Created = DateTime.Now
             };
 
             _context.Kontrahenci.Add(kontrahent);
