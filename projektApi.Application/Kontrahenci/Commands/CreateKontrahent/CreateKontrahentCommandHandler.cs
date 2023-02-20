@@ -2,6 +2,7 @@
 using MediatR;
 using projektApi.Application.Common.Interfaces;
 using projektApi.Domain.Entities;
+using projektApi.Domain.Excpetions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +74,7 @@ namespace projektApi.Application.Kontrahenci.Commands.CreateKontrahent
             private Task ValidRequest(CreateKontrahentCommand request)
             {
                 if (string.IsNullOrEmpty(request.NazwaFirmy))
-                  //  throw new InvalidRequestException(request.GetType(), "NazwaFirmy", "Name is null or empty");
+                    throw new InvalidRequestException(request.GetType(), "NazwaFirmy", "Name is null or empty");
                 //if (request.Name?.Length > 100)
                 //    throw new InvalidRequestException(request.GetType(), "Name", "Name is longer then 100 chars");
                 //if (request.Description == null)
