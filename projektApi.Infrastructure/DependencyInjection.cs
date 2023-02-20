@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using projektApi.Application.Common.Interfaces;
 using projektApi.Infrastructure.ExternalAPI.GOVPL;
+using projektApi.Infrastructure.FileStore;
 using projektApi.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -26,8 +27,8 @@ namespace projektApi.Infrastructure
             //wstrzykniecie services do kontenera IOC
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IFileStore, FileStore.FileStore>();
-            services.AddTransient<IFileWrapper, IFileWrapper>();
-            services.AddTransient<IDirectoryWrapper, IDirectoryWrapper>();
+            services.AddTransient<IFileWrapper, FileWrapper>();
+            services.AddTransient<IDirectoryWrapper, DirectoryWrapper>();
             return services;
         }
     }

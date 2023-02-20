@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using projektApi.Application;
+using projektApi.Infrastructure;
 using projektApi.Persistance;
+using projektApi.Persistance.Migrations;
 using Serilog;
 using System.Reflection;
 
@@ -27,6 +29,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddApplication();
 builder.Services.AddPersistance(builder.Configuration); //dodano te¿ referencjê do projektu
+builder.Services.AddInfrastructure(builder.Configuration);
 
 #region serilog - kod ze strony www.serilog
 var logger = new LoggerConfiguration()
