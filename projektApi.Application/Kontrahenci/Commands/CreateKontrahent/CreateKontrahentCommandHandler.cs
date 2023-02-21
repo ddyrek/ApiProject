@@ -5,6 +5,7 @@ using projektApi.Domain.Entities;
 using projektApi.Domain.Excpetions;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,8 +58,10 @@ namespace projektApi.Application.Kontrahenci.Commands.CreateKontrahent
                 try
                 {
                     //await ValidRequest(request);
-                    var kontrahent = new Kontrahent();
-                    _context.Kontrahenci.Add(kontrahent);
+                    //var kontrahent = new Kontrahent();
+                    Kontrahent kontrahent = _mapper.Map<Kontrahent>(request);
+
+                _context.Kontrahenci.Add(kontrahent);
 
                     await _context.SaveChangesAsync(cancellationToken);
 
