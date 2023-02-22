@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using projektApi.Application.Common.Interfaces;
 using projektApi.Domain.Entities;
 using projektApi.Domain.Excpetions;
@@ -57,15 +58,21 @@ namespace projektApi.Application.Kontrahenci.Commands.CreateKontrahent
             {
                 try
                 {
-                    //await ValidRequest(request);
+                    await ValidRequest(request);
                     //var kontrahent = new Kontrahent();
                     Kontrahent kontrahent = _mapper.Map<Kontrahent>(request);
 
                 _context.Kontrahenci.Add(kontrahent);
+                    try
+                    {
+                        await _context.SaveChangesAsync(cancellationToken);
+                    }
+                    catch (DbUpdateException)
+                    {
+                        throw new DbUpdateException("Saving to database error!");
+                    }
 
-                    await _context.SaveChangesAsync(cancellationToken);
-
-                    return kontrahent.Id;
+                return kontrahent.Id;
                 }
                 catch (Exception e)
                 {
@@ -74,10 +81,10 @@ namespace projektApi.Application.Kontrahenci.Commands.CreateKontrahent
                 }
             }
 
-            //private Task ValidRequest(CreateKontrahentCommand request)
-            //{
-                //if (string.IsNullOrEmpty(request.NazwaFirmy))
-                //    throw new InvalidRequestException(request.GetType(), "NazwaFirmy", "Name is null or empty");
+            private Task ValidRequest(CreateKontrahentCommand request)
+            {
+                if (string.IsNullOrEmpty(request.NazwaFirmy))
+                    throw new InvalidRequestException(request.GetType(), "NazwaFirmy", "Name is null or empty");
                 //if (request.Name?.Length > 100)
                 //    throw new InvalidRequestException(request.GetType(), "Name", "Name is longer then 100 chars");
                 //if (request.Description == null)
@@ -115,7 +122,7 @@ namespace projektApi.Application.Kontrahenci.Commands.CreateKontrahent
                 //if (!request.Email.Contains('@'))
                 //    throw new InvalidRequestException(request.GetType(), "Email", "Email is not email");
 
-            //    return Task.CompletedTask;
-            //}
+                return Task.CompletedTask;
+            }
         }
 }
