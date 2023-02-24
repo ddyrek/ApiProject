@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projektApi.Application.Kontrahenci.Commands.CreateKontrahent;
+using projektApi.Application.Kontrahenci.Commands.UpdateKontrahent;
 using projektApi.Application.Kontrahenci.Queris.GetKontrahenci;
 using projektApi.Application.Koontrahenci.Queris.GetKontrahenci;
 using projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail;
@@ -39,6 +40,18 @@ namespace projektApi.Controllers
         {
             var result = await Mediator.Send(command);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Update kontrahent
+        /// </summary>
+        /// <returns></returns>
+        [HttpPatch]
+        public async Task<ActionResult<int>> PatchAsync([FromBody] UpdateKontrahentCommand updateKontrahentCommand)
+        {
+            var id = await Mediator.Send(updateKontrahentCommand);
+
+            return Ok(id);
         }
     }
 }
