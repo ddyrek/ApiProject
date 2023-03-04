@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Kontrahenci.Commands.UpdateKontrahent
 {
-    public class UpdateKontrahentCommandHandler : IRequestHandler<UpdateKontrahentCommand, int>
+    public class UpdateKontrahentCommandHandler : IRequestHandler<UpdateKontrahentCommand, Unit>
     {
         private readonly IProjektApiDbContext _context;
         private IMapper _mapper;
@@ -24,26 +24,29 @@ namespace projektApi.Application.Kontrahenci.Commands.UpdateKontrahent
             _context = projectApiDbContext;
             _mapper = mapper;
         }
-        public async Task<int> Handle(UpdateKontrahentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateKontrahentCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 //await ValidRequest(request);
                 //var kontrahent = new Kontrahent();
                 //Kontrahent kontrahent = _mapper.Map<Kontrahent>(request);
-                var kontrahent = await _context.Kontrahenci
-                    .Where(x => x.Id == request.KontrahentId && x.StatusId == 1)
+                var kontrahentToUpdate = await _context.Kontrahenci
+                    .Where(x => x.Id == request.KontrahentId 
+                             && x.StatusId == 1)
                     .FirstOrDefaultAsync(cancellationToken);
-                if (kontrahent == null)
+
+                if (kontrahentToUpdate == null)
                 {
                     throw new ObjectNotExistInDbException(request.KontrahentId, "Kontrahent");
                 };
 
-                kontrahent.NazwaFirmy = request.NazwaFirmy;
-                kontrahent.Ulica = request.Ulica;
-                kontrahent.NumerBudynku = request.NumerBudynku;
-                kontrahent.NumerLokalu = request.NumerLokalu;
-                kontrahent.Nip = request.Nip;
+                var kontrahent = _mapper.Map<UpdateKontrahentCommand,Kontrahent>(request,kontrahentToUpdate); //zmapowanie zamiast tradycyjnego przypisania jak poniżej (musi być Id zmapowane w Command)
+                //kontrahent.NazwaFirmy = request.NazwaFirmy;
+                //kontrahent.Ulica = request.Ulica;
+                //kontrahent.NumerBudynku = request.NumerBudynku;
+                //kontrahent.NumerLokalu = request.NumerLokalu;
+                //kontrahent.Nip = request.Nip;
 
                 _context.Kontrahenci.Update(kontrahent);
                 try
@@ -55,7 +58,7 @@ namespace projektApi.Application.Kontrahenci.Commands.UpdateKontrahent
                     throw new DbUpdateException("Saving to database error!");
                 }
 
-                return kontrahent.Id;
+                return Unit.Value;//true;//kontrahent.Id;
             }
             catch (Exception e)
             {

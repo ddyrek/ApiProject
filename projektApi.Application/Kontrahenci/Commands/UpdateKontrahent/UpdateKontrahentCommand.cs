@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Kontrahenci.Commands.UpdateKontrahent
 {
-    public class UpdateKontrahentCommand : IRequest<int>, IMapFrom<UpdateKontrahentCommand>
+    public class UpdateKontrahentCommand : IRequest<Unit>, IMapFrom<UpdateKontrahentCommand>
     {
         public int KontrahentId { get; set; }
         public string NazwaFirmy { get; set; }
@@ -23,6 +23,7 @@ namespace projektApi.Application.Kontrahenci.Commands.UpdateKontrahent
         {
             //utworzenie mapy z commanda na Entity.Kontrahenta
             profile.CreateMap<UpdateKontrahentCommand, Kontrahent>()
+                .ForMember(x => x.Id, map => map.MapFrom(src => src.KontrahentId))
                 .ForMember(x => x.NazwaFirmy, map => map.MapFrom(src => src.NazwaFirmy))
                 .ForMember(x => x.Ulica, map => map.MapFrom(src => src.Ulica))
                 .ForMember(x => x.NumerBudynku, map => map.MapFrom(src => src.NumerBudynku))

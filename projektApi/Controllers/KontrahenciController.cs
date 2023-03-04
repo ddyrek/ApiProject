@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projektApi.Application.Kontrahenci.Commands.CreateKontrahent;
+using projektApi.Application.Kontrahenci.Commands.DeleteKontrahent;
 using projektApi.Application.Kontrahenci.Commands.UpdateKontrahent;
 using projektApi.Application.Kontrahenci.Queris.GetKontrahenci;
 using projektApi.Application.Koontrahenci.Queris.GetKontrahenci;
@@ -52,6 +53,18 @@ namespace projektApi.Controllers
             var id = await Mediator.Send(updateKontrahentCommand);
 
             return Ok(id);
+        }
+
+        /// <summary>
+        /// Delete kontrahent by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            await Mediator.Send(new DeleteKontrahentCommand() { KontrahentId = id });
+            return Ok();
         }
     }
 }
