@@ -17,40 +17,97 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-            new ApiScope("scope1"),
-            new ApiScope("scope2"),
+            new ApiScope("api1", "My API"),
+            //new ApiScope("scope2"),
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
         };
 
     public static IEnumerable<Client> Clients =>
         new Client[]
         {
-            // m2m client credentials flow client
+                //1. Dodanie Scope (z poradnik Duende)
+                //2. Dodanie do AllowedScopes tego ostatniego scope co widać na screan
+                //3. Dodanie do AllowedCorsOrigins naszego adresu Duende Identy Server
+                //PS. Sprawa wygląda tak samo dla Clienta dla swaggera czy innych
+               // blazor client
             new Client
             {
-                ClientId = "m2m.client",
-                ClientName = "Client Credentials Client",
+                ClientId = "blazor",
+                ClientName = "Cient for Blazor use",
 
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
-                ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-
-                AllowedScopes = { "scope1" }
+                ClientSecrets = { new Secret("secret".Sha256()) },
+                RequirePkce = true,
+                RequireClientSecret = false,
+                
+                // scopes that client has access to
+                AllowedScopes = { "api1", "openId", "user", "role", "profile", IdentityServerConstants.LocalApi.ScopeName },
+                AllowedCorsOrigins = { "https://localhost:7001", "https://localhost:5001" },
+                RedirectUris = { "https://localhost:7001/authentication/login-callback" },
+                PostLogoutRedirectUris = { "https://localhost:7001/" }
             },
 
-            // interactive client using code flow + pkce
+            // machine to machine client
             new Client
             {
-                ClientId = "interactive",
-                ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+                ClientId = "client",
+                ClientSecrets = { new Secret("secret".Sha256()) },
+
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                // scopes that client has access to
+                AllowedScopes = { "api1" }
+            },
+
+                // interactive ASP.NET Core Web App
+            new Client
+            {
+                ClientId = "web",
+                ClientSecrets = { new Secret("secret".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.Code,
+                    
+                // where to redirect to after login
+                RedirectUris = { "https://localhost:5002/signin-oidc" },
 
-                RedirectUris = { "https://localhost:44300/signin-oidc" },
-                FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
-                PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
+                // where to redirect to after logout
+                PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
-                AllowedScopes = { "openid", "profile", "scope2" }
+
+                AllowedScopes = new List<string>
+                {
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    "api1"
+                }
             },
+
+            //// m2m client credentials flow client
+            //new Client
+            //{
+            //    ClientId = "m2m.client",
+            //    ClientName = "Client Credentials Client",
+
+            //    AllowedGrantTypes = GrantTypes.ClientCredentials,
+            //    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
+
+            //    AllowedScopes = { "scope1" }
+            //},
+
+            //// interactive client using code flow + pkce
+            //new Client
+            //{
+            //    ClientId = "interactive",
+            //    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+
+            //    AllowedGrantTypes = GrantTypes.Code,
+
+            //    RedirectUris = { "https://localhost:44300/signin-oidc" },
+            //    FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
+            //    PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
+
+            //    AllowOfflineAccess = true,
+            //    AllowedScopes = { "openid", "profile", "scope2" }
+            //},
         };
 }
