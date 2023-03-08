@@ -17,7 +17,7 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-            new ApiScope("api1", "My API"),
+            new ApiScope("api1"),
             //new ApiScope("scope2"),
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
         };
@@ -25,6 +25,31 @@ public static class Config
     public static IEnumerable<Client> Clients =>
         new Client[]
         {
+            new Client
+            {
+                ClientId = "client1", //identyfikator aplikacji klienckiej
+                ClientName = "Client for Postman user",
+                AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials, //sposób logowania
+                ClientSecrets = { new Secret("secret".Sha256()) },
+                AllowedScopes = { "api1", "user"},
+                AlwaysSendClientClaims = true,
+                AlwaysIncludeUserClaimsInIdToken = true,
+                AllowAccessTokensViaBrowser = true
+            },
+
+            new Client
+            {
+                ClientId = "swagger",
+                ClientName = "Client for Swagger user",
+                AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+                ClientSecrets = {new Secret("secret".Sha256())},
+                AllowedScopes = {"api1", "user", "openid"},
+                AlwaysSendClientClaims = true,
+                AlwaysIncludeUserClaimsInIdToken = true,
+                AllowAccessTokensViaBrowser=true,
+                RedirectUris = { "https://localhost:7233/swagger/oauth2-redirect.html" },
+                AllowedCorsOrigins = { "https://localhost:7233" }
+            },
                 //1. Dodanie Scope (z poradnik Duende)
                 //2. Dodanie do AllowedScopes tego ostatniego scope co widać na screan
                 //3. Dodanie do AllowedCorsOrigins naszego adresu Duende Identy Server
@@ -82,7 +107,7 @@ public static class Config
                 }
             },
 
-            //// m2m client credentials flow client
+            //// m2m client credentials flow client (klient logujący sie za pomocą credentials)
             //new Client
             //{
             //    ClientId = "m2m.client",
@@ -94,7 +119,7 @@ public static class Config
             //    AllowedScopes = { "scope1" }
             //},
 
-            //// interactive client using code flow + pkce
+            //// interactive client using code flow + pkce (klient logujący się za pomaca kodu
             //new Client
             //{
             //    ClientId = "interactive",
