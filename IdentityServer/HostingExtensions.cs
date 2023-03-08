@@ -1,6 +1,8 @@
 using Duende.IdentityServer;
+using Duende.IdentityServer.AspNetIdentity;
 using IdentityServer.Data;
 using IdentityServer.Models;
+using IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -35,6 +37,7 @@ internal static class HostingExtensions
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
             .AddJwtBearerClientAuthentication() //do³o¿one z kursu
+            .AddProfileService<ProfileService>()//do³o¿one z kursu
             .AddAspNetIdentity<ApplicationUser>();
         
         builder.Services.AddAuthentication()
@@ -60,7 +63,7 @@ internal static class HostingExtensions
                 "https://localhost:6001",
                 "https://localhost:7001"
                 )
-            .AllowAnyHeader()
+            .AllowAnyHeader() //umo¿³iwia wszystkim Headearom
             .AllowAnyMethod());
         });
 

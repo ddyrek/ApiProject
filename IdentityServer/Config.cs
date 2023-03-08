@@ -11,7 +11,7 @@ public static class Config
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
-            //new IdentityResources(name: "user", userClaims: new[] {JwtClaimTypes.Email})
+            new IdentityResource(name: "user", userClaims: new[] {JwtClaimTypes.Email})
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
