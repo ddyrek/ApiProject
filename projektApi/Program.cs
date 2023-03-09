@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using projektApi.Application;
+using projektApi.Application.Common.Interfaces;
 using projektApi.Infrastructure;
 using projektApi.Persistance;
 using projektApi.Persistance.Migrations;
+using projektApi.Service;
 using Serilog;
 using System.Reflection;
 
@@ -17,10 +19,32 @@ options.AddPolicy(name: "MyAllowSpecificOigins",
 builder =>
 {
     // builder.AllowAnyOrigin(); //to ustawienia pozwala po³aczyæ sie z ka¿dym origins (czyli ka¿da aplikacja kliencka sie po³¹czy siê z tym Api - przydatne gdy tworzymy publiczne API)
-    builder.WithOrigins("https://localhost:44359"); //tylko ten origin czyli po³aczenie z API,
+    builder.WithOrigins("https://localhost:5001"); //tylko ten origin czyli po³aczenie z API,
                                                     //tylko dla aplikacji klienckiej pod tym linkiem
-                                                    //("https://localhost:44359", https://kolejny origin) po przecinku te¿ zadzia³a dla tej polityki CORS
+                                                    //("https://localhost:5001", https://kolejny origin) po przecinku te¿ zadzia³a dla tej polityki CORS
 }));
+
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.TryAddScoped(typeof(ICurentUserService), typeof(CurentUserService));
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = "https://localhost:5001";
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+    });
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("ApiScope", policy =>
+        {
+            policy.RequireAuthenticatedUser();
+            policy.RequireClaim("scope", "api1");
+        });
+    });
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -89,6 +113,8 @@ app.UseHttpsRedirection();
 //use Cors musi byæ zawrte zawsze przezd UseAuthorization
 
 app.UseCors();
+app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
