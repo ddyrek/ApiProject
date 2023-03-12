@@ -39,8 +39,9 @@ internal static class HostingExtensions
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
             .AddJwtBearerClientAuthentication() //do³o¿one z kursu
-            .AddProfileService<ProfileService>()//do³o¿one z kursu
-            .AddAspNetIdentity<ApplicationUser>();
+            .AddAspNetIdentity<ApplicationUser>()
+            .AddProfileService<ProfileService>();//do³o¿one z kursu
+            
         
         builder.Services.AddAuthentication()
             .AddGoogle(options =>
@@ -105,8 +106,8 @@ internal static class HostingExtensions
         app.UseAuthorization();
 
         app.MapControllers();//
-        app.MapRazorPages()
-            .RequireAuthorization();
+        app.MapRazorPages();
+            //.RequireAuthorization();
 
         return app;
     }

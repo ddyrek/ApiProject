@@ -89,8 +89,9 @@ builder.Services.AddSwaggerGen(options =>
                 TokenUrl = new Uri("https://localhost:5001/connect/token"),
                 Scopes = new Dictionary<string, string>
                 {
-                    {"api1", "Demo - full access" },
-                    {"user", "User info" }
+                    {"api1", "Demo - full access" }
+                    //{"user", "User info" }
+                    //{"Openid", "OpenId info" }
                 }
             }
         }
@@ -128,11 +129,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    //app.UseSwaggerUI();
     //z kursu
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieManagement v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjektApi v1");
         options.OAuthClientId("swagger");
         options.OAuth2RedirectUrl("https://localhost:7233/swagger/oauth2-redirect.html");
         options.OAuthUsePkce();
@@ -142,9 +143,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 //use Cors musi byæ zawrte zawsze przezd UseAuthorization
+app.UseRouting();
 
 app.UseCors();
-app.UseRouting();
+
 app.UseAuthentication();
 
 app.UseAuthorization();

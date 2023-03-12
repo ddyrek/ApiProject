@@ -17,8 +17,9 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
+            new ApiScope("scope1"),
+            new ApiScope("scope2"),
             new ApiScope("api1"),
-            //new ApiScope("scope2"),
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -43,6 +44,7 @@ public static class Config
                 ClientName = "Client for Swagger user",
                 AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                 ClientSecrets = {new Secret("secret".Sha256())},
+                RequireClientSecret = false, //to trzeba właczyć
                 AllowedScopes = {"api1", "user", "openid"},
                 AlwaysSendClientClaims = true,
                 AlwaysIncludeUserClaimsInIdToken = true,
