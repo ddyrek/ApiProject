@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
@@ -89,9 +90,9 @@ builder.Services.AddSwaggerGen(options =>
                 TokenUrl = new Uri("https://localhost:5001/connect/token"),
                 Scopes = new Dictionary<string, string>
                 {
-                    {"api1", "Demo - full access" }
-                    //{"user", "User info" }
-                    //{"Openid", "OpenId info" }
+                    {"api1", "Demo - full access" },
+                    {"user", "User info" },
+                    {"openid", "openid info" }
                 }
             }
         }
