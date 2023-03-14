@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
+using projektApi;
 using projektApi.Application;
 using projektApi.Application.Common.Interfaces;
 using projektApi.Infrastructure;
@@ -97,7 +98,7 @@ builder.Services.AddSwaggerGen(options =>
             }
         }
     });
-    //options.OperationFilter<AuthorizeCheckOperationFilter>();
+    options.OperationFilter<AuthorizeCheckOperationFilter>();
 #endregion
 
     options.SwaggerDoc("v1", new OpenApiInfo

@@ -44,11 +44,7 @@ public static class Config
                 ClientName = "Client for Swagger user",
                 AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                 ClientSecrets = {new Secret("secret".Sha256())},
-<<<<<<< HEAD
-                //RequireClientSecret = false, //to trzeba właczyć
-=======
                 //RequireClientSecret = false, //to ustawiamy jak nie mamy client_secret na UI swaggera
->>>>>>> d8551489a1c0e224f85cb9a7cee53d3a56964d49
                 AllowedScopes = {"api1", "user", "openid"},
                 AlwaysSendClientClaims = true,
                 AlwaysIncludeUserClaimsInIdToken = true,

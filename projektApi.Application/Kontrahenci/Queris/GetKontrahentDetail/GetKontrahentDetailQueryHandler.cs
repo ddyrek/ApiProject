@@ -15,10 +15,12 @@ namespace projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail
     {
         private readonly IProjektApiDbContext _context;
         private IMapper _mapper; //dodane przy automaperze
-        public GetKontrahentDetailQueryHandler(IProjektApiDbContext projectApiDbContext, IMapper mapper)
+        private ICurentUserService _userService; //dodane przy IdentyServer
+        public GetKontrahentDetailQueryHandler(IProjektApiDbContext projectApiDbContext, IMapper mapper, ICurentUserService userService)
         {
             _context = projectApiDbContext;
             _mapper = mapper;
+            _userService = userService;
         }
         public async Task<KontrahentDetailVm> Handle(GetKontrahentDetailQuery request, CancellationToken cancellationToken)
         {

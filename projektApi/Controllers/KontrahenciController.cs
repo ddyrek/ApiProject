@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projektApi.Application.Kontrahenci.Commands.CreateKontrahent;
 using projektApi.Application.Kontrahenci.Commands.DeleteKontrahent;
@@ -11,6 +12,7 @@ namespace projektApi.Controllers
 {
     [Route("api/kontrahenci")]
     [ApiController]
+    [Authorize]
     public class KontrahenciController : BaseController
     {
         [HttpGet("{id}")]

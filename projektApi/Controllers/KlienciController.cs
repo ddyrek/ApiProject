@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projektApi.Application.Klienci.Commands.CreateKlient;
 using projektApi.Application.Klienci.Queris.GetKlientDetail;
@@ -6,6 +7,7 @@ using projektApi.Application.Klienci.Queris.GetKlientDetail;
 namespace projektApi.Controllers
 {
     [Route("api/klienci")]
+    [Authorize]
     //wszystkie kontrolery dziedziczą po BaseController który utworzyliśmy,
     //nie mylić z ControllerBase który jest domyślnie zaszyty
     public class KlienciController : BaseController
