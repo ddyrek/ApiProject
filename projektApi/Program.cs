@@ -89,9 +89,9 @@ builder.Services.AddSwaggerGen(options =>
                 TokenUrl = new Uri("https://localhost:5001/connect/token"),
                 Scopes = new Dictionary<string, string>
                 {
-                    {"api1", "Demo - full access" }
-                    //{"user", "User info" }
-                    //{"Openid", "OpenId info" }
+                    {"api1", "Demo - full access" },
+                    {"user", "User info" },
+                    {"openid", "openid info" }
                 }
             }
         }
@@ -135,6 +135,7 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjektApi v1");
         options.OAuthClientId("swagger");
+        options.OAuthClientSecret("secret"); //opcja
         options.OAuth2RedirectUrl("https://localhost:7233/swagger/oauth2-redirect.html");
         options.OAuthUsePkce();
     });
