@@ -136,6 +136,7 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjektApi v1");
         options.OAuthClientId("swagger");
+        options.OAuthClientSecret("secret"); //opcja
         options.OAuth2RedirectUrl("https://localhost:7233/swagger/oauth2-redirect.html");
         options.OAuthUsePkce();
     });
