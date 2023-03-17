@@ -35,23 +35,19 @@ namespace Application.UnitTests.Common
             context.Database.EnsureCreated();
 
 
-            //Id musi być kojejne jak w seed data
-            var kontrahent = new Kontrahent() { Id = 2, StatusId = 1,  NazwaFirmy = "FirmaTest" };
+            //Id musi być kolejne jak w seed data
+            var kontrahent = new Kontrahent() { Id = 3, StatusId = 1,  NazwaFirmy = "FirmaTest" };
             context.Kontrahenci.Add(kontrahent); 
 
-            //var kontrahent = new projektApi.Domain.Entities.Kontrahent) { Id = 2, StatusId = 1, KontrahentName = new projektApi.Domain.ValueObjects.PersonName() { FirstName = "Dawid", LastName = "Dyrek" } };
-            //context.Kontrahenci.Add(kontrahent);
+            var klient = new Klient() { Id = 2, StatusId = 1, KlientName = new projektApi.Domain.ValueObjects.PersonName() { Name = "Dawid", Surname = "Dyrek" },
+            PhoneNumber = "+48 606327833",KontrahentId = 3};
+            context.Klienci.Add(klient);
 
-            //var directorBiography = new DirectorBiography() { DirectorId = 2, Id = 2, DoB = new DateTime(1950, 1, 1), PlaceOfBirth = "Warsaw" };
-            //context.DirectorBiographies.Add(directorBiography);
+            var pies = new Pies() { KlientId = 2, KontrahentId = 3, Name = "Astor", Race = "BORDER COLLIE", Id = 3 };
+            context.Psy.Add(pies);
 
-            //var genre = new Genre() { Id = 1, Name = "Comedy" };
-            //context.Genres.Add(genre);
-
-            //var movie = new Movie() { DirectorId = 2, Genres = new List<Genre>() { genre }, Name = "MovieName", PremiereYear = 2000, Id = 3 };
-
-            //context.Movies.Add(movie);
-
+            var wizyta = new Wizyta() { PiesId = 3, Id = 2, DataWizyty = new DateTime(2012, 1, 1), GodzinaWizyty = new DateTime(2012, 1, 1, 13, 23, 34), Kwota = 230, Opis = "Strzyżenie, pielęgnacja" };
+            context.Wizyty.Add(wizyta);
             context.SaveChanges();
 
             return mock;
@@ -59,8 +55,8 @@ namespace Application.UnitTests.Common
 
         public static void Destroy(ProjektApiDbContext context)
         {
-            context.Database.EnsureDeleted();
-            context.Dispose();
+            context.Database.EnsureDeleted(); //usuniecie BD InMemory
+            context.Dispose(); //zwolnienie pamieci
         }
     }
 }
