@@ -28,7 +28,7 @@ builder =>
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-builder.Services.TryAddScoped(typeof(ICurentUserService), typeof(CurentUserService));
+builder.Services.TryAddScoped(typeof(ICurrentUserService), typeof(CurrentUserService));
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {

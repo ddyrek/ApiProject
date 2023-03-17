@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Common.Interfaces
 {
-    public interface ICurentUserService
+    public interface ICurrentUserService
     {
         string Email { get; set; }
         bool IsAuthenticated { get; set; }

@@ -15,8 +15,8 @@ namespace projektApi.Application.Koontrahenci.Queris.GetKontrahentDetail
     {
         private readonly IProjektApiDbContext _context;
         private IMapper _mapper; //dodane przy automaperze
-        private ICurentUserService _userService; //dodane przy IdentyServer
-        public GetKontrahentDetailQueryHandler(IProjektApiDbContext projectApiDbContext, IMapper mapper, ICurentUserService userService)
+        private ICurrentUserService _userService; //dodane przy IdentyServer
+        public GetKontrahentDetailQueryHandler(IProjektApiDbContext projectApiDbContext, IMapper mapper, ICurrentUserService userService)
         {
             _context = projectApiDbContext;
             _mapper = mapper;

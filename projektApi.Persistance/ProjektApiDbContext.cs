@@ -14,12 +14,12 @@ namespace projektApi.Persistance
     public class ProjektApiDbContext : DbContext, IProjektApiDbContext
     {
         private readonly IDateTime _dateTime;
-        private readonly ICurentUserService _userService;
+        private readonly ICurrentUserService _userService;
         public ProjektApiDbContext(DbContextOptions<ProjektApiDbContext> options) : base(options)
         {
         }
 
-        public ProjektApiDbContext(DbContextOptions<ProjektApiDbContext> options, IDateTime dateTime, ICurentUserService userService) : base(options)
+        public ProjektApiDbContext(DbContextOptions<ProjektApiDbContext> options, IDateTime dateTime, ICurrentUserService userService) : base(options)
         {
             _dateTime = dateTime;
             _userService = userService;

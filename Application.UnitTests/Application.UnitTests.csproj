@@ -28,6 +28,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\projektApi.Application\projektApi.Application.csproj" />
+    <ProjectReference Include="..\projektApi.Persistance\projektApi.Persistance.csproj" />
+    <ProjectReference Include="..\projektApi\projektApi.csproj" />
   </ItemGroup>
 
 </Project>
