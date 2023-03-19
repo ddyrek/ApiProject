@@ -36,7 +36,7 @@ namespace Application.UnitTests.Common
 
 
             //Id musi być kolejne jak w seed data
-            var kontrahent = new Kontrahent() { Id = 3, StatusId = 1,  NazwaFirmy = "FirmaTest" };
+            var kontrahent = new projektApi.Domain.Entities.Kontrahent() { Id = 3, StatusId = 1,  NazwaFirmy = "FirmaTest" };
             context.Kontrahenci.Add(kontrahent); 
 
             var klient = new Klient() { Id = 2, StatusId = 1, KlientName = new projektApi.Domain.ValueObjects.PersonName() { Name = "Dawid", Surname = "Dyrek" },
