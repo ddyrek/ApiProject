@@ -20,7 +20,7 @@ namespace Application.UnitTests.Common
             var dateTimeMock = new Mock<IDateTime>();
             dateTimeMock.Setup(m => m.Now).Returns(dateTime);
 
-            var currentUserMock = new Mock<CurrentUserService>();
+            var currentUserMock = new Mock<ICurrentUserService>();
             currentUserMock.Setup(m => m.Email).Returns("user@user.pl");
             currentUserMock.Setup(m => m.IsAuthenticated).Returns(true);
 
@@ -36,11 +36,11 @@ namespace Application.UnitTests.Common
 
 
             //Id musi być kolejne jak w seed data
-            var kontrahent = new projektApi.Domain.Entities.Kontrahent() { Id = 3, StatusId = 1,  NazwaFirmy = "FirmaTest" };
+            var kontrahent = new projektApi.Domain.Entities.Kontrahent() { Id = 3, StatusId = 1,  NazwaFirmy = "FirmaTest", CreatedBy = "Roby" };
             context.Kontrahenci.Add(kontrahent); 
 
             var klient = new Klient() { Id = 2, StatusId = 1, KlientName = new projektApi.Domain.ValueObjects.PersonName() { Name = "Dawid", Surname = "Dyrek" },
-            PhoneNumber = "+48 606327833",KontrahentId = 3};
+            PhoneNumber = "+48 606327833",KontrahentId = 3, CreatedBy = "Wily"};
             context.Klienci.Add(klient);
 
             var pies = new Pies() { KlientId = 2, KontrahentId = 3, Name = "Astor", Race = "BORDER COLLIE", Id = 3 };

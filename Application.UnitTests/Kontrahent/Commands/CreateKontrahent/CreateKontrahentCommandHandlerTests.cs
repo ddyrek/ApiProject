@@ -1,4 +1,5 @@
 ﻿using Application.UnitTests.Common;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using projektApi.Application.Kontrahenci.Commands.CreateKontrahent;
 using Shouldly;
@@ -10,13 +11,16 @@ using System.Threading.Tasks;
 
 namespace Application.UnitTests.Kontrahent.Commands.CreateKontrahent
 {
-    public class CreateKontrahentCommandHandlerTests : CommandTestBase
+    public class CreateKontrahentCommandHandlerTests : CommandTestBase, IClassFixture<CommandTestFixture>
     {
         private readonly CreateKontrahentCommandHandler _handler;
+        private readonly IMapper _mapper;
+
         public CreateKontrahentCommandHandlerTests(CommandTestFixture fixture)
             : base()
         {
-            _handler = new CreateKontrahentCommandHandler(_context, fixture.Mapper);
+            _mapper = fixture.Mapper;
+            _handler = new CreateKontrahentCommandHandler(_context, _mapper);
         }
 
         [Fact]
