@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using projektApi.Application.Common.Interfaces;
 using projektApi.Persistance;
+using WebApi.IntegrationTests.Common.DummyServices;
+using Serilog;
 
 namespace WebApi.IntegrationTests.Common
 {
@@ -48,7 +50,7 @@ namespace WebApi.IntegrationTests.Common
                                             $"database with test messages. Error: {ex.Message}");
                     }
                 })
-                .UseSerilog()
+                //.UseSerilog()
                .UseEnvironment("Test");
             }
             catch (Exception ex)
@@ -56,7 +58,7 @@ namespace WebApi.IntegrationTests.Common
 
                 throw;
             }
-
+            builder.UseSerilog();
         }
 
         public async Task<HttpClient> GetAuthenticatedClientAsync()
@@ -70,7 +72,7 @@ namespace WebApi.IntegrationTests.Common
 
         private async Task<string> GetAccessTokenAsync(HttpClient client, string userName, string password)
         {
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(); //dokument zawierający wszystkie endpointy IdentityServera
 
             if (disco.IsError)
             {
@@ -82,7 +84,7 @@ namespace WebApi.IntegrationTests.Common
                 Address = disco.TokenEndpoint,
                 ClientId = "client",
                 ClientSecret = "secret",
-                Scope = "openid profile MovieManagement.ApiAPI api1",
+                Scope = "openid profile projektApiAPI api1",
                 UserName = userName,
                 Password = password
             });
