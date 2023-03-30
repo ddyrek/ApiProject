@@ -1,16 +1,23 @@
+using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Test;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using projektApi;
 using projektApi.Application;
 using projektApi.Application.Common.Interfaces;
 using projektApi.Infrastructure;
+using projektApi.Infrastructure.Identity;
 using projektApi.Persistance;
 using projektApi.Persistance.Migrations;
 using projektApi.Service;
 using Serilog;
 using System.Reflection;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,10 +33,42 @@ builder =>
                                                     //("https://localhost:5001", https://kolejny origin) po przecinku te¿ zadzia³a dla tej polityki CORS
 }));
 
-builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-builder.Services.TryAddScoped(typeof(ICurrentUserService), typeof(CurrentUserService));
-builder.Services.AddAuthentication("Bearer")
+if (builder.Environment.IsEnvironment("Test"))
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("projektApiDatabase")));
+    builder.Services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+    builder.Services.AddIdentityServer()
+            .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
+            {
+                options.ApiResources.Add(new Duende.IdentityServer.Models.ApiResource("api1"));
+                options.ApiScopes.Add(new Duende.IdentityServer.Models.ApiScope("api1"));
+                options.Clients.Add(new Duende.IdentityServer.Models.Client
+                {
+                    ClientId = "client",
+                    AllowedGrantTypes = { GrantType.ResourceOwnerPassword },
+                    ClientSecrets = { new Duende.IdentityServer.Models.Secret("secret".Sha256()) },
+                    AllowedScopes = { "openid", "profile", "projektApiAPI", "api1" }
+                });
+            }).AddTestUsers(new List<TestUser>
+            {
+                        new TestUser
+                        {
+                            SubjectId = "4B434A88-212D-4A4D-A17C-F35102D73CBB",
+                            Username = "alice",
+                            Password = "Pass123$",
+                            Claims = new List<Claim>
+                            {
+                                new Claim(JwtClaimTypes.Email, "alice@user.com"),
+                                new Claim(ClaimTypes.Name, "alice")
+                            }
+                        }
+            });
+    builder.Services.AddAuthentication("Bearer").AddIdentityServerJwt();
+}
+else
+{
+    builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
         options.Authority = "https://localhost:5001";
@@ -38,6 +77,7 @@ builder.Services.AddAuthentication("Bearer")
             ValidateAudience = false
         };
     });
+
     builder.Services.AddAuthorization(options =>
     {
         options.AddPolicy("ApiScope", policy =>
@@ -46,6 +86,13 @@ builder.Services.AddAuthentication("Bearer")
             policy.RequireClaim("scope", "api1");
         });
     });
+};
+
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.TryAddScoped(typeof(ICurrentUserService), typeof(CurrentUserService));
+
+    
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -151,6 +198,11 @@ app.UseRouting();
 app.UseCors();
 
 app.UseAuthentication();
+//dodane przy testach integracyjnych
+if (builder.Environment.IsEnvironment("Test"))
+{
+    app.UseIdentityServer();
+}
 
 app.UseAuthorization();
 
