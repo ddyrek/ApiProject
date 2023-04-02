@@ -209,3 +209,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//do³o¿ono by klasa program mog³a byæ widoczna w projekcie testów integracyjnych
+public partial class Program { } 
