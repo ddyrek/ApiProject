@@ -3,6 +3,7 @@ using Duende.IdentityServer.Test;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,6 +22,24 @@ using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Serilog
+try
+{
+    Log.Information("Application starting up");
+    //CreateWebHostBuilder(args).UseSerilog().Build().Run();
+
+}
+catch (Exception ex)
+{
+
+    Log.Fatal(ex, "Unable to run application");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+builder.Host.UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration));
+
 // Add services to the container.
 //Mozemy stworzyæ kilka policy, osobne dla frontendu pod web, osobno pod urz¹dzenia mobilne, osobno pod desktopy lub niektóre wspólne endpointy
 builder.Services.AddCors(options => 
@@ -32,6 +51,32 @@ builder =>
                                                     //tylko dla aplikacji klienckiej pod tym linkiem
                                                     //("https://localhost:5001", https://kolejny origin) po przecinku te¿ zadzia³a dla tej polityki CORS
 }));
+
+#region Webhost configuration
+builder.WebHost.ConfigureAppConfiguration((hostingContext, config) =>
+{
+
+    var env = hostingContext.HostingEnvironment;
+
+    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+        .AddJsonFile($"appsettings.Local.json", optional: true, reloadOnChange: true);
+
+    if (env.IsDevelopment())
+    {
+        var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
+        config.AddUserSecrets(appAssembly, optional: true);
+    }
+
+    config.AddEnvironmentVariables();
+
+    if (args != null)
+    {
+        config.AddCommandLine(args);
+    }
+});
+
+#endregion
 
 if (builder.Environment.IsEnvironment("Test"))
 {
@@ -45,7 +90,7 @@ if (builder.Environment.IsEnvironment("Test"))
                 options.ApiScopes.Add(new Duende.IdentityServer.Models.ApiScope("api1"));
                 options.Clients.Add(new Duende.IdentityServer.Models.Client
                 {
-                    ClientId = "client",
+                    ClientId = "client1",
                     AllowedGrantTypes = { GrantType.ResourceOwnerPassword },
                     ClientSecrets = { new Duende.IdentityServer.Models.Secret("secret".Sha256()) },
                     AllowedScopes = { "openid", "profile", "projektApiAPI", "api1" }

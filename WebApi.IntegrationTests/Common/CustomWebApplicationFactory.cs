@@ -63,6 +63,10 @@ namespace WebApi.IntegrationTests.Common
 
         public async Task<HttpClient> GetAuthenticatedClientAsync()
         {
+            //var client = CreateClient( new WebApplicationFactoryClientOptions
+            //{
+            //    BaseAddress = new Uri("http://localhost")
+            //});
             var client = CreateClient();
 
             var token = await GetAccessTokenAsync(client, "alice", "Pass123$");
@@ -82,7 +86,7 @@ namespace WebApi.IntegrationTests.Common
             var response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
                 Address = disco.TokenEndpoint,
-                ClientId = "client",
+                ClientId = "client1", // było wcześniej client
                 ClientSecret = "secret",
                 Scope = "openid profile projektApiAPI api1",
                 UserName = userName,
