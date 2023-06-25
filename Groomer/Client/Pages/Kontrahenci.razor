@@ -1,0 +1,21 @@
+﻿@page "/kontrahenci"
+@using Groomer.Client.Models
+@using Groomer.Client.Components
+<h1>Kontrahenci - lista</h1>
+<KontrahentTable Kontrahenci="@kontrahenci"></KontrahentTable>
+
+@code {
+    private List<KontrahenciDto> kontrahenci;
+
+    //wypełnienie Listy przy inicjalizacji strony
+    //protected override async Task OnIniatalizedAsync()
+    protected override async Task OnInitializedAsync()
+    {
+        kontrahenci = new List<KontrahenciDto>()
+        {
+        new KontrahenciDto {NazwaFirmy = "Tuti Fruti"},
+        new KontrahenciDto {NazwaFirmy = "Mops"} 
+        };
+    }
+}
+ 

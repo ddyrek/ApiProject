@@ -1,0 +1,25 @@
+﻿@using Groomer.Client.Models
+@inject IJSRuntime JSRuntime  /*wstrzykniecie JSRuntime izolowanego js*/
+@implements IAsyncDisposable /*wyczyszczenie komponentu i naszych skryptów js po użyciu */
+<h3>KontrahentTable</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nazwa Firmy</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kontrahent in Kontrahenci)
+        {
+            <tr>
+                <td>@kontrahent.NazwaFirmy</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public List<KontrahenciDto> Kontrahenci{ get; set; }
+
+}
