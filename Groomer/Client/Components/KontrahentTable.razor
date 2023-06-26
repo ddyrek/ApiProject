@@ -1,5 +1,5 @@
 ﻿@using Groomer.Client.Models
-@inject IJSRuntime JSRuntime  /*wstrzykniecie JSRuntime izolowanego js*/
+@inject IJSRuntime JSRuntime  /*wstrzykniecie JSRuntime  js*/
 @implements IAsyncDisposable /*wyczyszczenie komponentu i naszych skryptów js po użyciu */
 <h3>KontrahentTable</h3>
 <table class="table table-striped">
@@ -13,6 +13,7 @@
         {
             <tr>
                 <td>@kontrahent.NazwaFirmy</td>
+                <td><button @onclick="() => SayHi(kontrahent.NazwaFirmy)">Przywitaj się</button></td>
             </tr>
         }
     </tbody>
@@ -22,4 +23,23 @@
     [Parameter]
     public List<KontrahenciDto> Kontrahenci{ get; set; }
 
+    private Task<IJSObjectReference> _module;
+    //jeśli prywatny obiekt modułu bedzie nuleem wtedy zaimportuj plik
+    private Task<IJSObjectReference> Module => _module ??= JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/Kontrahenci.js").AsTask();
+
+    async Task SayHi(string name)
+    {
+        var module = await Module;
+        await module.InvokeVoidAsync("sayHi", name);
+    }
+
+    //ponieważ implemntujemy IAsyncDisposable musimy nadpisać metodę DisposeAsync
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null)
+        {
+            var module = await _module;
+            await module.DisposeAsync();
+        }
+    }
 }
