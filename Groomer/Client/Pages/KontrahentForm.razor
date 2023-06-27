@@ -1,21 +1,45 @@
 ﻿@page "/addKontrahent"
-
+@using Groomer.Client.Models
+@using System.Text.Json
+@inject IJSRuntime JSRuntime
 
 <h3>Kontrahent Form</h3>
-<EditForm EditContext="editContext" OnValidSubmit="HandleValidSubbmit" @onreset="HandleReset">
+<EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubbmit" @onreset="HandleReset">
+    <div class="row">
+        <div class="col">
+            <label>Nazwa Firmy</label>
+            <InputText @bind-Value="model.NazwaFirmy"/>
+            <ValidationMessage For="@(() => model.NazwaFirmy)" />
+        </div>
+        <div class="col">
+            <label>Ulica</label>
+            <InputText @bind-Value="model.Ulica"/>
+            <ValidationMessage For="@(() => model.Ulica)" />
+        </div>
+    </div>
 
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="reset" class="btn btn-warning">Reset</button>
 </EditForm>
 
 @code {
-    private EditContext editContext;
+    private KontrahentFormularz model = new KontrahentFormularz();
+    private EditContext? editContext;
+    protected override void OnInitialized()
+    {
+       if (model != null)
+            editContext = new EditContext(model);
+    }
 
     private void HandleValidSubbmit()
     {
-        
+        var modelJson = JsonSerializer.Serialize(model, new JsonSerializerOptions { WriteIndented = true });
+        JSRuntime.InvokeVoidAsync("alert", $"SUCCESS!! :-)\n\n{modelJson}");
     }
 
-        private void HandleReset()
+    private void HandleReset()
     {
-        
+        model = new KontrahentFormularz();
+        editContext = new EditContext(model);
     }
 }
