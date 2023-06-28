@@ -5,21 +5,42 @@
 
 <h3>Kontrahent Form</h3>
 <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubbmit" @onreset="HandleReset">
+    <DataAnnotationsValidator />
     <div class="row">
-        <div class="col">
-            <label>Nazwa Firmy</label>
-            <InputText @bind-Value="model.NazwaFirmy"/>
+        <div class="mb-3">
+            <label class="form-label">Nazwa Firmy</label>
+            <InputText class="form-control" @bind-Value="model.NazwaFirmy"/>
             <ValidationMessage For="@(() => model.NazwaFirmy)" />
         </div>
+    </div>
+    <div class="row">
         <div class="col">
-            <label>Ulica</label>
-            <InputText @bind-Value="model.Ulica"/>
+            <label class="form-label">Ulica</label>
+            <InputText class="form-control" @bind-Value="model.Ulica"/>
             <ValidationMessage For="@(() => model.Ulica)" />
         </div>
+        <div class="col">
+            <label class="form-label">Numer budynku</label>
+            <InputText class="form-control" @bind-Value="model.NumerBudynku"/>
+            <ValidationMessage For="@(() => model.NumerBudynku)" />
+        </div>
     </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <button type="reset" class="btn btn-warning">Reset</button>
+    <div class="row">
+        <div class="col">
+            <label class="form-label">Numer lokalu</label>
+            <InputText class="form-control" @bind-Value="model.NumerLokalu"/>
+            <ValidationMessage For="@(() => model.NumerLokalu)" />
+    </div>
+    <div class="col">
+            <label class="form-label">Nip</label>
+            <InputText class="form-control" @bind-Value="model.Nip"/>
+            <ValidationMessage For="@(() => model.Nip)" />
+        </div>
+    </div>
+    <div class="btn">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-warning">Reset</button>
+    </div>
 </EditForm>
 
 @code {
