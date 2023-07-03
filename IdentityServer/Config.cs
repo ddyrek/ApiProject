@@ -61,17 +61,18 @@ public static class Config
             {
                 ClientId = "blazor",
                 ClientName = "Cient for Blazor use",
-
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
-                ClientSecrets = { new Secret("secret".Sha256()) },
+                AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+                //AllowedGrantTypes = GrantTypes.ClientCredentials,
+                //ClientSecrets = { new Secret("secret".Sha256()) },
                 RequirePkce = true,
                 RequireClientSecret = false,
                 
                 // scopes that client has access to
-                AllowedScopes = { "api1", "openId", "user", "role", "profile", IdentityServerConstants.LocalApi.ScopeName },
-                AllowedCorsOrigins = { "https://localhost:7001", "https://localhost:5001" },
-                RedirectUris = { "https://localhost:7001/authentication/login-callback" },
-                PostLogoutRedirectUris = { "https://localhost:7001/" }
+                AllowedScopes = { "api1", "openid", "user", "role", "profile", IdentityServerConstants.LocalApi.ScopeName },
+                AllowedCorsOrigins = { "https://localhost:7088", "https://localhost:5001" },
+                RedirectUris = { "https://localhost:7088/authentication/login-callback" },
+                PostLogoutRedirectUris = { "https://localhost:7088/" },
+                Enabled= true
             },
 
             // machine to machine client
