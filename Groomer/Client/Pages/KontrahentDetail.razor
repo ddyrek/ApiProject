@@ -1,0 +1,41 @@
+﻿@page "/kontrahent"
+@using Groomer.Client.Models
+@inject HttpClient Http
+
+<AuthorizeView>
+    <Authorized>
+        @if (kontrahent == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <h3>KontrahentDetail</h3>
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@kontrahent.NazwaFirmy</h5>
+                    <p class="card-text">@kontrahent.Ulica</p>
+                    <p class="card-text">@kontrahent.NumerBudynku</p>
+                    <p class="card-text">@kontrahent.NumerLokalu</p>
+                    <p class="card-text">@kontrahent.Id</p>
+                    <p class="card-text">@kontrahent.Nip</p>
+                    <p class="card-text">@kontrahent.StatusId</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        }
+        </Authorized>
+    <NotAuthorized>
+        <p>I'm sorry, I can't display any claims until you log in</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private KontrahentDetailVm kontrahent;
+
+    protected override async Task OnInitializedAsync()
+    {
+        kontrahent = await Http.GetFromJsonAsync<KontrahentDetailVm>("https://localhost:7233/api/kontrahenci/1");
+    }
+}

@@ -68,7 +68,7 @@ public static class Config
                 RequireClientSecret = false,
                 
                 // scopes that client has access to
-                AllowedScopes = { "api1", "openid", "user", "role", "profile", IdentityServerConstants.LocalApi.ScopeName },
+                AllowedScopes = { "openid", "profile","user", "api1", IdentityServerConstants.LocalApi.ScopeName },
                 AllowedCorsOrigins = { "https://localhost:7088", "https://localhost:5001" },
                 RedirectUris = { "https://localhost:7088/authentication/login-callback" },
                 PostLogoutRedirectUris = { "https://localhost:7088/" },
