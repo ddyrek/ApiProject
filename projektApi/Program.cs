@@ -46,9 +46,9 @@ builder.Services.AddCors(options =>
 options.AddPolicy(name: "MyAllowSpecificOigins",
 builder =>
 {
-    // builder.AllowAnyOrigin(); //to ustawienia pozwala po³aczyæ sie z ka¿dym origins (czyli ka¿da aplikacja kliencka sie po³¹czy siê z tym Api - przydatne gdy tworzymy publiczne API)
-    builder.WithOrigins("https://localhost:5001"); //tylko ten origin czyli po³aczenie z API,
-                                                    //tylko dla aplikacji klienckiej pod tym linkiem
+     //builder.AllowAnyOrigin(); //to ustawienia pozwala po³aczyæ sie z ka¿dym origins (czyli ka¿da aplikacja kliencka sie po³¹czy siê z tym Api - przydatne gdy tworzymy publiczne API)
+                               //builder.WithOrigins("https://localhost:5001"); //tylko ten origin czyli po³aczenie z API,
+    builder.WithOrigins("https://localhost:7088").AllowAnyHeader().AllowAnyMethod();                                               //tylko dla aplikacji klienckiej pod tym linkiem
                                                     //("https://localhost:5001", https://kolejny origin) po przecinku te¿ zadzia³a dla tej polityki CORS
 }));
 
@@ -236,11 +236,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 //use Cors musi byæ zawrte zawsze przezd UseAuthorization
 app.UseRouting();
 
-app.UseCors();
+app.UseCors("MyAllowSpecificOigins");
 
 app.UseAuthentication();
 //dodane przy testach integracyjnych

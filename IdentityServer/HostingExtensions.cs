@@ -63,8 +63,8 @@ internal static class HostingExtensions
         {
             options.AddPolicy("CORS", policy => policy.WithOrigins(
                 "https://localhost:5001",
-                "https://localhost:6001",
-                "https://localhost:7001"
+                "https://localhost:7233",
+                "https://localhost:7088"
                 )
             .AllowAnyHeader() //umo¿³iwia wszystkim Headearom
             .AllowAnyMethod());

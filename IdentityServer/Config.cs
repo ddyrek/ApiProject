@@ -69,7 +69,7 @@ public static class Config
                 
                 // scopes that client has access to
                 AllowedScopes = { "openid", "profile","user", "api1", IdentityServerConstants.LocalApi.ScopeName },
-                AllowedCorsOrigins = { "https://localhost:7088", "https://localhost:5001" },
+                AllowedCorsOrigins = { "https://localhost:7088", "https://localhost:5001", "https://localhost:7233" },
                 RedirectUris = { "https://localhost:7088/authentication/login-callback" },
                 PostLogoutRedirectUris = { "https://localhost:7088/" },
                 Enabled= true
