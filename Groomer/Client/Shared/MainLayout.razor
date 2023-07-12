@@ -12,7 +12,24 @@
         </div>
 
         <article class="content px-4">
-            @Body
+            <ErrorBoundary @ref="errorBoundary">
+                <ChildContent>
+                    @Body
+                </ChildContent>
+                <ErrorContent>
+                    <p>Sorry there nothing here to see!</p>
+                </ErrorContent>
+            </ErrorBoundary>
         </article>
     </main>
 </div>
+
+@code{
+    private ErrorBoundary? errorBoundary;
+
+    protected override void OnParametersSet()
+    {
+        //reset errorBoundary (for error show only on this site, another site is reset this error)
+        errorBoundary?.Recover();
+    }
+}
