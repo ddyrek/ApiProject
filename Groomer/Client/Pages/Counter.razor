@@ -1,46 +1,13 @@
 ﻿@page "/counter"
 
 <PageTitle>Counter</PageTitle>
-@if (!isFailed)
+<input type="checkbox" @bind-value="ShowCount" /> Show Count
+
+@if (ShowCount)
 {
-
-<h1>Counter</h1>
-
-<p role="status">Current count: @currentCount</p>
-
-    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-}
-else
-{
-    <p>Sorry there as an error on our side. Below are details:</p>
-    <p>@exMessage</p>
+    <Count></Count>
 }
 
 @code {
-    private int currentCount = 0;
-    private bool isFailed = false;
-    private string? exMessage = "";
-
-    private void IncrementCount()
-    {
-        currentCount++;
-        try
-        {
-            CheckIfCanRaise();
-        }
-        catch (Exception e)
-        {
-            isFailed = true;
-            exMessage = e.Message;
-
-        }
-    }
-
-    private void CheckIfCanRaise()
-    {
-        if (currentCount > 5)
-        {
-            throw new InvalidOperationException("It's too big!");
-        }
-    }
+    public bool ShowCount { get; set; }
 }

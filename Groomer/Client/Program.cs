@@ -1,4 +1,5 @@
 using Groomer.Client;
+using Groomer.Client.Service;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -24,5 +25,6 @@ builder.Services.AddOidcAuthentication(options =>
 {
     builder.Configuration.Bind("oidc", options.ProviderOptions);
 });
+builder.Services.AddScoped<ITestService, TestService>();
 
 await builder.Build().RunAsync();

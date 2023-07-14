@@ -25,11 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.IntegrationTests", "WebApi.IntegrationTests\WebApi.IntegrationTests.csproj", "{6B7570FB-6243-420E-B39A-7DF6AEDCDC92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Groomer.Server", "Groomer\Server\Groomer.Server.csproj", "{BAB9CCF4-8D89-47AC-AD5D-214F70DDB7CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Groomer.Server", "Groomer\Server\Groomer.Server.csproj", "{BAB9CCF4-8D89-47AC-AD5D-214F70DDB7CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Groomer.Client", "Groomer\Client\Groomer.Client.csproj", "{1A69A19A-B413-4212-8D8B-C6E7ACE8C7BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Groomer.Client", "Groomer\Client\Groomer.Client.csproj", "{1A69A19A-B413-4212-8D8B-C6E7ACE8C7BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Groomer.Shared", "Groomer\Shared\Groomer.Shared.csproj", "{5E4EBFC4-ADE7-4DC3-83C6-80346B774A51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Groomer.Shared", "Groomer\Shared\Groomer.Shared.csproj", "{5E4EBFC4-ADE7-4DC3-83C6-80346B774A51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
