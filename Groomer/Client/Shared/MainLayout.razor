@@ -29,7 +29,7 @@
 
     protected override void OnParametersSet()
     {
-        //reset errorBoundary (for error show only on this site, Recover is reset this error an another sites)
+        //reset errorBoundary (for error show only on this site, another site is reset this error)
         errorBoundary?.Recover();
     }
 }
