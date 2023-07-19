@@ -27,6 +27,8 @@ builder.Services.AddOidcAuthentication(options =>
 });
 builder.Services.AddScoped<ITestService, TestService>();
 
+//logger
+//builder.Configuration.AddConfiguration(builder.Configuration.GetSection("Logging")); //add section from appsetings
 //loger level on Environment
 if(builder.HostEnvironment.IsDevelopment())
 {
