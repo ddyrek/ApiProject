@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@inject ILogger<Counter> logger
 
 <PageTitle>Counter</PageTitle>
 <input type="checkbox" @bind-value="ShowCount" /> Show Count
@@ -9,5 +10,10 @@
 }
 
 @code {
-    public bool ShowCount { get; set; }
+    public bool ShowCount { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        logger.LogInformation("I'm in counter");
+    }
 }

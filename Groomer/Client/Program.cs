@@ -27,4 +27,18 @@ builder.Services.AddOidcAuthentication(options =>
 });
 builder.Services.AddScoped<ITestService, TestService>();
 
+//loger level on Environment
+if(builder.HostEnvironment.IsDevelopment())
+{
+    builder.Logging.SetMinimumLevel(LogLevel.Information);
+}
+else if (builder.HostEnvironment.IsStaging())
+{
+    builder.Logging.SetMinimumLevel(LogLevel.Warning);
+}
+else if (builder.HostEnvironment.IsProduction())
+{
+    builder.Logging.SetMinimumLevel(LogLevel.Error);
+}
+
 await builder.Build().RunAsync();
