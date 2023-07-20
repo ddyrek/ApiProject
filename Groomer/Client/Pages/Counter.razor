@@ -1,5 +1,8 @@
 ﻿@page "/counter"
-@inject ILogger<Counter> logger
+@using Microsoft.Extensions.Logging @*using w przypadku użycia ILogerFactory*@
+@*inject ILogger<Counter> logger @*instancja loggera tworzona za kazdym razem*@
+@inject ILoggerFactory loggerFactor
+
 
 <PageTitle>Counter</PageTitle>
 <input type="checkbox" @bind-value="ShowCount" /> Show Count
@@ -14,6 +17,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var logger = loggerFactor.CreateLogger<Counter>();
         logger.LogInformation("I'm in counter");
     }
 }
