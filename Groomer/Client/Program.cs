@@ -1,4 +1,5 @@
 using Groomer.Client;
+using Groomer.Client.Configurations;
 using Groomer.Client.Service;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -19,7 +20,8 @@ builder.Services.AddHttpClient("api")
     });
 
 builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("api"));
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+var url = builder.Configuration.Get<Configuration>().ApiConfiguration.Url;
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(url) });
 
 builder.Services.AddOidcAuthentication(options =>
 {
