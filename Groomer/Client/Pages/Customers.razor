@@ -128,20 +128,17 @@ else
 
 }
 @code {
-    public List<Post> PostList { get; set; }
+    public List<Customer> CustomerList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        PostList = new List<Post>();
-        var post1 = new Post()
+        CustomerList = new List<Customer>();
+        var post1 = new Customer()
             {
                 Id = 1,
-                Title = "First Post",
-                Body = "This is my first post",
-                StatusId = 1,
-                ScheduledDate = DateTime.Now.AddDays(5),
-                CreateDate = DateTime.Now,
-                Accounts = new List<Account>() { new Account() { AccountName = "Facebook", Id = 1 } }
+                Name = "First Post",
+                Surname = "This is my first post",
+                PhoneNumber = 53556653,
             };
         var post2 = new Post()
             {
@@ -203,15 +200,12 @@ else
         return result;
     }
 
-    public class Post
+    public class Customer
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
-        public int StatusId { get; set; }
-        public DateTime? ScheduledDate { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public List<Account> Accounts { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public int PhoneNumber { get; set; }
     }
 
     public class Account
