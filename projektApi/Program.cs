@@ -49,7 +49,7 @@ builder =>
      //builder.AllowAnyOrigin(); //to ustawienia pozwala po³aczyæ sie z ka¿dym origins (czyli ka¿da aplikacja kliencka sie po³¹czy siê z tym Api - przydatne gdy tworzymy publiczne API)
                                //builder.WithOrigins("https://localhost:5001"); //tylko ten origin czyli po³aczenie z API,
     builder.WithOrigins("https://localhost:7088").AllowAnyHeader().AllowAnyMethod();                                               //tylko dla aplikacji klienckiej pod tym linkiem
-                                                    //("https://localhost:5001", https://kolejny origin) po przecinku te¿ zadzia³a dla tej polityki CORS
+                                                    //("https://localhost:5001", https://kolejny origin) po przecinku te¿ zadzia³a dla tej polityki  CORS
 }));
 
 #region Webhost configuration
