@@ -1,4 +1,4 @@
-﻿using projektApi.Domain.Entities;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace projektApi.Application.Klienci.Queris.GetKlienci
 {
-    public class KlienciVm
+    public class GetKlienciQuery : IRequest<KlienciVm>
     {
-        public ICollection<KlientDto> Klienci { get; set; }
     }
 }

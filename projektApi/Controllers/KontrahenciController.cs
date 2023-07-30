@@ -15,6 +15,10 @@ namespace projektApi.Controllers
     [Authorize]
     public class KontrahenciController : BaseController
     {
+        /// <summary>
+        /// Get kontrahenci by id
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<KontrahentDetailVm>> GetDetails(int id)
         {
