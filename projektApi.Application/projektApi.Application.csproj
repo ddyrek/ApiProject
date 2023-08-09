@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Psy\Commands\" />
-    <Folder Include="Psy\Queries\GetPsy\" />
     <Folder Include="Wizyty\Commands\" />
     <Folder Include="Klienci\Commands\UpdateKlient\" />
   </ItemGroup>
