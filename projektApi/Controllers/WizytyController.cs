@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using projektApi.Application.Wizyty.Queries.GetWizytaDetail;
 using projektApi.Application.Wizyty.Queries.GetWizyty;
 
 namespace projektApi.Controllers
@@ -14,12 +15,12 @@ namespace projektApi.Controllers
         /// </summary>
         /// <returns></returns>
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<KontrahentDetailVm>> GetDetails(int id)
-        //{
-        //    var vm = await Mediator.Send(new GetKontrahentDetailQuery() { KontrahentId = id });
-        //    return vm;
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<WizytaDetailVm>> GetDetails(int id)
+        {
+            var vm = await Mediator.Send(new GetWizytaDetailQuery() { WizytaId = id });
+            return vm;
+        }
 
         /// <summary>
         /// Get Wizyty
