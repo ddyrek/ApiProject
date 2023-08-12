@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using projektApi.Application.Psy.Queries.GetPiesDetail;
 using projektApi.Application.Psy.Queries.GetPsy;
 using projektApi.Application.Wizyty.Queries.GetWizyty;
 
@@ -15,12 +16,12 @@ namespace projektApi.Controllers
         /// </summary>
         /// <returns></returns>
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<KontrahentDetailVm>> GetDetails(int id)
-        //{
-        //    var vm = await Mediator.Send(new GetKontrahentDetailQuery() { KontrahentId = id });
-        //    return vm;
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PiesDetailVm>> GetDetails(int id)
+        {
+            var vm = await Mediator.Send(new GetPiesDetailQuery() { PiesId = id });
+            return vm;
+        }
 
         /// <summary>
         /// Get Psy
