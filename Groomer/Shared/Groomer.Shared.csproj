@@ -13,5 +13,6 @@
   <ItemGroup>
     <Folder Include="Customers\Commands\" />
     <Folder Include="Customers\Queries\AllCustomersQuery\" />
+    <Folder Include="Visits\Commands\" />
   </ItemGroup>
 </Project>

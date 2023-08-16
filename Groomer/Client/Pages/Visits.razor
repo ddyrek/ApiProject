@@ -1,5 +1,241 @@
 ﻿@page "/visits"
+@inject HttpClient http;
+@*@using Groomer.Client.Shared.Templates*@
+@using Groomer.Shared.Visits.Queries.AllVisitsQuery
 
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Visits</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Visists</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+@if (VisitList == null && !VisitList.Any())
+{
+    <p>Loading...</p>
+}
+else
+{
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+    <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Visists</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                #
+                            </th>
+                            <th style="width: 20%">
+                                Title
+                            </th>
+                            <th>
+                                Date of Visit
+                            </th>
+                            <th style="width: 30%">
+                                Description
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th style="width: 8%" class="text-center">
+                                Status
+                            </th>
+                            <th style="width: 20%">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in VisitList)
+                        {
+                            <tr>
+                                <td>
+                                    #
+                                </td>
+                                <td>
+                                    <a>
+                                        @item.Id
+                                    </a>
+                                    <br />
+                                    <small>
+                                        Numer @item.Id.ToString()
+                                    </small>
+                                </td>
+                                <td>
+                                    @item.DataWizyty
+                                </td>
+                                <td>
+                                    <ul class="list-inline">
+                                        @foreach(var opis in item.Opis)
+                                        {
+                                        <li class="list-inline-item">
+                                            jkjkjkjkk
+                                        </li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td>
+                                    @item.Kwota
+                                </td>
+                                <td class="project-state">
+                                    <span class="badge badge-@SetStatusBadge(item.Id)">
+                                        @SetStatusValue(item.Id)
+                                        </span>
+                                </td>
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="#">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        View
+                                    </a>
+                                    <a class="btn btn-info btn-sm" href="#">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="#">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+    </div>
+        <!-- /.card -->
+
+</section>
+    <!-- /.content -->
+
+}
 @code {
+    public List<Visit> VisitList { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("https://localhost:7233/api/wizyty");
+        //VisitList = await Http.GetFromJsonAsync<VisistDetailVm>("https://localhost:7233/api/wizyty");    
+        //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/visits");
+        Console.WriteLine(VisitList.Count);
+    
+        //VisitList = new List<Visit>();
+        //var visit1 = new Visit()
+        //    {
+        //        Id = 1,
+        //        DataWizyty = DateTime.Now,
+        //        GodzinaWizyty = DateTime.Now,
+        //        Kwota = 78,
+        //        Opis = "Strzyżenie, pięlegnacja, tuning",
+        //        PiesId = 2
+        //    };
+        //var visit2 = new Visit()
+        //    {
+        //        Id = 2,
+        //        DataWizyty = DateTime.Now,
+        //        GodzinaWizyty = DateTime.Now,
+        //        Kwota = 128,
+        //        Opis = "Pięlegnacja, tuning",
+        //        PiesId = 3
+        //    };
+        ////var visit3 = new Visit()
+        ////    {
+        ////        Id = 3,
+        ////        DataWizyty = DateTime.Now ,
+        ////        Opis = "This is my third post",
+        ////        Kwota = 235,
+        ////        GodzinaWizyty = DateTime.Now.AddDays(7),
+        ////        PiesId = 3,
+        ////        Dog = new List<Dog>() { new Dog() {  Name = "Rambo", Id = 3 } }
+        ////    };
+        //VisitList.Add(visit1);
+        //VisitList.Add(visit2);
+        ////VisitList.Add(visist3);
+    }
+
+    private string SetStatusValue(int statusId)
+    {
+        string result;
+        switch (statusId)
+        {
+            case 1:
+                result = "Zamknięta";
+                break;
+            case 2:
+                result = "Archiwalna";
+                break;
+            default:
+                result = "Otwarta";
+                break;
+        }
+        return result;
+    }
+        private string SetStatusBadge(int statusId)
+    {
+        string result;
+        switch (statusId)
+        {
+            case 1:
+                result = "success";
+                break;
+            case 2:
+                result = "warning";
+                break;
+            default:
+                result = "secondary";
+                break;
+        }
+        return result;
+    }
+
+    public class Visit
+    {
+        public int Id { get; set; }
+        public DateTime DataWizyty { get; set; }
+        public DateTime GodzinaWizyty { get; set; }
+        public string? Opis { get; set; }
+        public decimal? Kwota { get; set; }
+        public int PiesId { get; set; }
+        public Dog Dog { get; set; }
+    }
+
+    public class Dog
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Race { get; set; }
+        public string? Description { get; set; }
+        public int KlientId { get; set; }
+        public int KontrahentId { get; set; }
+        //public Klient Klient { get; set; }
+        //public Kontrahent Kontrahent { get; set; }
+        //public ICollection<Wizyta> Wizyty
+    }
 }
