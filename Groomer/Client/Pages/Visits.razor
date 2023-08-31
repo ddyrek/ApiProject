@@ -3,6 +3,8 @@
 @*@using Groomer.Client.Shared.Templates*@
 @using Groomer.Shared.Visits.Queries.AllVisitsQuery
 
+<AuthorizeView>
+    <Authorized>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -20,7 +22,8 @@
     </div><!-- /.container-fluid -->
 </section>
 
-@if (VisitList == null && !VisitList.Any())
+
+@if (VisitList == null @*&& !VisitList.Any()*@)
 {
     <p>Loading...</p>
 }
@@ -32,7 +35,7 @@ else
         <!-- Default box -->
     <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Visists</h3>
+                <h3 class="card-title">Visits</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -93,7 +96,7 @@ else
                                         @foreach(var opis in item.Opis)
                                         {
                                         <li class="list-inline-item">
-                                            jkjkjkjkk
+                                            @opis
                                         </li>
                                         }
                                     </ul>
@@ -134,10 +137,14 @@ else
 
 </section>
     <!-- /.content -->
-
 }
+</Authorized>
+    <NotAuthorized>
+        <p>I'm sorry, I can't display any claims until you log in</p>
+    </NotAuthorized>
+</AuthorizeView>
 @code {
-    public List<Visit> VisitList { get; set; }
+    public List<VisitForListVm> VisitList { get; set; }// wczesniej public List<Visit> VisitList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -217,25 +224,25 @@ else
 
     public class Visit
     {
-        public int Id { get; set; }
+       public int Id { get; set; }
         public DateTime DataWizyty { get; set; }
         public DateTime GodzinaWizyty { get; set; }
         public string? Opis { get; set; }
         public decimal? Kwota { get; set; }
         public int PiesId { get; set; }
-        public Dog Dog { get; set; }
+        //public Pies Pies { get; set; }
     }
 
-    public class Dog
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Race { get; set; }
-        public string? Description { get; set; }
-        public int KlientId { get; set; }
-        public int KontrahentId { get; set; }
-        //public Klient Klient { get; set; }
-        //public Kontrahent Kontrahent { get; set; }
-        //public ICollection<Wizyta> Wizyty
-    }
+    //public class Dog
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string Race { get; set; }
+    //    public string? Description { get; set; }
+    //    public int KlientId { get; set; }
+    //    public int KontrahentId { get; set; }
+    //    //public Klient Klient { get; set; }
+    //    //public Kontrahent Kontrahent { get; set; }
+    //    //public ICollection<Wizyta> Wizyty
+    //}
 }

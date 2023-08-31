@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Groomer\Shared\Groomer.Shared.csproj" />
     <ProjectReference Include="..\projektApi.Domain\projektApi.Domain.csproj" />
   </ItemGroup>
 

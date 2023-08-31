@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Groomer.Shared.Visits.Queries.AllVisitsQuery;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using projektApi.Application.Wizyty.Queries.AllVisitsQuery;
 using projektApi.Application.Wizyty.Queries.GetWizytaDetail;
 using projektApi.Application.Wizyty.Queries.GetWizyty;
 
@@ -26,10 +28,21 @@ namespace projektApi.Controllers
         /// Get Wizyty
         /// </summary>
         /// <returns></returns>
+        //[HttpGet]
+        //public async Task<ActionResult<WizytyVm>> GetKontrahenci()
+        //{
+        //    var vm = await Mediator.Send(new GetWizytyQuery() { });
+        //    return vm;
+        //}
+
+        /// <summary>
+        /// AllVisistsQeery
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<WizytyVm>> GetKontrahenci()
+        public async Task<ActionResult<List<VisitForListVm>>> GetAsync()
         {
-            var vm = await Mediator.Send(new GetWizytyQuery() { });
+            var vm = await Mediator.Send(new AllVisitsQuery());
             return vm;
         }
 
