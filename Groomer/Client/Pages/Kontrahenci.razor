@@ -1,22 +1,48 @@
 ﻿@page "/kontrahenci"
 @using Groomer.Client.Models
 @using Groomer.Client.Components
+@inject HttpClient Http
+
+<AuthorizeView>
+    <Authorized>
 <h1>Kontrahenci - lista</h1>
 <a href="addKontrahent">Add new</a>
-<KontrahentTable Kontrahenci="@kontrahenci"></KontrahentTable>
+        @if (kontrahenci == null)
+        {
+            <p>No Todo Items found.</p>
+        }
+        else
+        {
+            <ul>
+                @foreach (var item in kontrahenci.kontrahenci)
+                {
+                    <li>@item.NazwaFirmy</li>
+                }
+            </ul>
+        }
+@*<KontrahentTable Kontrahenci="@kontrahenci"></KontrahentTable>*@
+    </Authorized>
+    <NotAuthorized>
+        <p>I'm sorry, I can't display any claims until you log in</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
-    private List<KontrahenciDto> kontrahenci;
+    private KontrahenciDtoList kontrahenci;
+    //public List<KontrahenciDto> kontrahenci { get; set; }
 
     //wypełnienie Listy przy inicjalizacji strony
     //protected override async Task OnIniatalizedAsync()
     protected override async Task OnInitializedAsync()
     {
-        kontrahenci = new List<KontrahenciDto>()
-        {
-        new KontrahenciDto {NazwaFirmy = "Tuti Fruti"},
-        new KontrahenciDto {NazwaFirmy = "Mops"} 
-        };
+        //kontrahenci = new List<KontrahenciDto>()
+        //{
+        //new KontrahenciDto {NazwaFirmy = "Tuti Fruti"},
+        //new KontrahenciDto {NazwaFirmy = "Mops"} 
+        //};
+
+        kontrahenci = await Http.GetFromJsonAsync<KontrahenciDtoList>("https://localhost:7233/api/kontrahenci");
+        Console.WriteLine(kontrahenci.Count);
     }
 }
  

@@ -29,7 +29,7 @@ namespace projektApi.Controllers
         /// </summary>
         /// <returns></returns>
         //[HttpGet]
-        //public async Task<ActionResult<WizytyVm>> GetKontrahenci()
+        //public async Task<ActionResult<WizytyVm>> GetWizyty()
         //{
         //    var vm = await Mediator.Send(new GetWizytyQuery() { });
         //    return vm;

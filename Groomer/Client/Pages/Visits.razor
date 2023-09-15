@@ -3,6 +3,7 @@
 @*@using Groomer.Client.Shared.Templates*@
 @using Groomer.Shared.Visits.Queries.AllVisitsQuery
 
+
 <AuthorizeView>
     <Authorized>
 <!-- Content Header (Page header) -->
@@ -142,7 +143,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("https://localhost:7233/api/wizyty");
-        //VisitList = await Http.GetFromJsonAsync<VisistDetailVm>("https://localhost:7233/api/wizyty");    
+        //VisitList = await http.GetFromJsonAsync<WizytyVm>("https://localhost:7233/api/wizyty");
         //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/visits");
         Console.WriteLine(VisitList.Count);
     
