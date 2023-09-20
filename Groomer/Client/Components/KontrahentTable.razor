@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var kontrahent in Kontrahenci)
+        @foreach (var kontrahent in Kontrahenci.kontrahenci  )
         {
             <tr>
                 <td>@kontrahent.NazwaFirmy</td>
@@ -21,7 +21,7 @@
 
 @code {
     [Parameter]
-    public List<KontrahenciDto> Kontrahenci{ get; set; }
+    public KontrahenciDtoList Kontrahenci{ get; set; }
 
     private Task<IJSObjectReference> _module;
     //jeśli prywatny obiekt modułu bedzie nuleem wtedy zaimportuj plik

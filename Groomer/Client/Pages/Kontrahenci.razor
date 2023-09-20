@@ -19,6 +19,7 @@
                     <li>@item.NazwaFirmy</li>
                 }
             </ul>
+            <KontrahentTable Kontrahenci="@kontrahenci"></KontrahentTable>
         }
 @*<KontrahentTable Kontrahenci="@kontrahenci"></KontrahentTable>*@
     </Authorized>
@@ -42,7 +43,7 @@
         //};
 
         kontrahenci = await Http.GetFromJsonAsync<KontrahenciDtoList>("https://localhost:7233/api/kontrahenci");
-        Console.WriteLine(kontrahenci.Count);
+        //Console.WriteLine(kontrahenci.Count);
     }
 }
  

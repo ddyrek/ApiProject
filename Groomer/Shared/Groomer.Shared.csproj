@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\Commands\" />
     <Folder Include="Customers\Queries\AllCustomersQuery\" />
     <Folder Include="Visits\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
   </ItemGroup>
 </Project>
