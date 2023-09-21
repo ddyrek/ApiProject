@@ -1,0 +1,99 @@
+﻿﻿@page "/customers/add"
+
+@using Blazored.FluentValidation
+@using Groomer.Shared.Customers.Commands
+
+@using Groomer.Client.Components.Customers.EditComponents
+
+<CascadingValue Name="EditMode" Value="@EditMode">
+    <EditForm Model="@NewPost" OnSubmit="OnSubmitMethod">
+        <FluentValidationValidator />
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Post Add</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/posts">Posts</a></li>
+                            <li class="breadcrumb-item active">Add</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <PostAddGeneral NewPost="@NewPost" @bind-Title="NewPost.Title" />
+                </div>
+                <div class="col-md-6">
+                    <PostAddPlatforms OnEditModeChanged="EditModeChange" NewPost="@NewPost" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="#" class="btn btn-secondary">Cancel</a>
+                    <input type="submit" value="Create new Post" class="btn btn-success float-right">
+                </div>
+            </div>
+            <div style="margin-left:10px;" class="row">
+                Title is: @NewPost.Title <br />
+                Body is: @NewPost.Body
+            </div>
+        </section>
+        <!-- /.content -->
+        <ValidationSummary />
+    </EditForm>
+</CascadingValue>
+@code {
+    public AddPostVM NewPost { get; set; } = new();
+    public bool EditMode { get; set; } = false;
+    private IReadOnlyList<IBrowserFile> files;
+
+
+    private async Task OnSubmitMethod(EditContext editContext)
+    {
+        if (editContext.Validate())
+        {
+            foreach (var file in files)
+            {
+                Stream stream = file.OpenReadStream();
+                MemoryStream ms = new MemoryStream();
+                await stream.CopyToAsync(ms);
+                stream.Close();
+
+                //Save your file
+
+                Console.WriteLine($"File named: {file.Name} has size of {file.Size}");
+                Console.WriteLine($"Stream has {ms.ToArray().Length} size");
+
+                ms.Close();
+            }
+            Console.WriteLine("Post has been validated");
+        }
+        else
+        {
+            Console.WriteLine("Post has not been validated");
+
+        }
+
+    }
+
+    private void OnDblClickMethod()
+    {
+        Console.WriteLine("Textbox has been double clicked!");
+    }
+
+    private void EditModeChange(bool value)
+    {
+        EditMode = value;
+        StateHasChanged();
+    }
+
+}
