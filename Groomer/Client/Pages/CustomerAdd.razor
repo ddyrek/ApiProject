@@ -1,24 +1,22 @@
 ﻿﻿@page "/customers/add"
-
 @using Blazored.FluentValidation
 @using Groomer.Shared.Customers.Commands
-
 @using Groomer.Client.Components.Customers.EditComponents
 
 <CascadingValue Name="EditMode" Value="@EditMode">
-    <EditForm Model="@NewPost" OnSubmit="OnSubmitMethod">
+    <EditForm Model="@NewCustomer" OnSubmit="OnSubmitMethod">
         <FluentValidationValidator />
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Post Add</h1>
+                        <h1>Customer Add</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item"><a href="/posts">Posts</a></li>
+                            <li class="breadcrumb-item"><a href="/customers">Customers</a></li>
                             <li class="breadcrumb-item active">Add</li>
                         </ol>
                     </div>
@@ -30,7 +28,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-6">
-                    <PostAddGeneral NewPost="@NewPost" @bind-Title="NewPost.Title" />
+                    <CustomerAddGeneral NewCustomer="@NewCustomer" @bind-Title="NewCustomer.Name" />
                 </div>
                 <div class="col-md-6">
                     <PostAddPlatforms OnEditModeChanged="EditModeChange" NewPost="@NewPost" />
@@ -39,12 +37,12 @@
             <div class="row">
                 <div class="col-12">
                     <a href="#" class="btn btn-secondary">Cancel</a>
-                    <input type="submit" value="Create new Post" class="btn btn-success float-right">
+                    <input type="submit" value="Create new Customer" class="btn btn-success float-right">
                 </div>
             </div>
             <div style="margin-left:10px;" class="row">
-                Title is: @NewPost.Title <br />
-                Body is: @NewPost.Body
+                Name is: @NewCustomer.Name <br />
+                Surname is: @NewCustomer.Surname
             </div>
         </section>
         <!-- /.content -->
@@ -52,7 +50,7 @@
     </EditForm>
 </CascadingValue>
 @code {
-    public AddPostVM NewPost { get; set; } = new();
+    public AddCustomerVM NewCustomer { get; set; } = new();
     public bool EditMode { get; set; } = false;
     private IReadOnlyList<IBrowserFile> files;
 

@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Customers\ViewComponents\" />
     <Folder Include="Components\Visits\ViewComponents\" />
     <Folder Include="Shared\Templates\" />
   </ItemGroup>

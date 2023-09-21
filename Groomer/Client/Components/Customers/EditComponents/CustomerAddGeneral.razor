@@ -1,4 +1,4 @@
-﻿﻿@using SocialMediaPlanner.Shared.Posts.Commands
+﻿﻿@using Groomer.Shared.Customers.Commands
 
 <div class="card card-primary">
     <div class="card-header">
@@ -11,18 +11,18 @@
         </div>
     </div>
     <div class="card-body">
-        <CustomInputText Id="title" Label="Title" EditMode="@EditMode" @bind-Value="Title"></CustomInputText>
+        <CustomInputText Id="name" Label="Name" EditMode="@EditMode" @bind-Value="Name"></CustomInputText>
 
-        <label for="body">Body</label>
-        <InputTextArea disabled="@EditMode" id="body" @bind-Value="NewPost.Body" rows="5" placeholder="This is body"  @attributes="@InputAttributes" />
-        <ValidationMessage For="() => NewPost.Body" />
+        <label for="surname">Surname</label>
+        <InputTextArea disabled="@EditMode" id="surname" @bind-Value="NewCustomer.Surname" rows="5" placeholder="This is name"  @attributes="@InputAttributes" />
+        <ValidationMessage For="() => NewCustomer.Surname" />
         <label for="isAdvertised">Is Advertised</label>
 
-        <InputCheckbox disabled="@EditMode" id="isAdvertised" @bind-Value="NewPost.IsAdvertised" />
+        <InputCheckbox disabled="@EditMode" id="phoneNumber" @bind-Value="NewCustomer.PhoneNumber" />
         <label for="scheduledDate">Scheduled Date</label>
 
-        <InputDate disabled="@EditMode" id="scheduledDate" @bind-Value="NewPost.ScheduledDate" @attributes="@InputAttributes"/>
-        <label for="DaysForAds">Days For Ads</label>
+        @*<InputDate disabled="@EditMode" id="scheduledDate" @bind-Value="NewPost.ScheduledDate" @attributes="@InputAttributes"/>
+        <label for="DaysForAds">Days For Ads</label>*@
 
         <InputNumber disabled="@EditMode" id="DaysForAds" @bind-Value="NewPost.DaysForAds" @attributes="@InputAttributes" />
 
@@ -35,24 +35,24 @@
 <!-- /.card -->
 @code {
     [Parameter]
-    public AddPostVM NewPost { get; set; }
+    public AddCustomerVM NewCustomer { get; set; }
 
-    private string title;
+    private string name;
 
     [Parameter]
-    public string Title
+    public string Name
     {
-        get => title;
+        get => name;
         set
         {
-            if (title == value) return;
-            title = value;
-            TitleChanged.InvokeAsync(value);
+            if (name == value) return;
+            name = value;
+            NameChanged.InvokeAsync(value);
         }
     }
 
     [Parameter]
-    public EventCallback<string> TitleChanged { get; set; }
+    public EventCallback<string> NameChanged { get; set; }
 
     [CascadingParameter(Name="EditMode")]
     public bool EditMode { get; set; }
