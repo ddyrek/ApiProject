@@ -1,4 +1,4 @@
-﻿﻿@page "/customers/add"
+﻿@page "/customers/add"
 @using Blazored.FluentValidation
 @using Groomer.Shared.Customers.Commands
 @using Groomer.Client.Components.Customers.EditComponents
@@ -30,9 +30,9 @@
                 <div class="col-md-6">
                     <CustomerAddGeneral NewCustomer="@NewCustomer" @bind-Title="NewCustomer.Name" />
                 </div>
-                <div class="col-md-6">
+                @*<div class="col-md-6">
                     <PostAddPlatforms OnEditModeChanged="EditModeChange" NewPost="@NewPost" />
-                </div>
+                </div>*@
             </div>
             <div class="row">
                 <div class="col-12">

@@ -13,13 +13,13 @@
     <div class="card-body">
         <div class="row">
             <label for="title">Platforms name</label>
-            <InputSelect disabled="@EditMode" id="AccountName" @bind-Value="NewCustomer.Accounts.AccountName" class="form-control">
+            @*<InputSelect disabled="@EditMode" id="AccountName" @bind-Value="NewCustomer.Accounts.AccountName" class="form-control">
                 <option value="" disabled>-----Select Value-----</option>
                 @foreach (var item in Accounts)
                 {
                     <option value="@item.AccountName">@item.AccountName</option>
                 }
-            </InputSelect>
+            </InputSelect>*@
 
             <label for="files">Files</label>
             <InputFile id="files" OnChange="OnChangeInputFile" multiple class="form-control" />
@@ -35,7 +35,7 @@
 <!-- /.card -->
 @code {
     private IReadOnlyList<IBrowserFile> files;
-    public List<AccountVm> Accounts { get; set; } = new();
+    //public List<AccountVm> Accounts { get; set; } = new();
 
     [Parameter]
     public AddCustomerVM NewCustomer { get; set; }
@@ -45,14 +45,14 @@
     [Parameter]
     public EventCallback<bool> OnEditModeChanged { get; set; }
 
-    protected override void OnInitialized()
-    {
-        NewCustomer.Accounts = new AccountVm();
+    //protected override void OnInitialized()
+    //{
+    //    NewCustomer.Accounts = new AccountVm();
 
-        Accounts.Add(new AccountVm() { Id = 1, AccountName = "Facebook" });
-        Accounts.Add(new AccountVm() { Id = 2, AccountName = "Instagram" });
-        Accounts.Add(new AccountVm() { Id = 3, AccountName = "Twitter" });
-    }
+    //    Accounts.Add(new AccountVm() { Id = 1, AccountName = "Facebook" });
+    //    Accounts.Add(new AccountVm() { Id = 2, AccountName = "Instagram" });
+    //    Accounts.Add(new AccountVm() { Id = 3, AccountName = "Twitter" });
+    //}
 
     private void OnChangeInputFile(InputFileChangeEventArgs args)
     {

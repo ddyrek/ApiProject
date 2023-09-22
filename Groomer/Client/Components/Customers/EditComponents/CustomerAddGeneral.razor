@@ -11,24 +11,24 @@
         </div>
     </div>
     <div class="card-body">
-        <CustomInputText Id="name" Label="Name" EditMode="@EditMode" @bind-Value="Name"></CustomInputText>
+        @*<CustomInputText Id="name" Label="Name" EditMode="@EditMode" @bind-Value="NewCustomer.Name"></CustomInputText>*@
 
         <label for="surname">Surname</label>
         <InputTextArea disabled="@EditMode" id="surname" @bind-Value="NewCustomer.Surname" rows="5" placeholder="This is name"  @attributes="@InputAttributes" />
         <ValidationMessage For="() => NewCustomer.Surname" />
         <label for="isAdvertised">Is Advertised</label>
 
-        <InputCheckbox disabled="@EditMode" id="phoneNumber" @bind-Value="NewCustomer.PhoneNumber" />
+@*        <InputCheckbox disabled="@EditMode" id="phoneNumber" @bind-Value="NewCustomer.PhoneNumber" />
         <label for="scheduledDate">Scheduled Date</label>
 
         @*<InputDate disabled="@EditMode" id="scheduledDate" @bind-Value="NewPost.ScheduledDate" @attributes="@InputAttributes"/>
         <label for="DaysForAds">Days For Ads</label>*@
 
-        <InputNumber disabled="@EditMode" id="DaysForAds" @bind-Value="NewPost.DaysForAds" @attributes="@InputAttributes" />
+        <InputNumber disabled="@EditMode" id="PhoneNumber" @bind-Value="NewCustomer.PhoneNumber" @attributes="@InputAttributes" />
 
         <label for="AdsBudget">Ads Budget</label>
 
-        <InputNumber disabled="@EditMode" id="AdsBudget" @bind-Value="NewPost.AdsBudget" @attributes="@InputAttributes" class="form-control form-control-lg" />
+        <InputNumber disabled="@EditMode" id="KontrahentId" @bind-Value="NewCustomer.KontrahentId" @attributes="@InputAttributes" class="form-control form-control-lg" />
     </div>
     <!-- /.card-body -->
 </div>
