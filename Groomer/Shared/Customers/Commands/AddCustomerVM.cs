@@ -1,9 +1,6 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Groomer.Shared.Customers.Commands
 {
@@ -13,7 +10,7 @@ namespace Groomer.Shared.Customers.Commands
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
         public int KontrahentId { get; set; }
-        //public ContractorVM Contractors { get; set; }
+        public AccountVm Accounts { get; set; } //tymczasowe
     }
 
     public class AddCustomerValidator : AbstractValidator<AddCustomerVM>
@@ -27,8 +24,14 @@ namespace Groomer.Shared.Customers.Commands
         }
     }
 
-    //public class ContractorVM
+    public class AccountVm
+    {
+        public int Id { get; set; }
+        public string AccountName { get; set; }
+    }
+    //public class DogsVm //to zamiast AccountVm
     //{
-
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
     //}
 }
