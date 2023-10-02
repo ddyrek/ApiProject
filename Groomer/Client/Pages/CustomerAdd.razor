@@ -29,44 +29,12 @@
     <section class="content">
         <div class="row">
             <div class="col-md-6">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">General</h3>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <CustomInputText Id="name" Label="Name" @bind-Value="NewCustomer.Name"></CustomInputText>
-                       @* <CustomInputText Id="confirmName" Label="Confirm Name" @bind-Value="NewCustomer.ConfirmName"></CustomInputText>*@
-
-                        <label for="surname">Surname</label>
-
-
-                        <InputTextArea disabled="@EditMode" id="surname" @bind-Value="NewCustomer.Surname" rows="5" placeholder="This is surname" class="form-control" />
-                        <ValidationMessage For="() => NewCustomer.Name" />
-                        @*<label for="isAdvertised">Is Advertised</label>
-
-                        <InputCheckbox disabled="@EditMode" id="isAdvertised" @bind-Value="NewCustomer.IsAdvertised" />*@
-                        <label for="phoneNumber">Phone Number</label>
-
-                        <InputText disabled="@EditMode" id="phoneNumber" @bind-Value="NewCustomer.PhoneNumber" class="form-control" />
-                        <label for="KontrahentId">Kontrahent Id</label>
-
-                        <InputNumber disabled="@EditMode" id="KontrahentId" @bind-Value="NewCustomer.KontrahentId" class="form-control" />
-
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
+                <CustomerAddGeneral EditMode="@EditMode" NewCustomer="@NewCustomer"/>
             </div>
             <div class="col-md-6">
                 <div class="card card-secondary">
                     <div class="card-header">
-                        <h3 class="card-title">Platforms</h3>
+                        <h3 class="card-title">Dogs</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -75,12 +43,12 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <label for="title">Platforms name</label>
-                        <InputSelect disabled="@EditMode" id="AccountName" @bind-Value="NewCustomer.Accounts.AccountName" class="form-control">
+                        <label for="title">Dog name</label>
+                        <InputSelect disabled="@EditMode" id="Name" @bind-Value="NewCustomer.Dogs.Name" class="form-control">
                             <option value="" disabled>-----Select Value-----</option>
-                            @foreach (var item in Accounts)
+                            @foreach (var item in Dogs)
                             {
-                                <option value="@item.AccountName">@item.AccountName</option>
+                                <option value="@item.Name">@item.Name</option>
                             }
                         </InputSelect>
 
@@ -105,17 +73,17 @@
 </EditForm>
 @code {
     public AddCustomerVM NewCustomer { get; set; } = new();
-    public List<AccountVm> Accounts { get; set; } = new();// List<DogsVm> bo Kolekcja w Domain/Entity na Kliencie
+    public List<DogVm> Dogs { get; set; } = new();// List<DogVm> bo Kolekcja w Domain/Entity na Kliencie
     public bool EditMode { get; set; } = false;
     private IReadOnlyList<IBrowserFile> files;
 
     protected override void OnInitialized()
     {
-        NewCustomer.Accounts = new AccountVm();
+        NewCustomer.Dogs = new DogVm();
 
-        Accounts.Add(new AccountVm() { Id = 1, AccountName = "Facebook" });
-        Accounts.Add(new AccountVm() { Id = 2, AccountName = "Instagram" });
-        Accounts.Add(new AccountVm() { Id = 3, AccountName = "Twitter" });
+        Dogs.Add(new DogVm() { Id = 1, Name = "Jack" });
+        Dogs.Add(new DogVm() { Id = 2, Name = "Coli" });
+        Dogs.Add(new DogVm() { Id = 3, Name = "Max" });
     }
 
     private async Task OnSubmitMethod(EditContext editContext)
