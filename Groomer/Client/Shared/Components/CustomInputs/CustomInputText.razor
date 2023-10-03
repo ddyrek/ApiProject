@@ -10,7 +10,7 @@
     [Parameter]
     public string Label { get; set; }
 
-    [Parameter]
+    [CascadingParameter(Name ="EditMode")]
     public bool EditMode { get; set; }
 
     protected override bool TryParseValueFromString(string? value, out string result, 

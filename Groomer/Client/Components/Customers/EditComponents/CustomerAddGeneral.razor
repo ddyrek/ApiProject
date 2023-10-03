@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="card-body">
-        <CustomInputText Id="name" Label="Name" @bind-Value="NewCustomer.Name" EditMode="@EditMode"></CustomInputText>
+        <CustomInputText Id="name" Label="Name" @bind-Value="NewCustomer.Name"></CustomInputText>
         @*<CustomInputText Id="confirmName" Label="Confirm Name" @bind-Value="NewCustomer.ConfirmName"></CustomInputText>*@
 
         <label for="surname">Surname</label>
@@ -36,6 +36,6 @@
     [Parameter]
     public AddCustomerVM NewCustomer { get; set; } //wczesniej = new();
 
-    [Parameter]
+    [CascadingParameter(Name ="EditMode")]
     public bool EditMode { get; set; } = false;
 }

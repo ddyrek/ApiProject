@@ -1,0 +1,52 @@
+﻿@using Groomer.Shared.Customers.Commands
+
+<div class="card card-secondary">
+    <div class="card-header">
+        <h3 class="card-title">Dogs</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <label for="title">Dog name</label>
+        <InputSelect disabled="@EditMode" id="Name" @bind-Value="NewCustomer.Dogs.Name" class="form-control">
+            <option value="" disabled>-----Select Value-----</option>
+            @foreach (var item in Dogs)
+            {
+                <option value="@item.Name">@item.Name</option>
+            }
+        </InputSelect>
+
+        <label for="files">Files</label>
+        <InputFile id="files" OnChange="OnChangeInputFile" multiple class="form-control" />
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+@code {
+    private IReadOnlyList<IBrowserFile> files;
+    public List<DogVm> Dogs { get; set; } = new();// List<DogVm> bo Kolekcja w
+
+    [Parameter]
+    public AddCustomerVM NewCustomer { get; set; } //wczesniej = new();
+
+    [CascadingParameter(Name ="EditMode")]
+    public bool EditMode { get; set; } = false;
+
+        protected override void OnInitialized()
+    {
+        NewCustomer.Dogs = new DogVm();
+
+        Dogs.Add(new DogVm() { Id = 1, Name = "Jack" });
+        Dogs.Add(new DogVm() { Id = 2, Name = "Coli" });
+        Dogs.Add(new DogVm() { Id = 3, Name = "Max" });
+    }
+    
+    private void OnChangeInputFile(InputFileChangeEventArgs args)
+    {
+        files = args.GetMultipleFiles();
+    }
+}
