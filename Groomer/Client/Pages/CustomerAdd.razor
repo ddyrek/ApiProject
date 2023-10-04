@@ -32,13 +32,12 @@
                     <CustomerAddGeneral NewCustomer="@NewCustomer"/>
                 </div>
                 <div class="col-md-6">
-                    <CustomerAddDogs NewCustomer="@NewCustomer" />
+                    <CustomerAddDogs OnEditModeChanged="EditModeChange" NewCustomer="@NewCustomer" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <a href="#" class="btn btn-secondary">Cancel</a>
-                    <input type="button" value="Enter edit mode" class="btn btn-warning" @onclick="ToggleEditMode" />
                     <input type="submit" value="Create new Customer" class="btn btn-success float-right">
                 </div>
             </div>
@@ -87,9 +86,9 @@
         Console.WriteLine("Textbox has been double clicked!");
     }
 
-    private void ToggleEditMode()
+    private void EditModeChange(bool value)
     {
-        EditMode = !EditMode;
-        StateHasChanged();
+        EditMode = value;
+        StateHasChanged(); //powiadamiamy cała resztę że stan EditMode się zmienił
     }
 }

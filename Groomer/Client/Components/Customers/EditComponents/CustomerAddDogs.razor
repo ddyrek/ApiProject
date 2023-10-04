@@ -11,17 +11,24 @@
         </div>
     </div>
     <div class="card-body">
-        <label for="title">Dog name</label>
-        <InputSelect disabled="@EditMode" id="Name" @bind-Value="NewCustomer.Dogs.Name" class="form-control">
-            <option value="" disabled>-----Select Value-----</option>
-            @foreach (var item in Dogs)
-            {
-                <option value="@item.Name">@item.Name</option>
-            }
-        </InputSelect>
+        <div class="row">
+            <label for="title">Dog name</label>
+            <InputSelect disabled="@EditMode" id="Name" @bind-Value="NewCustomer.Dogs.Name" class="form-control">
+                <option value="" disabled>-----Select Value-----</option>
+                @foreach (var item in Dogs)
+                {
+                    <option value="@item.Name">@item.Name</option>
+                }
+            </InputSelect>
 
-        <label for="files">Files</label>
-        <InputFile id="files" OnChange="OnChangeInputFile" multiple class="form-control" />
+            <label for="files">Files</label>
+            <InputFile id="files" OnChange="OnChangeInputFile" multiple class="form-control" />
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input type="button" value="Enter edit mode" class="btn btn-warning" @onclick="ToggleEditMode" />
+            </div>
+        </div>
     </div>
     <!-- /.card-body -->
 </div>
@@ -33,10 +40,13 @@
     [Parameter]
     public AddCustomerVM NewCustomer { get; set; } //wczesniej = new();
 
-    [CascadingParameter(Name ="EditMode")]
-    public bool EditMode { get; set; } = false;
+    public bool EditMode { get; set; }
 
-        protected override void OnInitialized()
+    [Parameter]
+    public EventCallback<bool> OnEditModeChanged { get; set; }
+    //dzięki EventCallback możemy np przekazać parametr z dziecka do rodzica (czyli do CustomerAdd.razor) czyli odwrotnie jak w OneWayBinding i CascadingValue tak jak w tym przykładzie. Możemy przekazywać flage tak jak tu bool lub inne typy w tym bardziej złożone.
+
+    protected override void OnInitialized()
     {
         NewCustomer.Dogs = new DogVm();
 
@@ -44,9 +54,16 @@
         Dogs.Add(new DogVm() { Id = 2, Name = "Coli" });
         Dogs.Add(new DogVm() { Id = 3, Name = "Max" });
     }
-    
+
     private void OnChangeInputFile(InputFileChangeEventArgs args)
     {
         files = args.GetMultipleFiles();
+    }
+
+    private async Task ToggleEditMode()
+    {
+        EditMode = !EditMode;
+        StateHasChanged();
+        await OnEditModeChanged.InvokeAsync(EditMode); //wyzwalamy EventCallback po prezez Invoke
     }
 }
