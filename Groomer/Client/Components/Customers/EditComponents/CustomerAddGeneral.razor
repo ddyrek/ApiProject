@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="card-body">
-        <CustomInputText Id="name" Label="Name" @bind-Value="NewCustomer.Name"></CustomInputText>
+        <CustomInputText Id="name" Label="Name" @bind-Value="Name"></CustomInputText>
         @*<CustomInputText Id="confirmName" Label="Confirm Name" @bind-Value="NewCustomer.ConfirmName"></CustomInputText>*@
 
         <label for="surname">Surname</label>
@@ -35,6 +35,24 @@
 @code{
     [Parameter]
     public AddCustomerVM NewCustomer { get; set; } //wczesniej = new();
+
+    private string name;
+
+    [Parameter]
+    public string Name
+    {
+        get => name;
+        set
+        {
+            if (name == value) return;
+            name = value;
+            NameChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> NameChanged { get; set; } 
+    //Tu bardzo wazna jest konwencja nazewnicza, musimy nazwać dokładanie tak samo jak nasza Właściwość+Changed
 
     [CascadingParameter(Name ="EditMode")]
     public bool EditMode { get; set; } = false;
