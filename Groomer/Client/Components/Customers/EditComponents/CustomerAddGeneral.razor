@@ -18,16 +18,19 @@
         <label for="surname">Surname</label>
 
 
-        <InputTextArea disabled="@EditMode" id="surname" @bind-Value="NewCustomer.Surname" rows="5" placeholder="This is surname" class="form-control" />
+        <InputTextArea disabled="@EditMode" id="surname" @bind-Value="NewCustomer.Surname" rows="5" placeholder="This is surname" @attributes="@InputAttributes" />
         <ValidationMessage For="() => NewCustomer.Surname" />
 
         <label for="phoneNumber">Phone Number</label>
 
-        <InputText disabled="@EditMode" id="phoneNumber" @bind-Value="NewCustomer.PhoneNumber" class="form-control" />
+        <InputText disabled="@EditMode" id="phoneNumber" @bind-Value="NewCustomer.PhoneNumber" @attributes="@InputAttributes" />
         <label for="KontrahentId">Kontrahent Id</label>
 
-        <InputNumber disabled="@EditMode" id="KontrahentId" @bind-Value="NewCustomer.KontrahentId" class="form-control" />
+        <InputNumber disabled="@EditMode" id="KontrahentId" @bind-Value="NewCustomer.KontrahentId" @attributes="@InputAttributes" class="form-control form-control-lg"/>
 
+        @*od prawej do lewej jeżeli chodzi ważniejsze style, zawsze te po prawej maja priorytet
+        czyli @attributes="@InputAttributes" class="form-control form-control-lg" w tym zapisie form-control form control nadpisuje style zawarte w @InputAttributes
+        *@
     </div>
     <!-- /.card-body -->
 </div>
@@ -56,4 +59,12 @@
 
     [CascadingParameter(Name ="EditMode")]
     public bool EditMode { get; set; } = false;
+
+    private Dictionary<string, object> InputAttributes { get; set; } =
+    new Dictionary<string, object>()
+        {
+            { "class", "form-control"},
+            { "maxlenght", "20"},
+            { "required", "required"}
+        };
 }
