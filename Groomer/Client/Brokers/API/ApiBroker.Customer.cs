@@ -8,7 +8,7 @@ namespace Groomer.Client.Brokers.API
         //public async Task<List<CustomerForListVm>> GetAllCustomersAsync() =>
         //    await this.GetAsync<List<CustomerForListVm>>(PostRelativeUrl);
 
-        //public async Task AddCustomerAsync(AddCustomerVM post) =>
-        //    await this.CustomerAsync<AddCustomerVM>(PostRelativeUrl, post);
+        public async Task AddCustomerAsync(AddCustomerVM post) =>
+            await this.CustomerAsync<AddCustomerVM>(PostRelativeUrl, post);
     }
 }
