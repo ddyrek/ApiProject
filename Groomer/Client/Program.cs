@@ -1,4 +1,5 @@
 using Groomer.Client;
+using Groomer.Client.Brokers.API;
 using Groomer.Client.Configurations;
 using Groomer.Client.Service;
 using Microsoft.AspNetCore.Components.Web;
@@ -22,6 +23,7 @@ builder.Services.AddHttpClient("api")
 builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("api"));
 var url = builder.Configuration.Get<Configuration>().ApiConfiguration.Url;
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(url) });
+builder.Services.AddScoped<IApiBroker, ApiBroker>();
 
 builder.Services.AddOidcAuthentication(options =>
 {

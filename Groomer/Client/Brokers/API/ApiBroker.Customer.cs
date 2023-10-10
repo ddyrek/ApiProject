@@ -6,9 +6,9 @@ namespace Groomer.Client.Brokers.API
     {
         //private const string CustomerRelativeUrl = "api/klienci";
         //public async Task<List<CustomerForListVm>> GetAllCustomersAsync() =>
-        //    await this.GetAsync<List<CustomerForListVm>>(PostRelativeUrl);
+        //    await this.GetAsync<List<CustomerForListVm>>(CustomerRelativeUrl);
 
-        public async Task AddCustomerAsync(AddCustomerVM post) =>
-            await this.CustomerAsync<AddCustomerVM>(PostRelativeUrl, post);
+        //public async Task AddCustomerAsync(AddCustomerVM customer) =>
+        //    await this.CustomerAsync<AddCustomerVM>(CustomerRelativeUrl, customer);
     }
 }

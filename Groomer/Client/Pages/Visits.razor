@@ -1,6 +1,8 @@
 ﻿@page "/visits"
-@inject HttpClient http;
+@*@inject HttpClient http;*@
+@inject IApiBroker apiBroker;
 @*@using Groomer.Client.Shared.Templates*@
+@using Groomer.Client.Brokers.API
 @using Groomer.Shared.Visits.Queries.AllVisitsQuery
 
 
@@ -142,8 +144,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("https://localhost:7233/api/wizyty");
+        VisitList = await apiBroker.GetAllVisitsAsync();
+        //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("https://localhost:7233/api/wizyty");
+
         //VisitList = await http.GetFromJsonAsync<WizytyVm>("https://localhost:7233/api/wizyty");
+        //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/wizyty");
         //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/visits");
         Console.WriteLine(VisitList.Count);
     
