@@ -2,6 +2,7 @@ using Groomer.Client;
 using Groomer.Client.Brokers.API;
 using Groomer.Client.Configurations;
 using Groomer.Client.Service;
+using Groomer.Client.Service.Visits;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -24,6 +25,8 @@ builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClien
 var url = builder.Configuration.Get<Configuration>().ApiConfiguration.Url;
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(url) });
 builder.Services.AddScoped<IApiBroker, ApiBroker>();
+//rejestracja do kontenera IoC/DI VisitsServise je¿eli nasze Api ³aczymy do servisu
+builder.Services.AddScoped<IVisitsService, VisitsService>();
 
 builder.Services.AddOidcAuthentication(options =>
 {
