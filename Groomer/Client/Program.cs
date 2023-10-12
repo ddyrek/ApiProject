@@ -25,7 +25,7 @@ builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClien
 var url = builder.Configuration.Get<Configuration>().ApiConfiguration.Url;
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(url) });
 builder.Services.AddScoped<IApiBroker, ApiBroker>();
-//rejestracja do kontenera IoC/DI VisitsServise je¿eli nasze Api ³aczymy do servisu
+//rejestracja do kontenera IoC/DI VisitsService je¿eli nasze Api ³aczymy do servisu
 builder.Services.AddScoped<IVisitsService, VisitsService>();
 
 builder.Services.AddOidcAuthentication(options =>

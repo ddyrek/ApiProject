@@ -1,6 +1,8 @@
-﻿using Groomer.Shared.Visits.Queries.AllVisitsQuery;
+﻿using Groomer.Shared.Visits.Commands;
+using Groomer.Shared.Visits.Queries.AllVisitsQuery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using projektApi.Application.Wizyty.Commands.AddVisitCommand;
 using projektApi.Application.Wizyty.Queries.AllVisitsQuery;
 using projektApi.Application.Wizyty.Queries.GetWizytaDetail;
 using projektApi.Application.Wizyty.Queries.GetWizyty;
@@ -57,6 +59,13 @@ namespace projektApi.Controllers
         //    var result = await Mediator.Send(command);
         //    return Ok(result);
         //}
+
+        [HttpPost]
+        public async Task<ActionResult<int>> VisitAsync(AddVisitVM visit)
+        {
+            var id = await Mediator.Send(new AddVisitCommand() { Visit = visit });
+            return id;
+        }
 
         ///// <summary>
         ///// Update kontrahent
