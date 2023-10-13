@@ -1,4 +1,5 @@
-﻿using Groomer.Shared.Visits.Queries.AllVisitsQuery;
+﻿using Groomer.Shared.Visits.Commands;
+using Groomer.Shared.Visits.Queries.AllVisitsQuery;
 
 namespace Groomer.Client.Brokers.API
 {
@@ -8,7 +9,7 @@ namespace Groomer.Client.Brokers.API
 		public async Task<List<VisitForListVm>> GetAllVisitsAsync() =>
 			await this.GetAsync<List<VisitForListVm>>(VisitRelativeUrl);
 
-		//public async Task AddVisitAsync(AddVisitVM visit) =>
-		//	await this.VisitAsync<AddVisitVM>(VisitRelativeUrl, visit);
+		public async Task AddVisitAsync(AddVisitVM visit) =>
+			await this.VisitAsync<AddVisitVM>(VisitRelativeUrl, visit);
 	}
 }

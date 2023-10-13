@@ -14,7 +14,7 @@ namespace Groomer.Client.Brokers.API
         private async Task<T> GetAsync<T>(string relativeUrl) =>
             await _httpClient.GetFromJsonAsync<T>(relativeUrl);
 
-        private async Task<HttpResponseMessage> PostAsync<T>(string relativeUrl, T content) =>
+        private async Task<HttpResponseMessage> VisitAsync<T>(string relativeUrl, T content) =>
             await _httpClient.PostAsJsonAsync<T>(relativeUrl, content);
 
     }

@@ -30,7 +30,6 @@ namespace projektApi.Application.Wizyty.Commands.AddVisitCommand
             {
                 var visit = new Wizyta()
                 {
-                    Id = request.Visit.Id,
                     Opis = request.Visit.Opis,
                     GodzinaWizyty = request.Visit.GodzinaWizyty,
                     DataWizyty = request.Visit.DataWizyty,

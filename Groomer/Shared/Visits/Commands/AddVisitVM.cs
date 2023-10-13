@@ -5,7 +5,6 @@ namespace Groomer.Shared.Visits.Commands
 {
     public class AddVisitVM
     {
-        public int Id { get; set; }
         public DateTime DataWizyty { get; set; }
         public DateTime GodzinaWizyty { get; set; }
         public string? Opis { get; set; }
