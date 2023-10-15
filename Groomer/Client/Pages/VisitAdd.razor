@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Post Add</h1>
+                    <h1>Visit Add</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/posts">Posts</a></li>
+                        <li class="breadcrumb-item"><a href="/visits">Visists</a></li>
                         <li class="breadcrumb-item active">Add</li>
                     </ol>
                 </div>
@@ -38,8 +38,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <CustomInputText Id="title" Label="Title" @bind-Value="NewPost.Title"></CustomInputText>
-                                                <CustomInputText Id="confirmTitle" Label="Confirm Title" @bind-Value="NewPost.ConfirmTitle"></CustomInputText>
+                        <CustomInputText Id="title" Label="Title" @bind-Value="NewVisit.Title"></CustomInputText>
+                                                <CustomInputText Id="confirmTitle" Label="Confirm Title" @bind-Value="NewVisit.ConfirmTitle"></CustomInputText>
 
                         <label for="body">Body</label>
 
@@ -105,7 +105,7 @@
     <ValidationSummary />
 </EditForm>
 @code {
-    public AddPostVM NewVisit { get; set; } = new();
+    public AddVisitVM NewVisit { get; set; } = new();
     public List<AccountVm> Accounts { get; set; } = new();
     public bool EditMode { get; set; } = false;
     private IReadOnlyList<IBrowserFile> files;
@@ -162,5 +162,6 @@
     {
         files = args.GetMultipleFiles();
     }
-}*@
+}
 
+*@

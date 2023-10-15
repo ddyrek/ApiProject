@@ -30,7 +30,7 @@ namespace projektApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<KlienciVm>> GetKontrahenci()
+        public async Task<ActionResult<KlienciVm>> GetKlienci()
         {
             var vm = await Mediator.Send(new GetKlienciQuery() { });
             return vm;

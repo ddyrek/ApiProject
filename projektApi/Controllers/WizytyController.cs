@@ -61,7 +61,7 @@ namespace projektApi.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult<int>> VisitAsync(AddVisitVM visit)
+        public async Task<ActionResult<int>> PostAsync(AddVisitVM visit)
         {
             var id = await Mediator.Send(new AddVisitCommand() { Visit = visit });
             return id;

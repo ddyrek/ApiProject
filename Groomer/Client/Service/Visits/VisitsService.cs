@@ -1,4 +1,6 @@
 ﻿using Groomer.Client.Brokers.API;
+using Groomer.Shared.Visits.Commands;
+using Groomer.Shared.Visits.Exceptions;
 using Groomer.Shared.Visits.Queries.AllVisitsQuery;
 
 namespace Groomer.Client.Service.Visits
@@ -17,6 +19,23 @@ namespace Groomer.Client.Service.Visits
 
             return await apiBroker.GetAllVisitsAsync();
 
+        }
+
+        public async Task AddVisitAsync(AddVisitVM visit)
+        {
+            //dodoatkowa walidacja VM wysyłanych do API
+            //szczególnie przydatna gdy nie jestesmy autorami API
+            ValidateVisit(visit);
+
+            try
+            {
+                await apiBroker.AddVisitAsync(visit);
+            }
+            catch (Exception ex)
+            {
+
+                throw new VisitBadRequestException(ex);
+            }
         }
     }
 }

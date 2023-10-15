@@ -10,6 +10,6 @@ namespace Groomer.Client.Brokers.API
 			await this.GetAsync<List<VisitForListVm>>(VisitRelativeUrl);
 
 		public async Task AddVisitAsync(AddVisitVM visit) =>
-			await this.VisitAsync<AddVisitVM>(VisitRelativeUrl, visit);
+			await this.PostAsync<AddVisitVM>(VisitRelativeUrl, visit);
 	}
 }
