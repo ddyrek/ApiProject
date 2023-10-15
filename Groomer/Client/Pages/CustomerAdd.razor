@@ -3,6 +3,8 @@
 @using Blazored.FluentValidation
 @using Groomer.Shared.Customers.Commands
 @using Groomer.Client.Components.Customers.EditComponents
+@inject IApiBroker apiBroker;
+@using Groomer.Client.Brokers.API
 
 <CascadingValue Name="EditMode" Value="@EditMode">
     <EditForm Model="@NewCustomer" OnSubmit="OnSubmitMethod">
@@ -31,9 +33,9 @@
                 <div class="col-md-6">
                     <CustomerAddGeneral NewCustomer="@NewCustomer" @bind-Name="NewCustomer.Name" />
                 </div>
-                <div class="col-md-6">
+                @*<div class="col-md-6">
                     <CustomerAddDogs OnEditModeChanged="EditModeChange" NewCustomer="@NewCustomer" />
-                </div>
+                </div>*@
             </div>
             <div class="row">
                 <div class="col-12">
@@ -75,6 +77,7 @@
 
                 ms.Close();
             }
+            await apiBroker.AddCustomerAsync(NewCustomer);
             Console.WriteLine("Customer has been validated");
         }
         else
