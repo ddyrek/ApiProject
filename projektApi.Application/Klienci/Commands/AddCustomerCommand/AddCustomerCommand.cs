@@ -29,17 +29,15 @@ namespace projektApi.Application.Klienci.Commands.AddCustomerCommand
         {
             try
             {
-                var customer = new Customer()
+                var customer = new Klient()
                 {
-                    Opis = request.Customer.Name,
-                    GodzinaWizyty = request.Customer.GodzinaWizyty,
-                    DataWizyty = request.Customer.DataWizyty,
-                    Kwota = request.Customer.Kwota,
-                    PiesId = request.Customer.PiesId,
+                    KlientName = new Domain.ValueObjects.PersonName() { Name = request.Customer.Name, Surname = request.Customer.Surname },
+                    PhoneNumber = request.Customer.PhoneNumber,
+                    KontrahentId = request.Customer.KontrahentId
                 };
-                context.Wizyty.Add(Customer);
+                context.Klienci.Add(customer);
                 await context.SaveChangesAsync(cancellationToken);
-                return Customer.Id;
+                return customer.Id;
             }
             catch (Exception ex)
             {

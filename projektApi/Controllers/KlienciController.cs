@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Groomer.Shared.Customers.Commands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using projektApi.Application.Klienci.Commands.AddCustomerCommand;
 using projektApi.Application.Klienci.Commands.CreateKlient;
 using projektApi.Application.Klienci.Queris.GetKlienci;
 using projektApi.Application.Klienci.Queris.GetKlientDetail;
@@ -40,11 +42,18 @@ namespace projektApi.Controllers
         /// Create Klient
         /// </summary>
         /// <returns></returns>
+        //[HttpPost]
+        //public async Task<IActionResult> CreateKlient(CreateKlientCommand command)
+        //{
+        //    var result = await Mediator.Send(command);
+        //    return Ok(result);
+        //}
+
         [HttpPost]
-        public async Task<IActionResult> CreateKlient(CreateKlientCommand command)
+        public async Task<ActionResult<int>> PostAsync(AddCustomerVM customer)
         {
-            var result = await Mediator.Send(command);
-            return Ok(result);
+            var id = await Mediator.Send(new AddCustomerCommand() { Customer = customer });
+            return id;
         }
     }
 }
