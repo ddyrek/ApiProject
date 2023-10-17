@@ -1,1 +1,74 @@
-﻿
+﻿@using Groomer.Shared.Visits.Commands
+@using Groomer.Client.Shared.Components.CustomInputs
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">General</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        @*<CustomInputText Id="name" Label="Name" @bind-Value="Name"></CustomInputText>*@
+        @*<CustomInputText Id="confirmName" Label="Confirm Name" @bind-Value="NewCustomer.ConfirmName"></CustomInputText>*@
+        <label for="dataWizyty">Data Wizyty</label>
+
+        <InputDate disabled="@EditMode" id="dataWizyty" @bind-Value="NewVisit.DataWizyty" @attributes="@InputAttributes"/>
+        <label for="godzinaWizyty">Data Wizyty</label>
+
+        <InputDate disabled="@EditMode" id="godzinaWizyty" @bind-Value="NewVisit.GodzinaWizyty" @attributes="@InputAttributes" />
+
+        <label for="opis">Opis</label>
+        <InputTextArea disabled="@EditMode" id="opis" @bind-Value="NewVisit.Opis" rows="5" placeholder="This is description" @attributes="@InputAttributes" />
+        <ValidationMessage For="() => NewVisit.Opis" />
+
+        <label for="price">Price</label>
+
+        <InputNumber disabled="@EditMode" id="price" @bind-Value="NewVisit.Kwota" @attributes="@InputAttributes" />
+        <label for="PiesId">Pies Id</label>
+
+        <InputNumber disabled="@EditMode" id="PiesId" @bind-Value="NewVisit.PiesId" @attributes="@InputAttributes" class="form-control form-control-lg"/>
+
+        @*od prawej do lewej jeżeli chodzi ważniejsze style, zawsze te po prawej maja priorytet
+        czyli @attributes="@InputAttributes" class="form-control form-control-lg" w tym zapisie form-control form control nadpisuje style zawarte w @InputAttributes
+        *@
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+@code{
+    [Parameter]
+    public AddVisitVM NewVisit { get; set; } //wczesniej = new();
+
+    private string opis;
+
+    [Parameter]
+    public string Opis
+    {
+        get => opis;
+        set
+        {
+            if (opis == value) return;
+            opis = value;
+            OpisChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> OpisChanged { get; set; } 
+    //Tu bardzo wazna jest konwencja nazewnicza, musimy nazwać dokładanie tak samo jak nasza Właściwość+Changed
+
+    [CascadingParameter(Name ="EditMode")]
+    public bool EditMode { get; set; } = false;
+
+    private Dictionary<string, object> InputAttributes { get; set; } =
+    new Dictionary<string, object>()
+        {
+            { "class", "form-control"},
+            { "maxlenght", "20"},
+            { "required", "required"}
+        };
+}
