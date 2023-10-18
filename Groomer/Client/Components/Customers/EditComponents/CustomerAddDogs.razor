@@ -13,13 +13,13 @@
     <div class="card-body">
         <div class="row">
             <label for="title">Dog name</label>
-            <InputSelect disabled="@EditMode" id="Name" @bind-Value="NewCustomer.Dogs.Name" class="form-control">
+            @*<InputSelect disabled="@EditMode" id="Name" @bind-Value="NewCustomer.Dogs.Name" class="form-control">
                 <option value="" disabled>-----Select Value-----</option>
                 @foreach (var item in Dogs)
                 {
                     <option value="@item.Name">@item.Name</option>
                 }
-            </InputSelect>
+            </InputSelect>*@
 
             <label for="files">Files</label>
             <InputFile id="files" OnChange="OnChangeInputFile" multiple class="form-control" />
@@ -46,14 +46,14 @@
     public EventCallback<bool> OnEditModeChanged { get; set; }
     //dzięki EventCallback możemy np przekazać parametr z dziecka do rodzica (czyli do CustomerAdd.razor) czyli odwrotnie jak w OneWayBinding i CascadingValue tak jak w tym przykładzie. Możemy przekazywać flage tak jak tu bool lub inne typy w tym bardziej złożone.
 
-    protected override void OnInitialized()
-    {
-        NewCustomer.Dogs = new DogVm();
+    //protected override void OnInitialized()
+    //{
+    //    NewCustomer.Dogs = new DogVm();
 
-        Dogs.Add(new DogVm() { Id = 1, Name = "Jack" });
-        Dogs.Add(new DogVm() { Id = 2, Name = "Coli" });
-        Dogs.Add(new DogVm() { Id = 3, Name = "Max" });
-    }
+    //    Dogs.Add(new DogVm() { Id = 1, Name = "Jack" });
+    //    Dogs.Add(new DogVm() { Id = 2, Name = "Coli" });
+    //    Dogs.Add(new DogVm() { Id = 3, Name = "Max" });
+    //}
 
     private void OnChangeInputFile(InputFileChangeEventArgs args)
     {

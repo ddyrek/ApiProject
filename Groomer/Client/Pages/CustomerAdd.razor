@@ -63,20 +63,20 @@
     {
         if (editContext.Validate())
         {
-            foreach (var file in files)
-            {
-                Stream stream = file.OpenReadStream();
-                MemoryStream ms = new MemoryStream();
-                await stream.CopyToAsync(ms);
-                stream.Close();
+            //foreach (var file in files)
+            //{
+            //    Stream stream = file.OpenReadStream();
+            //    MemoryStream ms = new MemoryStream();
+            //    await stream.CopyToAsync(ms);
+            //    stream.Close();
 
-                //Save your file
+            //    //Save your file
 
-                Console.WriteLine($"File named: {file.Name} has size of {file.Size}");
-                Console.WriteLine($"Stream has {ms.ToArray().Length} size");
+            //    Console.WriteLine($"File named: {file.Name} has size of {file.Size}");
+            //    Console.WriteLine($"Stream has {ms.ToArray().Length} size");
 
-                ms.Close();
-            }
+            //    ms.Close();
+            //}
             await apiBroker.AddCustomerAsync(NewCustomer);
             Console.WriteLine("Customer has been validated");
         }

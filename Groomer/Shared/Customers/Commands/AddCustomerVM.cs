@@ -12,7 +12,7 @@ namespace Groomer.Shared.Customers.Commands
         public string PhoneNumber { get; set; }
         public int KontrahentId { get; set; }
         //public AccountVm Accounts { get; set; } //tymczasowe
-        public DogVm Dogs { get; set; }
+        //public DogVm Dogs { get; set; }
     }
 
     public class AddCustomerValidator : AbstractValidator<AddCustomerVM>
