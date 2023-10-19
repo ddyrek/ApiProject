@@ -42,18 +42,18 @@ namespace projektApi.Controllers
         /// Create Klient
         /// </summary>
         /// <returns></returns>
-        //[HttpPost]
-        //public async Task<IActionResult> CreateKlient(CreateKlientCommand command)
-        //{
-        //    var result = await Mediator.Send(command);
-        //    return Ok(result);
-        //}
-
         [HttpPost]
-        public async Task<ActionResult<int>> PostAsync(AddCustomerVM customer)
+        public async Task<IActionResult> CreateKlient(CreateKlientCommand command)
         {
-            var id = await Mediator.Send(new AddCustomerCommand() { Customer = customer });
-            return id;
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
+
+        //[HttpPost]
+        //public async Task<ActionResult<int>> PostAsync(AddCustomerVM customer)
+        //{
+        //    var id = await Mediator.Send(new AddCustomerCommand() { Customer = customer });
+        //    return id;
+        //}
     }
 }
