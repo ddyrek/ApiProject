@@ -12,7 +12,7 @@ namespace Groomer.Client.Service.Customers
                 //throw new Exception("Customer is null");
                 throw new CustomerNullException();
             }
-            if (customer.Name.Length <= 10)
+            if (customer.Name.Length >= 40)
             {
                 //throw new Exception("Name of Customer is too short!");
                 throw new CustomerNameValidationException();

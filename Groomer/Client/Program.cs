@@ -2,6 +2,7 @@ using Groomer.Client;
 using Groomer.Client.Brokers.API;
 using Groomer.Client.Configurations;
 using Groomer.Client.Service;
+using Groomer.Client.Service.Customers;
 using Groomer.Client.Service.Visits;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -27,6 +28,8 @@ var url = builder.Configuration.Get<Configuration>().ApiConfiguration.Url;
 builder.Services.AddScoped<IApiBroker, ApiBroker>();
 //rejestracja do kontenera IoC/DI VisitsService je¿eli nasze Api ³aczymy do servisu
 builder.Services.AddScoped<IVisitsService, VisitsService>();
+//builder.Services.AddScoped<CustomersService>(); //opcja gdy pusy interfejs lub go brak
+builder.Services.AddScoped<ICustomersService, CustomersService>();
 
 builder.Services.AddOidcAuthentication(options =>
 {
