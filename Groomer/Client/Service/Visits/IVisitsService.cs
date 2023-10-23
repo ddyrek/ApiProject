@@ -1,9 +1,11 @@
 ﻿using Groomer.Shared.Visits.Commands;
+using Groomer.Shared.Visits.Queries.AllVisitsQuery;
 
 namespace Groomer.Client.Service.Visits
 {
     public interface IVisitsService
     {
-        Task AddVisitsAsync(AddVisitVM customer);
+        Task<List<VisitForListVm>> GetAllVisitsAsync();
+        Task AddVisitAsync(AddVisitVM visit);
     }
 }

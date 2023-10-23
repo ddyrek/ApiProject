@@ -1,10 +1,12 @@
 ﻿@page "/visits/add"
 
 @using Blazored.FluentValidation
+@using Groomer.Client.Service.Visits
 @using Groomer.Shared.Visits.Commands
 @using Groomer.Client.Components.Visits.EditComponents
 @inject IApiBroker apiBroker;
 @using Groomer.Client.Brokers.API
+@inject IVisitsService visitService;
 
 <CascadingValue Name="EditMode" Value="@EditMode">
     <EditForm Model="@NewVisit" OnSubmit="OnSubmitMethod">
@@ -77,7 +79,8 @@
 
             //    ms.Close();
             //}
-            await apiBroker.AddVisitAsync(NewVisit);
+            //await apiBroker.AddVisitAsync(NewVisit);
+            await visitService.AddVisitAsync(NewVisit);
             Console.WriteLine("Visit has been validated");
         }
         else

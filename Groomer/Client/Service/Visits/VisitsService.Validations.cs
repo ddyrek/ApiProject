@@ -12,7 +12,7 @@ namespace Groomer.Client.Service.Visits
                 //throw new Exception("Post is null");
                 throw new VisitNullException();
             }
-            if (visit.Opis.Length <= 10)
+            if (visit.Opis.Length >= 40)
             {
                 //throw new Exception("Description of Visit is too short!");
                 throw new VisitOpisValidationException();
