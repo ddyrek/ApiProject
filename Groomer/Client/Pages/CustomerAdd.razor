@@ -3,7 +3,8 @@
 @using Blazored.FluentValidation
 @using Groomer.Shared.Customers.Commands
 @using Groomer.Client.Components.Customers.EditComponents
-@inject IApiBroker apiBroker;
+@inject HttpClient http;
+@*@inject IApiBroker apiBroker;*@
 @using Groomer.Client.Brokers.API
 @inject ICustomersService customerService
 @*@inject CustomersService customerService*@
@@ -82,9 +83,10 @@
 
             //    ms.Close();
             //}
-            //await apiBroker.AddCustomerAsync(NewCustomer);
-            //customerService.ValidateCustomer(NewCustomer);
-            await customerService.AddCustomerAsync(NewCustomer);
+            await http.PostAsJsonAsync("https://localhost:7233/api/klienciNewCustomer", NewCustomer );
+            //await http.AddCutomerAsync(NewCustomer);   //połczenie podstawowe za pomocą Http klienta - bez dodotkowej walidacji VM (trzeba wstrzyknąc klienta/apiBroker lub serwis i wykonać rejestracje dla DI/IOC w program.cs)
+            //await apiBroker.AddCustomerAsync(NewCustomer); //połączenie z HTTP kleintem za pomocą apiBrokera - bez dodotkowej walidacji VM
+            /*await customerService.AddCustomerAsync(NewCustomer);*/ //połczenie z Http klientem za pomocą serwisu, w serwisie validacja VM przed wysłaniem do API
             Console.WriteLine("Customer has been validated");
         }
         else
