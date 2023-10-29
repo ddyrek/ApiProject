@@ -1,4 +1,6 @@
-﻿@using Groomer.Shared.Customers.Commands
+﻿@using Groomer.Shared.Dogs.Queries.AllDogsQuery
+@using Groomer.Shared.Visits.Commands
+@inject HttpClient http;
 
 <div class="card card-secondary">
     <div class="card-header">
@@ -12,14 +14,14 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <label for="title">Dog name</label>
-@*            <InputSelect disabled="@EditMode" id="Name" @bind-Value="NewCustomer.Dogs.Name" class="form-control">
+            <label for="dogsId">Dog name</label>
+            <InputSelect disabled="@EditMode" id="dogsId" @bind-Value="NewVisit.PiesId" class="form-control">
                 <option value="" disabled>-----Select Value-----</option>
-                @foreach (var item in Dogs)
+                @foreach (var item in dogs)
                 {
-                    <option value="@item.Name">@item.Name</option>
+                    <option value="@item.Id">@item.Name</option>
                 }
-            </InputSelect>*@
+            </InputSelect>
 
             <label for="files">Files</label>
             <InputFile id="files" OnChange="OnChangeInputFile" multiple class="form-control" />
@@ -35,10 +37,10 @@
 <!-- /.card -->
 @code {
     private IReadOnlyList<IBrowserFile> files;
-    public List<DogVm> Dogs { get; set; } = new();// List<DogVm> bo Kolekcja w
+    private List<DogsForListVm> dogs = new List<DogsForListVm>();// List<DogVm> bo Kolekcja w
 
     [Parameter]
-    public AddCustomerVM NewCustomer { get; set; } //wczesniej = new();
+    public AddVisitVM NewVisit { get; set; } //wczesniej = new();
 
     public bool EditMode { get; set; }
 
@@ -46,14 +48,12 @@
     public EventCallback<bool> OnEditModeChanged { get; set; }
     //dzięki EventCallback możemy np przekazać parametr z dziecka do rodzica (czyli do CustomerAdd.razor) czyli odwrotnie jak w OneWayBinding i CascadingValue tak jak w tym przykładzie. Możemy przekazywać flage tak jak tu bool lub inne typy w tym bardziej złożone.
 
-    //protected override void OnInitialized()
-    //{
-    //    NewCustomer.Dogs = new DogVm();
-
-    //    Dogs.Add(new DogVm() { Id = 1, Name = "Jack" });
-    //    Dogs.Add(new DogVm() { Id = 2, Name = "Coli" });
-    //    Dogs.Add(new DogVm() { Id = 3, Name = "Max" });
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        //httpClient = new HttpClient();
+        // Wykonaj żądanie GET do API, które zwraca listę psów
+        dogs = await http.GetFromJsonAsync<List<DogsForListVm>>("https://localhost:7233/api/psy");
+    }
 
     private void OnChangeInputFile(InputFileChangeEventArgs args)
     {

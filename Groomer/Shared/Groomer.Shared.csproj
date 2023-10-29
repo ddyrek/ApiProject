@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Customers\Queries\AllCustomersQuery\" />
+    <Folder Include="Dogs\Commands\" />
   </ItemGroup>
 
   <ItemGroup>
