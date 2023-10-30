@@ -17,7 +17,7 @@
             <label for="dogsId">Dog name</label>
             <InputSelect disabled="@EditMode" id="dogsId" @bind-Value="NewVisit.PiesId" class="form-control">
                 <option value="" disabled>-----Select Value-----</option>
-                @foreach (var item in dogs)
+                @foreach (var item in Psy.Psy)
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
@@ -37,6 +37,8 @@
 <!-- /.card -->
 @code {
     private IReadOnlyList<IBrowserFile> files;
+    [Parameter]
+    public PsyList Psy{ get; set; }
     private List<DogsForListVm> dogs = new List<DogsForListVm>();// List<DogVm> bo Kolekcja w
 
     [Parameter]
@@ -52,7 +54,9 @@
     {
         //httpClient = new HttpClient();
         // Wykonaj żądanie GET do API, które zwraca listę psów
-        dogs = await http.GetFromJsonAsync<List<DogsForListVm>>("https://localhost:7233/api/psy");
+        Psy = await http.GetFromJsonAsync<PsyList>("https://localhost:7233/api/psy");
+        //przefiltrowania danych do Id i Nazwy psa
+    //var przefiltrowanePsy = dogs.Select(p => new { Id = p.Id, Nazwa = p.Name }).ToList();
     }
 
     private void OnChangeInputFile(InputFileChangeEventArgs args)
