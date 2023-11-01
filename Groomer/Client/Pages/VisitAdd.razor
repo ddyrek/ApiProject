@@ -2,11 +2,13 @@
 
 @using Blazored.FluentValidation
 @using Groomer.Client.Service.Visits
+@using Groomer.Shared.Dogs.Queries.AllDogsQuery
 @using Groomer.Shared.Visits.Commands
 @using Groomer.Client.Components.Visits.EditComponents
 @inject IApiBroker apiBroker;
 @using Groomer.Client.Brokers.API
 @inject IVisitsService visitService;
+@inject HttpClient http;
 
 <CascadingValue Name="EditMode" Value="@EditMode">
     <EditForm Model="@NewVisit" OnSubmit="OnSubmitMethod">
@@ -36,7 +38,15 @@
                     <VisitAddGeneral NewVisit="@NewVisit" @bind-Opis="NewVisit.Opis" />
                 </div>
                 <div class="col-md-6">
-                    <VisitAddDogs OnEditModeChanged="EditModeChange" NewVisit="@NewVisit" />
+                    @if (psy == null)
+                    {
+                        <p>Loading... Dogs</p>
+                        Console.WriteLine("Object psy is null!");
+                    }
+                    else{
+                    <VisitAddDogs OnEditModeChanged="EditModeChange" Psy="@psy" NewVisit="@NewVisit" />
+                    Console.WriteLine("Loaded psy!");
+                    }
                 </div>
             </div>
             <div class="row">
@@ -55,6 +65,7 @@
     </EditForm>
 </CascadingValue>
 @code {
+    private PsyList psy;
     public AddVisitVM NewVisit { get; set; } = new();
     public bool EditMode { get; set; } = false;
     private IReadOnlyList<IBrowserFile> files;
@@ -101,4 +112,11 @@
         EditMode = value;
         StateHasChanged(); //powiadamiamy cała resztę że stan EditMode się zmienił
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        psy = await http.GetFromJsonAsync<PsyList>("https://localhost:7233/api/psy");
+        var przefiltrowanePsy = psy.Psy.Select(p => new { Id = p.Id, Name = p.Name }).ToList();
+    }
+    
 }
