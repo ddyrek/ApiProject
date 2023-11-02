@@ -8,9 +8,9 @@ namespace Groomer.Shared.Dogs.Queries.AllDogsQuery
 {
     public class PsyList
     {
-        public List<DogsForListVm> Psy { get; set; }
+        public List<DogForListVm> Psy { get; set; }
     }
-    public class DogsForListVm
+    public class DogForListVm
     {
         public int Id { get; set; }
         public string Name { get; set; }
