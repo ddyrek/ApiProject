@@ -8,7 +8,7 @@
 @inject IApiBroker apiBroker;
 @using Groomer.Client.Brokers.API
 @inject IVisitsService visitService;
-@inject HttpClient http;
+@*@inject HttpClient http;*@
 
 <CascadingValue Name="EditMode" Value="@EditMode">
     <EditForm Model="@NewVisit" OnSubmit="OnSubmitMethod">
@@ -115,7 +115,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        psy = await http.GetFromJsonAsync<PsyList>("https://localhost:7233/api/psy");
+        //psy = await http.GetFromJsonAsync<PsyList>("https://localhost:7233/api/psy");
+        psy = await apiBroker.GetAllDogsAsync();
         var przefiltrowanePsy = psy.Psy.Select(p => new { Id = p.Id, Name = p.Name }).ToList();
     }
     

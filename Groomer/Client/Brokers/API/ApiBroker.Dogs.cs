@@ -1,4 +1,4 @@
-﻿using Groomer.Shared.Dogs.Commands;
+﻿//using Groomer.Shared.Dogs.Commands;
 using Groomer.Shared.Dogs.Queries.AllDogsQuery;
 
 namespace Groomer.Client.Brokers.API
@@ -7,7 +7,7 @@ namespace Groomer.Client.Brokers.API
 	{
 		private const string DogRelativeUrl = "https://localhost:7233/api/psy";
 		public async Task<PsyList> GetAllDogsAsync() =>
-			await this.GetAsync<PsyList>(VisitRelativeUrl);
+			await this.GetAsync<PsyList>(DogRelativeUrl);
 		//public async Task<List<DogForListVm>> GetAllDogsAsync() =>
 		//	await this.GetAsync<List<DogForListVm>>(VisitRelativeUrl);
 
