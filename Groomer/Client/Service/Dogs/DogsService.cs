@@ -16,6 +16,13 @@ namespace Groomer.Client.Service.Dogs
         public async Task<PsyList> GetAllDogsAsync()
         //public async Task<List<DogForListVm>> GetAllDogsAsync()
         {
+            return await apiBroker.GetAllDogsAsync();
+        }
+
+        //filteredDogs for input select in VisitAdd
+        public async Task<PsyList> GetFilteredDogsAsync()
+        //public async Task<List<DogForListVm>> GetFilteredDogsAsync()
+        {
             var allDogs = await apiBroker.GetAllDogsAsync();
 
             // Przefiltruj listę psów, zachowując tylko Id i Name
@@ -26,8 +33,6 @@ namespace Groomer.Client.Service.Dogs
             }).ToList();
 
             return new PsyList { Psy = filteredDogs };
-            //return await apiBroker.GetAllDogsAsync();
-
         }
 
         //public async Task AddDogAsync(AddDogVM dog)

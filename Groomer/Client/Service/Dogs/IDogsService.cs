@@ -7,6 +7,7 @@ namespace Groomer.Client.Service.Dogs
     {
         Task<PsyList> GetAllDogsAsync();
         //Task<List<DogForListVm>> GetAllDogsAsync();
+        Task<PsyList> GetFilteredDogsAsync();
         //Task AddDogAsync(AddDogVM dog);
     }
 }
