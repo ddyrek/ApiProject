@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Service\Dogs\DogsService.Validations.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.FluentValidation" Version="2.0.3" />
     <PackageReference Include="IdentityModel.OidcClient" Version="5.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.7" />
@@ -28,7 +32,10 @@
   <ItemGroup>
     <Folder Include="Components\Customers\ViewComponents\" />
     <Folder Include="Components\Visits\ViewComponents\" />
-    <Folder Include="Service\Dogs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Service\Dogs\DogsService.Validations.cs" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties wwwroot_4appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

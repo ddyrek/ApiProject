@@ -1,6 +1,7 @@
 ﻿@page "/visits/add"
 
 @using Blazored.FluentValidation
+@using Groomer.Client.Service.Dogs
 @using Groomer.Client.Service.Visits
 @using Groomer.Shared.Dogs.Queries.AllDogsQuery
 @using Groomer.Shared.Visits.Commands
@@ -8,6 +9,7 @@
 @inject IApiBroker apiBroker;
 @using Groomer.Client.Brokers.API
 @inject IVisitsService visitService;
+@inject IDogsService dogService;
 @*@inject HttpClient http;*@
 
 <CascadingValue Name="EditMode" Value="@EditMode">
@@ -66,6 +68,7 @@
 </CascadingValue>
 @code {
     private PsyList psy;
+    private List<DogForListVm> przefiltrowanePsy { get; set; } 
     public AddVisitVM NewVisit { get; set; } = new();
     public bool EditMode { get; set; } = false;
     private IReadOnlyList<IBrowserFile> files;
@@ -116,8 +119,9 @@
     protected override async Task OnInitializedAsync()
     {
         //psy = await http.GetFromJsonAsync<PsyList>("https://localhost:7233/api/psy");
-        psy = await apiBroker.GetAllDogsAsync();
-        var przefiltrowanePsy = psy.Psy.Select(p => new { Id = p.Id, Name = p.Name }).ToList();
+        //psy = await apiBroker.GetAllDogsAsync();
+        psy = await dogService.GetAllDogsAsync();
+        //var przefiltrowanePsy = psy.Psy.Select(p => new { Id = p.Id, Name = p.Name }).ToList();
     }
     
 }
