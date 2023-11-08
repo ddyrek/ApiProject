@@ -1,5 +1,212 @@
 ﻿@page "/dogs"
 
-@code {
+@inject IDogsService dogService;
+@*@using Groomer.Client.Shared.Templates*@
+@using Groomer.Client.Service.Dogs
+@using Groomer.Shared.Dogs.Queries.AllDogsQuery
 
+
+<AuthorizeView>
+    <Authorized>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Dogs</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Dogs</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+
+@if (DogList == null @*&& !DogList.Any()*@)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+    <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Dogs</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                #
+                            </th>
+                            <th style="width: 10%">
+                                Id
+                            </th>
+                            <th style="width: 20%">
+                                Name
+                            </th>
+                            <th>
+                                Race
+                            </th>
+                            <th style="width: 30%">
+                                Description
+                            </th>
+                            <th>
+                                KlientId
+                            </th>
+                            <th>
+                                KontrahentId
+                            </th>
+                            <th style="width: 8%" class="text-center">
+                                Status
+                            </th>
+                            <th style="width: 20%">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in DogList.Psy)
+                        {
+                            <tr>
+                                <td>
+                                    #
+                                </td>
+                                <td>
+                                    <a>
+                                        @item.Id
+                                    </a>
+                                    <br />
+                                    <small>
+                                        Numer @item.Id.ToString()
+                                    </small>
+                                </td>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @item.Race
+                                </td>
+                                <td>
+                                    @item.Description
+                                </td>
+                                <td>
+                                    @item.KlientId
+                                </td>
+                                <td>
+                                    @item.KontrahentId
+                                </td>
+                                <td class="project-state">
+                                    <span class="badge badge-@SetStatusBadge(item.Id)">
+                                        @SetStatusValue(item.Id)
+                                        </span>
+                                </td>
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="#">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        View
+                                    </a>
+                                    <a class="btn btn-info btn-sm" href="#">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="#">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+    </div>
+        <!-- /.card -->
+
+</section>
+    <!-- /.content -->
+}
+</Authorized>
+    <NotAuthorized>
+        <p>I'm sorry, I can't display any claims until you log in</p>
+    </NotAuthorized>
+</AuthorizeView>
+@code {
+    private PsyList DogList;
+    //public List<DogForListVm> DogList { get; set; }// wczesniej public List<Visit> VisitList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        DogList = await dogService.GetAllDogsAsync();
+        Console.WriteLine(DogList.Psy.Count);
+    }
+
+    private string SetStatusValue(int statusId)
+    {
+        string result;
+        switch (statusId)
+        {
+            case 1:
+                result = "DontActiv";
+                break;
+            case 2:
+                result = "Archive";
+                break;
+            default:
+                result = "Activ";
+                break;
+        }
+        return result;
+    }
+        private string SetStatusBadge(int statusId)
+    {
+        string result;
+        switch (statusId)
+        {
+            case 1:
+                result = "success";
+                break;
+            case 2:
+                result = "warning";
+                break;
+            default:
+                result = "secondary";
+                break;
+        }
+        return result;
+    }
+
+
+    //public class Dog
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string Race { get; set; }
+    //    public string? Description { get; set; }
+    //    public int KlientId { get; set; }
+    //    public int KontrahentId { get; set; }
+    //    //public Klient Klient { get; set; }
+    //    //public Kontrahent Kontrahent { get; set; }
+    //    //public ICollection<Wizyta> Wizyty
+    //}
 }
