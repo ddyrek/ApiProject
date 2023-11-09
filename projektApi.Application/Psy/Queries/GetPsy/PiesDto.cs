@@ -13,7 +13,7 @@ namespace projektApi.Application.Psy.Queries.GetPsy
         public string? Description { get; set; }
         public int KlientId { get; set; }
         public int KontrahentId { get; set; }
-        //public Klient Klient { get; set; }
+        public Klient Klient { get; set; }
         //public Kontrahent Kontrahent { get; set; }
         //public ICollection<Wizyta> Wizyty
 

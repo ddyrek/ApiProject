@@ -69,10 +69,10 @@ else
                                 Description
                             </th>
                             <th>
-                                KlientId
+                                Customer Name
                             </th>
                             <th>
-                                KontrahentId
+                                Customer Phone
                             </th>
                             <th style="width: 8%" class="text-center">
                                 Status
@@ -107,10 +107,10 @@ else
                                     @item.Description
                                 </td>
                                 <td>
-                                    @item.KlientId
+                                    @item.Klient.KlientName
                                 </td>
                                 <td>
-                                    @item.KontrahentId
+                                    @item.Klient.PhoneNumber
                                 </td>
                                 <td class="project-state">
                                     <span class="badge badge-@SetStatusBadge(item.Id)">
@@ -197,16 +197,21 @@ else
     }
 
 
-    //public class Dog
+    //public class Klient
     //{
     //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //    public string Race { get; set; }
-    //    public string? Description { get; set; }
-    //    public int KlientId { get; set; }
+    //    public string KlientName { get; set; }
+    //    public string PhoneNumber { get; set; }
     //    public int KontrahentId { get; set; }
-    //    //public Klient Klient { get; set; }
     //    //public Kontrahent Kontrahent { get; set; }
-    //    //public ICollection<Wizyta> Wizyty
+    //    //public ICollection<Pies> Psy { get; set; }
+    //    public string CreatedBy { get; set; }
+    //    public DateTime Created { get; set; }
+    //    public string ModifiedBy { get; set; }
+    //    public DateTime Modified { get; set; }
+    //    public int StatusId { get; set; }
+    //    public string InactivatedBy { get; set; }
+    //    public DateTime Inactivated { get; set; }
+
     //}
 }
