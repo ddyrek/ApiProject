@@ -6,6 +6,6 @@ namespace Groomer.Client.Service.Visits
     public interface IVisitsService
     {
         Task<List<VisitForListVm>> GetAllVisitsAsync();
-        Task AddVisitAsync(AddVisitVM visit);
+        Task<HttpResponseMessage> AddVisitAsync(AddVisitVM visit);
     }
 }

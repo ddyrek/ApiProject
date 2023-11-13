@@ -10,6 +10,7 @@
 @using Groomer.Client.Brokers.API
 @inject IVisitsService visitService;
 @inject IDogsService dogService;
+@inject NavigationManager navManager;
 @*@inject HttpClient http;*@
 
 <CascadingValue Name="EditMode" Value="@EditMode">
@@ -68,7 +69,7 @@
 </CascadingValue>
 @code {
     //private PsyList psy;
-        private FilteredDogsList psy;
+    private FilteredDogsList psy;
     private List<DogForListVm> przefiltrowanePsy { get; set; } 
     public AddVisitVM NewVisit { get; set; } = new();
     public bool EditMode { get; set; } = false;
@@ -95,8 +96,27 @@
             //    ms.Close();
             //}
             //await apiBroker.AddVisitAsync(NewVisit);
-            await visitService.AddVisitAsync(NewVisit);
-            Console.WriteLine("Visit has been validated");
+            try
+            {
+                HttpResponseMessage response = await visitService.AddVisitAsync(NewVisit);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("Visit has been successfully added");
+                    navManager.NavigateTo("visits", false);
+                }
+                else
+                {
+                    // Tutaj możesz obsłużyć błąd, np. wyświetlić komunikat, zalogować go itp.
+                    Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Obsługa innych wyjątków
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
         else
         {

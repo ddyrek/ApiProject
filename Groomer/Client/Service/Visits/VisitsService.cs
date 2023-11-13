@@ -21,7 +21,7 @@ namespace Groomer.Client.Service.Visits
 
         }
 
-        public async Task AddVisitAsync(AddVisitVM visit)
+        public async Task<HttpResponseMessage> AddVisitAsync(AddVisitVM visit)
         {
             //dodoatkowa walidacja VM wysyłanych do API
             //szczególnie przydatna gdy nie jestesmy autorami API
@@ -29,7 +29,7 @@ namespace Groomer.Client.Service.Visits
 
             try
             {
-                await apiBroker.AddVisitAsync(visit);
+                return await apiBroker.AddVisitAsync(visit);
             }
             catch (Exception ex)
             {

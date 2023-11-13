@@ -14,14 +14,14 @@
     <div class="card-body">
         @*<CustomInputText Id="name" Label="Name" @bind-Value="Name"></CustomInputText>*@
         @*<CustomInputText Id="confirmName" Label="Confirm Name" @bind-Value="NewCustomer.ConfirmName"></CustomInputText>*@
-        <label for="dataWizyty">Data Wizyty</label>
+        <label for="dataWizyty">Date of Visit</label>
 
         <InputDate disabled="@EditMode" id="dataWizyty" @bind-Value="NewVisit.DataWizyty" @attributes="@InputAttributes"/>
-        <label for="godzinaWizyty">Data Wizyty</label>
+        <label for="godzinaWizyty">Time of Visit</label>
 
         <InputDate disabled="@EditMode" id="godzinaWizyty" @bind-Value="NewVisit.GodzinaWizyty" @attributes="@InputAttributes" />
 
-        <label for="opis">Opis</label>
+        <label for="opis">Description</label>
         <InputTextArea disabled="@EditMode" id="opis" @bind-Value="NewVisit.Opis" rows="5" placeholder="This is description" @attributes="@InputAttributes" />
         <ValidationMessage For="() => NewVisit.Opis" />
 
