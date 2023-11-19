@@ -20,12 +20,12 @@ namespace Groomer.Client.Brokers.API
             // Zwróć wynik
             return response;
         }
-        //public async Task<HttpResponseMessage> DeleteVisitAsync(int visitId)
-        //{
-        //    // Implementacja usuwania wizyty z użyciem HttpClient
-        //    var response = await _httpClient.DeleteAsync($"api/wizyty/{visitId}");
-        //    return response;
-        //}
+        public async Task<HttpResponseMessage> DeleteVisitAsync(int visitId)
+        {
+            // Implementacja usuwania wizyty z użyciem HttpClient
+            var response = await _httpClient.DeleteAsync(VisitRelativeUrl + $"/{visitId}");
+            return response;
+        }
 
     }
 }

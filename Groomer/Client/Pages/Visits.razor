@@ -116,11 +116,11 @@ else
                                         </i>
                                         Edit
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="#">
+                                    <button class="btn btn-danger btn-sm" @onclick="() => DeleteVisit(item.Id)">
                                         <i class="fas fa-trash">
                                         </i>
                                         Delete
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         }
@@ -219,6 +219,32 @@ else
                 break;
         }
         return result;
+    }
+
+    private async Task DeleteVisit(int visitId)
+    {
+        try
+        {
+            // Wywołaj API do usuwania wizyty
+            var response = await apiBroker.DeleteVisitAsync(visitId);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Jeśli operacja usuwania zakończyła się sukcesem, odśwież listę wizyt
+                VisitList = await apiBroker.GetAllVisitsAsync();
+                Console.WriteLine("Visit has been successfully deleted");
+            }
+            else
+            {
+                // W przypadku niepowodzenia, obsłuż błąd (np. wyświetl komunikat)
+                Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Obsłuż ogólne wyjątki
+            Console.WriteLine($"Error: {ex.Message}");
+        }
     }
 
     public class Visit

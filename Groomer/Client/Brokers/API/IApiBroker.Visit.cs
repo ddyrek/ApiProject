@@ -9,5 +9,6 @@ namespace Groomer.Client.Brokers.API
         Task<List<VisitForListVm>> GetAllVisitsAsync();
         //Task AddVisitAsync(AddVisitVM visit);
         Task<HttpResponseMessage> AddVisitAsync(AddVisitVM visit);
+        Task<HttpResponseMessage> DeleteVisitAsync(int visitId);
     }
 }
