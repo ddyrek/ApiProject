@@ -2,6 +2,7 @@
 
 namespace Groomer.Client.Brokers.API
 {
+    //ApiBroker - obsługa tylko żadąń HTTP
     public partial class ApiBroker : IApiBroker
     {
         private readonly HttpClient _httpClient;
@@ -23,7 +24,7 @@ namespace Groomer.Client.Brokers.API
         public async Task<HttpResponseMessage> DeleteVisitAsync(int visitId)
         {
             // Implementacja usuwania wizyty z użyciem HttpClient
-            var response = await _httpClient.DeleteAsync(VisitRelativeUrl + $"/{visitId}");
+            var response = await _httpClient.DeleteAsync($"{VisitRelativeUrl}/{visitId}");
             return response;
         }
 

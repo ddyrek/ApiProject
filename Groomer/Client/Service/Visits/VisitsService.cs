@@ -5,8 +5,10 @@ using Groomer.Shared.Visits.Queries.AllVisitsQuery;
 
 namespace Groomer.Client.Service.Visits
 {
+    //VisistService i ogólnie Service - to warstwa usług, która powinna implementować logikę biznesową aplikacji
     public partial class VisitsService : IVisitsService
     {
+        //ApiBroker - obsuga tylko żadań HTTP
         private readonly IApiBroker apiBroker;
 
         public VisitsService(IApiBroker apiBroker)
@@ -37,5 +39,19 @@ namespace Groomer.Client.Service.Visits
                 throw new VisitBadRequestException(ex);
             }
         }
+
+        public async Task<HttpResponseMessage> DeleteVisitAsync(int visitId)
+        {
+            try
+            {
+                return await apiBroker.DeleteVisitAsync(visitId);
+            }
+            catch (Exception ex)
+            {
+
+                throw new VisitBadRequestException(ex);
+            }
+        }
+
     }
 }
