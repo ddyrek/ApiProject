@@ -3,6 +3,7 @@ using Groomer.Shared.Visits.Queries.AllVisitsQuery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using projektApi.Application.Wizyty.Commands.AddVisitCommand;
+using projektApi.Application.Wizyty.Commands.DeleteVisitCommand;
 using projektApi.Application.Wizyty.Queries.AllVisitsQuery;
 using projektApi.Application.Wizyty.Queries.GetWizytaDetail;
 using projektApi.Application.Wizyty.Queries.GetWizyty;
@@ -79,16 +80,16 @@ namespace projektApi.Controllers
         //    return Ok(id);
         //}
 
-        ///// <summary>
-        ///// Delete kontrahent by id
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult> DeleteAsync(int id)
-        //{
-        //    await Mediator.Send(new DeleteKontrahentCommand() { KontrahentId = id });
-        //    return Ok();
-        //}
+        /// <summary>
+        /// Delete visit by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            await Mediator.Send(new DeleteVisitCommand() { VisitId = id });
+            return Ok();
+        }
     }
 }

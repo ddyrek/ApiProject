@@ -11,5 +11,6 @@ namespace Groomer.Client.Brokers.API
 
 		public async Task<HttpResponseMessage> AddVisitAsync(AddVisitVM visit) =>
 			await this.PostAsync<AddVisitVM>(VisitRelativeUrl, visit);
-	}
+
+    }
 }

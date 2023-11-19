@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projektApi.Application.Klienci.Commands.AddCustomerCommand;
 using projektApi.Application.Klienci.Commands.CreateKlient;
+using projektApi.Application.Klienci.Commands.DeleteKlient;
 using projektApi.Application.Klienci.Queris.GetKlienci;
 using projektApi.Application.Klienci.Queris.GetKlientDetail;
 
@@ -55,5 +56,17 @@ namespace projektApi.Controllers
         //    var id = await Mediator.Send(new AddCustomerCommand() { Customer = customer });
         //    return id;
         //}
+
+        /// <summary>
+        /// Delete klient by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            await Mediator.Send(new DeleteKlientCommand() { KlentId = id });
+            return Ok();
+        }
     }
 }
