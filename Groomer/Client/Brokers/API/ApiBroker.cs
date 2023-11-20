@@ -21,10 +21,10 @@ namespace Groomer.Client.Brokers.API
             // Zwróć wynik
             return response;
         }
-        public async Task<HttpResponseMessage> DeleteVisitAsync(int visitId)
+        private async Task<HttpResponseMessage> DeleteAsync(string relativeUrl)
         {
-            // Implementacja usuwania wizyty z użyciem HttpClient
-            var response = await _httpClient.DeleteAsync($"{VisitRelativeUrl}/{visitId}");
+            HttpResponseMessage response = await _httpClient.DeleteAsync(relativeUrl);
+            // Zwróć wynik
             return response;
         }
 
