@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using projektApi.Application.Wizyty.Commands.AddVisitCommand;
 using projektApi.Application.Wizyty.Commands.DeleteVisitCommand;
+using projektApi.Application.Wizyty.Commands.UpdateVisitCommand;
 using projektApi.Application.Wizyty.Queries.AllVisitsQuery;
 using projektApi.Application.Wizyty.Queries.GetWizytaDetail;
 using projektApi.Application.Wizyty.Queries.GetWizyty;
@@ -68,17 +69,17 @@ namespace projektApi.Controllers
             return id;
         }
 
-        ///// <summary>
-        ///// Update kontrahent
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpPatch]
-        //public async Task<ActionResult<int>> PatchAsync([FromBody] UpdateKontrahentCommand updateKontrahentCommand)
-        //{
-        //    var id = await Mediator.Send(updateKontrahentCommand);
+        /// <summary>
+        /// Update kontrahent
+        /// </summary>
+        /// <returns></returns>
+        [HttpPatch]
+        public async Task<ActionResult<int>> PatchAsync([FromBody] UpdateVisitCommand updateVisitCommand)
+        {
+            var id = await Mediator.Send(updateVisitCommand);
 
-        //    return Ok(id);
-        //}
+            return Ok(id);
+        }
 
         /// <summary>
         /// Delete visit by id

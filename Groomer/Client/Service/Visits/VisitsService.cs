@@ -52,6 +52,5 @@ namespace Groomer.Client.Service.Visits
                 throw new VisitBadRequestException(ex);
             }
         }
-
     }
 }
