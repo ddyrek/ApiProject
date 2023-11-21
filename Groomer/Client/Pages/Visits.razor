@@ -1,8 +1,10 @@
 ﻿@page "/visits"
 @*@inject HttpClient http;*@
 @inject IApiBroker apiBroker;
+@inject IVisitsService visitService;
 @*@using Groomer.Client.Shared.Templates*@
 @using Groomer.Client.Brokers.API
+@using Groomer.Client.Service.Visits;
 @using Groomer.Shared.Visits.Queries.AllVisitsQuery
 
 
@@ -151,7 +153,7 @@ else
         //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/wizyty");
         //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/visits");
         Console.WriteLine(VisitList.Count);
-    
+
         //VisitList = new List<Visit>();
         //var visit1 = new Visit()
         //    {
@@ -203,7 +205,7 @@ else
         }
         return result;
     }
-        private string SetStatusBadge(int statusId)
+    private string SetStatusBadge(int statusId)
     {
         string result;
         switch (statusId)
@@ -226,12 +228,14 @@ else
         try
         {
             // Wywołaj API do usuwania wizyty
-            var response = await apiBroker.DeleteVisitAsync(visitId);
+            //var response = await apiBroker.DeleteVisitAsync(visitId); //option
+            var response = await visitService.DeleteVisitAsync(visitId);
 
             if (response.IsSuccessStatusCode)
             {
                 // Jeśli operacja usuwania zakończyła się sukcesem, odśwież listę wizyt
-                VisitList = await apiBroker.GetAllVisitsAsync();
+                //VisitList = await apiBroker.GetAllVisitsAsync();
+                VisitList = await visitService.GetAllVisitsAsync();
                 Console.WriteLine("Visit has been successfully deleted");
             }
             else
