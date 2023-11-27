@@ -8,10 +8,11 @@
 @using Groomer.Client.Components.Visits.EditComponents
 @inject IApiBroker apiBroker;
 @using Groomer.Client.Brokers.API
+@using Groomer.Shared.Visits.Queries.DetailVisistQuery
 @inject IVisitsService visitService;
 @inject IDogsService dogService;
 @inject NavigationManager navManager;
-@*@inject HttpClient http;*@
+@inject HttpClient http;
 
 <CascadingValue Name="EditMode" Value="@EditMode">
     <EditForm Model="@NewVisit" OnSubmit="OnSubmitMethod">
@@ -65,8 +66,11 @@
     </EditForm>
 </CascadingValue>
 @code {
+    [Parameter]
+    public int visitId { get; set; }
     //private PsyList psy;
     private FilteredDogsList psy;
+    private VisistDetailVm visit;
     public AddVisitVM NewVisit { get; set; } = new();
     public bool EditMode { get; set; } = false;
 
@@ -78,13 +82,13 @@
         {
             try
             {
-                HttpResponseMessage response = await visitService.AddVisitAsync(NewVisit);
+                HttpResponseMessage response = await visitService.UpdateVisitAsync(visitId, NewVisit);
 
                 if (response.IsSuccessStatusCode)
                 {
                     string json = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Visit has been successfully added");
-                    navManager.NavigateTo("visits", false);
+                    Console.WriteLine("Visit has been successfully updated");
+                    //navManager.NavigateTo("visits", false);
                 }
                 else
                 {
@@ -115,6 +119,8 @@
     protected override async Task OnInitializedAsync()
     {
         psy = await dogService.GetFilteredDogsAsync();
+        visit = await http.GetFromJsonAsync<VisistDetailVm>("https://localhost:7233/api/wizyty/" + visitId);
+        //visit = await apiBroker.GetVisitDetailsAsync(visitId);
     }
 
 }
