@@ -1,0 +1,120 @@
+﻿@page "/visits/edit/{visitId}"
+
+@using Blazored.FluentValidation
+@using Groomer.Client.Service.Dogs
+@using Groomer.Client.Service.Visits
+@using Groomer.Shared.Dogs.Queries.AllDogsQuery
+@using Groomer.Shared.Visits.Commands
+@using Groomer.Client.Components.Visits.EditComponents
+@inject IApiBroker apiBroker;
+@using Groomer.Client.Brokers.API
+@inject IVisitsService visitService;
+@inject IDogsService dogService;
+@inject NavigationManager navManager;
+@*@inject HttpClient http;*@
+
+<CascadingValue Name="EditMode" Value="@EditMode">
+    <EditForm Model="@NewVisit" OnSubmit="OnSubmitMethod">
+        <FluentValidationValidator />
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Visist Add</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/visits">Visits</a></li>
+                            <li class="breadcrumb-item active">Add</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <VisitAddGeneral NewVisit="@NewVisit" @bind-Opis="NewVisit.Opis" />
+                </div>
+                <div class="col-md-6">
+                    @if (psy == null)
+                    {
+                        <p>Loading... Dogs</p>
+                        Console.WriteLine("Object psy is null!");
+                    }
+                    else
+                    {
+                        <VisitAddDogs OnEditModeChanged="EditModeChange" Psy="@psy" NewVisit="@NewVisit" />
+                        Console.WriteLine("Loaded psy!");
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="#" class="btn btn-secondary">Cancel</a>
+                    <input type="submit" value="Create new Visit" class="btn btn-success float-right">
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+        <ValidationSummary />
+    </EditForm>
+</CascadingValue>
+@code {
+    //private PsyList psy;
+    private FilteredDogsList psy;
+    public AddVisitVM NewVisit { get; set; } = new();
+    public bool EditMode { get; set; } = false;
+
+
+
+    private async Task OnSubmitMethod(EditContext editContext)
+    {
+        if (editContext.Validate())
+        {
+            try
+            {
+                HttpResponseMessage response = await visitService.AddVisitAsync(NewVisit);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("Visit has been successfully added");
+                    navManager.NavigateTo("visits", false);
+                }
+                else
+                {
+                    // Tutaj możesz obsłużyć błąd, np. wyświetlić komunikat, zalogować go itp.
+                    Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Obsługa innych wyjątków
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Visit has not been validated");
+
+        }
+
+    }
+
+    private void EditModeChange(bool value)
+    {
+        EditMode = value;
+        StateHasChanged(); //powiadamiamy cała resztę że stan EditMode się zmienił
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        psy = await dogService.GetFilteredDogsAsync();
+    }
+
+}

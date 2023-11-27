@@ -1,4 +1,6 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text;
 
 namespace Groomer.Client.Brokers.API
 {
@@ -28,5 +30,14 @@ namespace Groomer.Client.Brokers.API
             return response;
         }
 
+        private async Task<HttpResponseMessage> PatchAsync<T>(string relativeUrl, T content)
+        {
+            var jsonContent = JsonSerializer.Serialize(content);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PatchAsync(relativeUrl, httpContent);
+
+            return response;
+        }
     }
 }

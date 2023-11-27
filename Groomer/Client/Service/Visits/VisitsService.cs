@@ -52,5 +52,22 @@ namespace Groomer.Client.Service.Visits
                 throw new VisitBadRequestException(ex);
             }
         }
+
+        public async Task<HttpResponseMessage> UpdateVisitAsync(int visitId, AddVisitVM updateVisit) //UpdateVisitVM
+        {
+            //dodoatkowa walidacja VM wysyłanych do API
+            //szczególnie przydatna gdy nie jestesmy autorami API
+            //ValidateVisit(updateVisit);
+
+            try
+            {
+                return await apiBroker.UpdateVisitAsync(visitId, updateVisit);
+            }
+            catch (Exception ex)
+            {
+
+                throw new VisitBadRequestException(ex);
+            }
+        }
     }
 }

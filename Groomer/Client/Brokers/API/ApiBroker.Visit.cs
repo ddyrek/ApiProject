@@ -15,5 +15,10 @@ namespace Groomer.Client.Brokers.API
         public async Task<HttpResponseMessage> DeleteVisitAsync(int visitId) =>
             await this.DeleteAsync($"{VisitRelativeUrl}/{visitId}");
 
+        public async Task<HttpResponseMessage> UpdateVisitAsync(int visitId, AddVisitVM updateVisit) //UpdateVisistVM
+        {
+            return await PatchAsync($"{VisitRelativeUrl}/{visitId}", updateVisit);
+        }
+
     }
 }
