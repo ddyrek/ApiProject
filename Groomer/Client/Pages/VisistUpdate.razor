@@ -86,7 +86,7 @@
 
                 if (response.IsSuccessStatusCode)
                 {
-                    string json = await response.Content.ReadAsStringAsync();
+                    //string json = await response.Content.ReadAsStringAsync();
                     Console.WriteLine("Visit has been successfully updated");
                     //navManager.NavigateTo("visits", false);
                 }
@@ -121,6 +121,7 @@
         psy = await dogService.GetFilteredDogsAsync();
         visit = await http.GetFromJsonAsync<VisistDetailVm>("https://localhost:7233/api/wizyty/" + visitId);
         //visit = await apiBroker.GetVisitDetailsAsync(visitId);
+        NewVisit.WizytaId = visitId;
     }
 
 }

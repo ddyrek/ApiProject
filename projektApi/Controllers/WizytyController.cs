@@ -2,6 +2,7 @@
 using Groomer.Shared.Visits.Queries.AllVisitsQuery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using projektApi.Application.Wizyty.Commands.AddVisitCommand;
 using projektApi.Application.Wizyty.Commands.DeleteVisitCommand;
 using projektApi.Application.Wizyty.Commands.UpdateVisitCommand;
@@ -69,17 +70,37 @@ namespace projektApi.Controllers
             return id;
         }
 
-        /// <summary>
-        /// Update kontrahent
-        /// </summary>
-        /// <returns></returns>
-        [HttpPatch]
+        ///// <summary>
+        ///// Update kontrahent
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPatch]
+        //public async Task<ActionResult<int>> PatchAsync([FromBody] UpdateVisitCommand updateVisitCommand)
+        //{
+        //    var id = await Mediator.Send(updateVisitCommand);
+
+        //    return Ok(id);
+        //}
+
+        [HttpPatch("{id}")]
+
         public async Task<ActionResult<int>> PatchAsync([FromBody] UpdateVisitCommand updateVisitCommand)
         {
-            var id = await Mediator.Send(updateVisitCommand);
+            try
+            {
+                var id = await Mediator.Send(updateVisitCommand);
+              
+                return Ok(id);
+            }
+            catch ( Exception ex)
+            {
 
-            return Ok(id);
+                var aa = ex;
+            }
+            return 0;
+
         }
+
 
         /// <summary>
         /// Delete visit by id

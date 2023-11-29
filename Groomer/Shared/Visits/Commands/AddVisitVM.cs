@@ -11,6 +11,7 @@ namespace Groomer.Shared.Visits.Commands
         public decimal? Kwota { get; set; }
         public int PiesId { get; set; }
         //public Pies Pies { get; set; }
+        public int WizytaId { get; set; }
     }
 
     public class AddVisitValidator : AbstractValidator<AddVisitVM>

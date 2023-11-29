@@ -57,7 +57,7 @@ namespace Groomer.Client.Service.Visits
         {
             //dodoatkowa walidacja VM wysyłanych do API
             //szczególnie przydatna gdy nie jestesmy autorami API
-            //ValidateVisit(updateVisit);
+            ValidateVisit(updateVisit);
 
             try
             {
