@@ -18,5 +18,19 @@ namespace Groomer.Client.Service.Visits
                 throw new VisitOpisValidationException();
             }
         }
+
+        public static void ValidateEditVisit(UpdateVisitVM visit)
+        {
+            if (visit == null)
+            {
+                //throw new Exception("Post is null");
+                throw new VisitNullException();
+            }
+            if (visit.Opis.Length >= 40)
+            {
+                //throw new Exception("Description of Visit is too short!");
+                throw new VisitOpisValidationException();
+            }
+        }
     }
 }
