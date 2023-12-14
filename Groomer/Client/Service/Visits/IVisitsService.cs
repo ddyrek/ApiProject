@@ -8,6 +8,6 @@ namespace Groomer.Client.Service.Visits
         Task<List<VisitForListVm>> GetAllVisitsAsync();
         Task<HttpResponseMessage> AddVisitAsync(AddVisitVM visit);
         Task<HttpResponseMessage> DeleteVisitAsync(int visitId);
-        Task<HttpResponseMessage> UpdateVisitAsync(int visitId, UpdateVisitVM updateVisit);
+        Task<HttpResponseMessage> UpdateVisitAsync(int visitId, AddVisitVM updateVisit);
     }
 }

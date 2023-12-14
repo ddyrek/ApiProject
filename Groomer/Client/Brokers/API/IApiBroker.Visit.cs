@@ -11,6 +11,6 @@ namespace Groomer.Client.Brokers.API
         Task<HttpResponseMessage> AddVisitAsync(AddVisitVM visit);
         Task<HttpResponseMessage> DeleteVisitAsync(int visitId);
         //Task<HttpResponseMessage> PatchAsync<T>(string relativeUrl, T content);
-        Task<HttpResponseMessage> UpdateVisitAsync(int visitId, UpdateVisitVM updateVisit);
+        Task<HttpResponseMessage> UpdateVisitAsync(int visitId, AddVisitVM updateVisit);
     }
 }

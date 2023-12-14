@@ -44,7 +44,8 @@
     [Parameter]
     public AddVisitVM NewVisit { get; set; } //wczesniej = new();
 
-    public bool EditMode { get; set; }
+    [CascadingParameter(Name = "EditMode")]
+    public bool EditMode { get; set; } = false;
 
     [Parameter]
     public EventCallback<bool> OnEditModeChanged { get; set; }

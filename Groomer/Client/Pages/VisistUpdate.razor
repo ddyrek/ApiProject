@@ -1,4 +1,4 @@
-﻿@page "/visits/edit/{visitId:int}"
+﻿@*@page "/visits/edit/{visitId:int}"*@
 
 @using Blazored.FluentValidation
 @using Groomer.Client.Service.Dogs
@@ -71,8 +71,8 @@
     //private PsyList psy;
     private FilteredDogsList psy;
     private VisistDetailVm visit;
-    public UpdateVisitVM NewVisit { get; set; } = new();
-    public bool EditMode { get; set; } = false;
+    public AddVisitVM NewVisit { get; set; } = new();
+    public bool EditMode { get; set; } = true;
 
 
 
@@ -88,7 +88,7 @@
                 {
                     //string json = await response.Content.ReadAsStringAsync();
                     Console.WriteLine("Visit has been successfully updated");
-                    //navManager.NavigateTo("visits", false);
+                    navManager.NavigateTo("visits", false);
                 }
                 else
                 {
@@ -121,6 +121,7 @@
         psy = await dogService.GetFilteredDogsAsync();
         visit = await http.GetFromJsonAsync<VisistDetailVm>("https://localhost:7233/api/wizyty/" + visitId);
         //visit = await apiBroker.GetVisitDetailsAsync(visitId);
+
         NewVisit.WizytaId = visitId;
     }
 

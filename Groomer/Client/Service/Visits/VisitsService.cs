@@ -53,11 +53,11 @@ namespace Groomer.Client.Service.Visits
             }
         }
 
-        public async Task<HttpResponseMessage> UpdateVisitAsync(int visitId, UpdateVisitVM updateVisit)
+        public async Task<HttpResponseMessage> UpdateVisitAsync(int visitId, AddVisitVM updateVisit)
         {
             //dodoatkowa walidacja VM wysyłanych do API
             //szczególnie przydatna gdy nie jestesmy autorami API
-            ValidateEditVisit(updateVisit);
+            ValidateVisit(updateVisit);
 
             try
             {

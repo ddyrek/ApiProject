@@ -14,6 +14,7 @@
 @inject NavigationManager navManager;
 @inject HttpClient http;
 
+<CascadingValue Name="EditMode" Value="@EditMode">
 <EditForm Model="@NewVisit" OnSubmit="OnSubmitMethod">
     <FluentValidationValidator />
     <!-- Content Header (Page header) -->
@@ -55,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <a href="#" class="btn btn-secondary">Cancel</a>
+                <a href="/visits" class="btn btn-secondary">Cancel</a>
                 <input type="submit" value="@(EditMode ? "Update Visit" : "Create New Visit")" class="btn btn-success float-right">
             </div>
         </div>
@@ -63,6 +64,7 @@
     <!-- /.content -->
     <ValidationSummary />
 </EditForm>
+</CascadingValue>
 
 @code {
     [Parameter]
@@ -158,6 +160,8 @@
                 Opis = visitDetail.Opis,
                 DataWizyty = visitDetail.DataWizyty,
                 GodzinaWizyty = visitDetail.GodzinaWizyty,
+                Kwota = visitDetail.Kwota,
+                PiesId = visitDetail.PiesId
                 // ... (map other properties)
             };
     }
