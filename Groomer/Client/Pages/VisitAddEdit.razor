@@ -1,0 +1,164 @@
+﻿@page "/visits/{action}/{visitId:int?}"
+
+@using Blazored.FluentValidation
+@using Groomer.Client.Service.Dogs
+@using Groomer.Client.Service.Visits
+@using Groomer.Shared.Dogs.Queries.AllDogsQuery
+@using Groomer.Shared.Visits.Commands
+@using Groomer.Client.Components.Visits.EditComponents
+@inject IApiBroker apiBroker;
+@using Groomer.Client.Brokers.API
+@using Groomer.Shared.Visits.Queries.DetailVisistQuery
+@inject IVisitsService visitService;
+@inject IDogsService dogService;
+@inject NavigationManager navManager;
+@inject HttpClient http;
+
+<EditForm Model="@NewVisit" OnSubmit="OnSubmitMethod">
+    <FluentValidationValidator />
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Visist Add</h1> 
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/visits">Visits</a></li>
+                            <li class="breadcrumb-item active">Add</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <VisitAddGeneral NewVisit="@NewVisit" @bind-Opis="NewVisit.Opis" />
+            </div>
+            <div class="col-md-6">
+                @if (psy == null)
+                {
+                    <p>Loading... Dogs</p>
+                    Console.WriteLine("Object psy is null!");
+                }
+                else
+                {
+                    <VisitAddDogs OnEditModeChanged="EditModeChange" Psy="@psy" NewVisit="@NewVisit" />
+                    Console.WriteLine("Loaded psy!");
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="#" class="btn btn-secondary">Cancel</a>
+                <input type="submit" value="@(EditMode ? "Update Visit" : "Create New Visit")" class="btn btn-success float-right">
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    [Parameter]
+    public string Action { get; set; }
+    [Parameter]
+    public int? visitId { get; set; }
+
+    private FilteredDogsList psy;
+    private VisistDetailVm visit;
+    public AddVisitVM NewVisit { get; set; } = new();
+    public bool EditMode { get; set; } = true;
+
+    private async Task OnSubmitMethod(EditContext editContext)
+    {
+        if (editContext.Validate())
+        {
+            try
+            {
+                if (EditMode)
+                {
+                    // Update an existing visit
+                    HttpResponseMessage response = await visitService.UpdateVisitAsync(visitId.Value, NewVisit);
+                    // ... (pozostała część obsługi odpowiedzi)
+                    if (response.IsSuccessStatusCode)
+                    {
+                        //string json = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine("Visit has been successfully updated");
+                        //navManager.NavigateTo("visits", false);
+                    }
+                    else
+                    {
+                        // Tutaj możesz obsłużyć błąd, np. wyświetlić komunikat, zalogować go itp.
+                        Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                    }
+                }
+                else
+                {
+                    // Create a new visit
+                    HttpResponseMessage response = await visitService.AddVisitAsync(NewVisit);
+                    // ... (pozostała część obsługi odpowiedzi)
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine("Visit has been successfully added");
+                        navManager.NavigateTo("visits", false);
+                    }
+                    else
+                    {
+                        // Tutaj możesz obsłużyć błąd, np. wyświetlić komunikat, zalogować go itp.
+                        Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Obsługa innych wyjątków
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Visit has not been validated");
+        }
+    }
+
+    private void EditModeChange(bool value)
+    {
+        EditMode = value;
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (visitId.HasValue)
+        {
+            // If visitId is provided, fetch details for an existing visit
+            visit = await http.GetFromJsonAsync<VisistDetailVm>("https://localhost:7233/api/wizyty/" + visitId.Value);
+            // Populate the NewVisit object with existing values
+            NewVisit = MapToEditModel(visit);
+        }
+
+        // Load dog data
+        psy = await dogService.GetFilteredDogsAsync();
+        NewVisit.WizytaId = visitId ?? 0;
+    }
+
+    private AddVisitVM MapToEditModel(VisistDetailVm visitDetail)
+    {
+        // Map values from VisistDetailVm to AddVisitVM
+        return new AddVisitVM
+            {
+                // Map other properties accordingly
+                Opis = visitDetail.Opis,
+                DataWizyty = visitDetail.DataWizyty,
+                GodzinaWizyty = visitDetail.GodzinaWizyty,
+                // ... (map other properties)
+            };
+    }
+}
