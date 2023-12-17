@@ -69,8 +69,9 @@
 
     private async Task ToggleEditMode()
     {
+        Console.WriteLine("ToggleEditMode called");
         EditMode = !EditMode;
         StateHasChanged();
-        await OnEditModeChanged.InvokeAsync(EditMode); //wyzwalamy EventCallback po prezez Invoke
+        await OnEditModeChanged.InvokeAsync(EditMode); //wyzwalamy EventCallback po przez Invoke
     }
 }

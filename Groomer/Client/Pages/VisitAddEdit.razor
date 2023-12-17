@@ -40,6 +40,9 @@
         <div class="row">
             <div class="col-md-6">
                 <VisitAddGeneral NewVisit="@NewVisit" @bind-Opis="NewVisit.Opis" />
+                @{
+                    Console.WriteLine($"Loaded VisitAddGeneral! {EditMode}");
+                }
             </div>
             <div class="col-md-6">
                 @if (psy == null)
@@ -57,7 +60,14 @@
         <div class="row">
             <div class="col-12">
                 <a href="/visits" class="btn btn-secondary">Cancel</a>
-                <input type="submit" value="@(EditMode ? "Update Visit" : "Create New Visit")" class="btn btn-success float-right">
+                @if (visitId > 0 && EditMode == true)
+                    {
+                        <input type="submit" value="Update Visit" class="btn btn-success float-right" >
+                    }
+                else if (EditMode == true)
+                {
+                <input type="submit" value="Create New Visit" class="btn btn-success float-right">
+                }
             </div>
         </div>
     </section>
@@ -75,7 +85,7 @@
     private FilteredDogsList psy;
     private VisistDetailVm visit;
     public AddVisitVM NewVisit { get; set; } = new();
-    public bool EditMode { get; set; } = true;
+    public bool EditMode { get; set; } = false;
 
     private async Task OnSubmitMethod(EditContext editContext)
     {
@@ -83,7 +93,7 @@
         {
             try
             {
-                if (EditMode)
+                if (visitId.HasValue && EditMode)
                 {
                     // Update an existing visit
                     HttpResponseMessage response = await visitService.UpdateVisitAsync(visitId.Value, NewVisit);
@@ -134,6 +144,7 @@
     {
         EditMode = value;
         StateHasChanged();
+        Console.WriteLine($"EditMode changed to {EditMode}");
     }
 
     protected override async Task OnInitializedAsync()

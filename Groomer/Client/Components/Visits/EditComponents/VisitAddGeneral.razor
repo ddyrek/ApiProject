@@ -17,6 +17,9 @@
         <label for="dataWizyty">Date of Visit</label>
 
         <InputDate disabled="@EditMode" id="dataWizyty" @bind-Value="NewVisit.DataWizyty" @attributes="@InputAttributes"/>
+                        @{
+                    Console.WriteLine($"Loaded in VisitAddGeneral! {EditMode}");
+                }
         <label for="godzinaWizyty">Time of Visit</label>
 
         <InputDate disabled="@EditMode" id="godzinaWizyty" @bind-Value="NewVisit.GodzinaWizyty" @attributes="@InputAttributes" />
@@ -71,4 +74,5 @@
             { "maxlenght", "20"},
             { "required", "required"}
         };
+
 }
