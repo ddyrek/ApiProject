@@ -14,7 +14,7 @@
     <div class="card-body">
         <div class="row">
             <label for="dogsId">Dog name</label>
-            <InputSelect disabled="@EditMode" id="PiesId" @bind-Value="NewVisit.PiesId" class="form-control">
+            <InputSelect disabled="@(!EditMode)" id="PiesId" @bind-Value="NewVisit.PiesId" class="form-control">
                 <option value="" disabled>-----Select Value-----</option>
                 @foreach (var item in Psy.Dogs)
                 {
@@ -23,7 +23,7 @@
             </InputSelect>
 
             <label for="files">Files</label>
-            <InputFile id="files" OnChange="OnChangeInputFile" multiple class="form-control" />
+            <InputFile disabled="@(!EditMode)" id="files" OnChange="OnChangeInputFile" multiple class="form-control" />
         </div>
         <div class="row">
             <div class="col-12">

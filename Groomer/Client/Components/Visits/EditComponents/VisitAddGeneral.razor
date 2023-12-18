@@ -16,21 +16,21 @@
         @*<CustomInputText Id="confirmName" Label="Confirm Name" @bind-Value="NewCustomer.ConfirmName"></CustomInputText>*@
         <label for="dataWizyty">Date of Visit</label>
 
-        <InputDate disabled="@EditMode" id="dataWizyty" @bind-Value="NewVisit.DataWizyty" @attributes="@InputAttributes"/>
+        <InputDate disabled="@(!EditMode)" id="dataWizyty" @bind-Value="NewVisit.DataWizyty" @attributes="@InputAttributes"/>
                         @{
                     Console.WriteLine($"Loaded in VisitAddGeneral! {EditMode}");
                 }
         <label for="godzinaWizyty">Time of Visit</label>
 
-        <InputDate disabled="@EditMode" id="godzinaWizyty" @bind-Value="NewVisit.GodzinaWizyty" @attributes="@InputAttributes" />
+        <InputDate disabled="@(!EditMode)" id="godzinaWizyty" @bind-Value="NewVisit.GodzinaWizyty" @attributes="@InputAttributes" />
 
         <label for="opis">Description</label>
-        <InputTextArea disabled="@EditMode" id="opis" @bind-Value="NewVisit.Opis" rows="5" placeholder="This is description" @attributes="@InputAttributes" />
+        <InputTextArea disabled="@(!EditMode)" id="opis" @bind-Value="NewVisit.Opis" rows="5" placeholder="This is description" @attributes="@InputAttributes" />
         <ValidationMessage For="() => NewVisit.Opis" />
 
         <label for="price">Price</label>
 
-        <InputNumber disabled="@EditMode" id="price" @bind-Value="NewVisit.Kwota" @attributes="@InputAttributes" />
+        <InputNumber disabled="@(!EditMode)" id="price" @bind-Value="NewVisit.Kwota" @attributes="@InputAttributes" />
         @*<label for="PiesId">Pies Id</label>
 
         <InputNumber disabled="@EditMode" id="PiesId" @bind-Value="NewVisit.PiesId" @attributes="@InputAttributes" class="form-control form-control-lg"/>*@
