@@ -101,6 +101,26 @@ namespace projektApi.Controllers
 
         }
 
+        /// <summary>
+        /// Update visit Put
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<ActionResult<int>> PutAsync(int id, [FromBody] UpdateVisitCommand updateVisitCommand)
+        {
+            try
+            {
+                // Logika obsługi pełnej aktualizacji (PUT)
+                var updatedId = await Mediator.Send(updateVisitCommand);
+                return Ok(updatedId);
+            }
+            catch (Exception ex)
+            {
+                var aa = ex;
+                return BadRequest();
+            }
+        }
+
 
         /// <summary>
         /// Delete visit by id

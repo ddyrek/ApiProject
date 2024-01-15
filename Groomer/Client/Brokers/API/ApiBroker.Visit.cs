@@ -17,7 +17,8 @@ namespace Groomer.Client.Brokers.API
 
         public async Task<HttpResponseMessage> UpdateVisitAsync(int visitId, AddVisitVM updateVisit)
         {
-            return await PatchAsync($"{VisitRelativeUrl}/{visitId}", updateVisit);
+            //return await PatchAsync($"{VisitRelativeUrl}/{visitId}", updateVisit);
+            return await PutAsync($"{VisitRelativeUrl}/{visitId}", updateVisit);
         }
 
     }

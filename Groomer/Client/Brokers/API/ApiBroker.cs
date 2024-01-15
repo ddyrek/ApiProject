@@ -39,5 +39,15 @@ namespace Groomer.Client.Brokers.API
 
             return response;
         }
+
+        private async Task<HttpResponseMessage> PutAsync<T>(string relativeUrl, T content)
+        {
+            var jsonContent = JsonSerializer.Serialize(content);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync(relativeUrl, httpContent);
+
+            return response;
+        }
     }
 }
