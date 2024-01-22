@@ -29,12 +29,12 @@
 </section>
 
 
-@if (VisitList == null @*&& !VisitList.Any()*@)
-{
+@*@if (VisitList == null @*&& !VisitList.Any()*@)
+@*{
     <p>Loading...</p>
 }
-else
-{
+else*@
+@*{*@
     <!-- Main content -->
     <section class="content">
 
@@ -81,7 +81,8 @@ else
                     <tbody>
 @*                        @foreach (var item in VisitList)
                         {*@
-                        <Virtualize Items="VisitList" Context="item">
+                        <Virtualize ItemsProvider="LoadVisits" Context="item" ItemSize="10">
+                            <ItemContent>
                             <tr>
                                 <td>
                                     #
@@ -127,7 +128,11 @@ else
                                     </button>
                                 </td>
                             </tr>
-                                </Virtualize>
+                            </ItemContent>
+                            <Placeholder>
+                                <p>Loading...</p>
+                            </Placeholder>
+                            </Virtualize>
                         @*}*@
                     </tbody>
                 </table>
@@ -138,59 +143,66 @@ else
 
 </section>
     <!-- /.content -->
-}
+@*}*@
 </Authorized>
     <NotAuthorized>
         <p>I'm sorry, I can't display any claims until you log in</p>
     </NotAuthorized>
 </AuthorizeView>
 @code {
-    public List<VisitForListVm> VisitList { get; set; }// wczesniej public List<Visit> VisitList { get; set; }
+    //public List<VisitForListVm> VisitList { get; set; }// wczesniej public List<Visit> VisitList { get; set; } (Zakomentowane bo w LoadVisits użyłem ItemsProviderResult w który sam tworzy listę)
 
-    protected override async Task OnInitializedAsync()
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    VisitList = await apiBroker.GetAllVisitsAsync();
+    //    //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("https://localhost:7233/api/wizyty");
+
+    //    //VisitList = await http.GetFromJsonAsync<WizytyVm>("https://localhost:7233/api/wizyty");
+    //    //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/wizyty");
+    //    //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/visits");
+    //    Console.WriteLine(VisitList.Count);
+
+    //    //VisitList = new List<Visit>();
+    //    //var visit1 = new Visit()
+    //    //    {
+    //    //        Id = 1,
+    //    //        DataWizyty = DateTime.Now,
+    //    //        GodzinaWizyty = DateTime.Now,
+    //    //        Kwota = 78,
+    //    //        Opis = "Strzyżenie, pięlegnacja, tuning",
+    //    //        PiesId = 2
+    //    //    };
+    //    //var visit2 = new Visit()
+    //    //    {
+    //    //        Id = 2,
+    //    //        DataWizyty = DateTime.Now,
+    //    //        GodzinaWizyty = DateTime.Now,
+    //    //        Kwota = 128,
+    //    //        Opis = "Pięlegnacja, tuning",
+    //    //        PiesId = 3
+    //    //    };
+    //    ////var visit3 = new Visit()
+    //    ////    {
+    //    ////        Id = 3,
+    //    ////        DataWizyty = DateTime.Now ,
+    //    ////        Opis = "This is my third post",
+    //    ////        Kwota = 235,
+    //    ////        GodzinaWizyty = DateTime.Now.AddDays(7),
+    //    ////        PiesId = 3,
+    //    ////        Dog = new List<Dog>() { new Dog() {  Name = "Rambo", Id = 3 } }
+    //    ////    };
+    //    //VisitList.Add(visit1);
+    //    //VisitList.Add(visit2);
+    //    ////VisitList.Add(visist3);
+    //}
+
+    protected async ValueTask<ItemsProviderResult<VisitForListVm>> LoadVisits(ItemsProviderRequest request)
     {
-        VisitList = await apiBroker.GetAllVisitsAsync();
-        //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("https://localhost:7233/api/wizyty");
-
-        //VisitList = await http.GetFromJsonAsync<WizytyVm>("https://localhost:7233/api/wizyty");
-        //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/wizyty");
-        //VisitList = await http.GetFromJsonAsync<List<VisitForListVm>>("api/visits");
-        Console.WriteLine(VisitList.Count);
-
-        //VisitList = new List<Visit>();
-        //var visit1 = new Visit()
-        //    {
-        //        Id = 1,
-        //        DataWizyty = DateTime.Now,
-        //        GodzinaWizyty = DateTime.Now,
-        //        Kwota = 78,
-        //        Opis = "Strzyżenie, pięlegnacja, tuning",
-        //        PiesId = 2
-        //    };
-        //var visit2 = new Visit()
-        //    {
-        //        Id = 2,
-        //        DataWizyty = DateTime.Now,
-        //        GodzinaWizyty = DateTime.Now,
-        //        Kwota = 128,
-        //        Opis = "Pięlegnacja, tuning",
-        //        PiesId = 3
-        //    };
-        ////var visit3 = new Visit()
-        ////    {
-        ////        Id = 3,
-        ////        DataWizyty = DateTime.Now ,
-        ////        Opis = "This is my third post",
-        ////        Kwota = 235,
-        ////        GodzinaWizyty = DateTime.Now.AddDays(7),
-        ////        PiesId = 3,
-        ////        Dog = new List<Dog>() { new Dog() {  Name = "Rambo", Id = 3 } }
-        ////    };
-        //VisitList.Add(visit1);
-        //VisitList.Add(visit2);
-        ////VisitList.Add(visist3);
+        var pageSize = request.Count;
+        var index = request.StartIndex;
+        var items = await apiBroker.GetAllVisitsAsync();
+        return new ItemsProviderResult<VisitForListVm>(); //(items.Skip(index).Take(items.Count())
     }
-
     private string SetStatusValue(int statusId)
     {
         string result;
