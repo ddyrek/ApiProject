@@ -79,8 +79,9 @@ else
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in VisitList)
-                        {
+@*                        @foreach (var item in VisitList)
+                        {*@
+                        <Virtualize Items="VisitList" Context="item">
                             <tr>
                                 <td>
                                     #
@@ -126,7 +127,8 @@ else
                                     </button>
                                 </td>
                             </tr>
-                        }
+                                </Virtualize>
+                        @*}*@
                     </tbody>
                 </table>
             </div>
