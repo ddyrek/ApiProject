@@ -29,7 +29,7 @@
 </section>
 
 
-@*@if (VisitList == null @*&& !VisitList.Any()*@)
+@*@if (VisitList == null @*&& !VisitList.Any())*@
 @*{
     <p>Loading...</p>
 }
@@ -132,7 +132,7 @@ else*@
                             <Placeholder>
                                 <p>Loading...</p>
                             </Placeholder>
-                            </Virtualize>
+                        </Virtualize>
                         @*}*@
                     </tbody>
                 </table>
@@ -200,8 +200,8 @@ else*@
     {
         var pageSize = request.Count;
         var index = request.StartIndex;
-        var items = await apiBroker.GetAllVisitsAsync();
-        return new ItemsProviderResult<VisitForListVm>(); //(items.Skip(index).Take(items.Count())
+        var items = await apiBroker.GetAllVisitsAsync(); //w GetAllVisitsAsync(index,  pageSize) 
+        return new ItemsProviderResult<VisitForListVm>(items.Skip(index).Take(pageSize), items.Count());
     }
     private string SetStatusValue(int statusId)
     {
@@ -250,7 +250,7 @@ else*@
             {
                 // Jeśli operacja usuwania zakończyła się sukcesem, odśwież listę wizyt
                 //VisitList = await apiBroker.GetAllVisitsAsync();
-                VisitList = await visitService.GetAllVisitsAsync();
+                var VisitList = await visitService.GetAllVisitsAsync();
                 Console.WriteLine("Visit has been successfully deleted");
             }
             else
