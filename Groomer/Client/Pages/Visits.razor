@@ -1,4 +1,7 @@
 ﻿@page "/visits"
+
+@inject IHtmlNotificationService _notificationService
+@implements IAsyncDisposable
 @*@inject HttpClient http;*@
 @inject IApiBroker apiBroker;
 @inject IVisitsService visitService;
@@ -151,6 +154,26 @@ else*@
     </NotAuthorized>
 </AuthorizeView>
 @code {
+    protected async override Task OnInitializedAsync()
+    {
+        var options = new HtmlServiceWorkerNotificationOptions("Test Notification", "_content/sw.js")
+            {
+                Body = "Test Notification body",
+                Actions = new NotificationAction[]
+                    {
+                    new NotificationAction() { Action = "action1", Title = "Custom action 1" },
+                    new NotificationAction() { Action = "action2", Title = "Custom action 2" }
+                    }
+            }; 
+            await _notificationService.ShowsWithActionsAsync(options);
+    }
+        public async ValueTask DisposeAsync()
+    {
+        if (_notificationService is not null)
+        {
+            await _notificationService.DisposeAsync();
+        }
+    }
     //public List<VisitForListVm> VisitList { get; set; }// wczesniej public List<Visit> VisitList { get; set; } (Zakomentowane bo w LoadVisits użyłem ItemsProviderResult w który sam tworzy listę)
 
     //protected override async Task OnInitializedAsync()
