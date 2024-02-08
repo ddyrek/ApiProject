@@ -7,6 +7,7 @@
 @using Groomer.Client.Service.Visits;
 @using Groomer.Shared.Visits.Exceptions
 @using Groomer.Shared.Visits.Queries.AllVisitsQuery
+@inject NavigationManager navManager;
 
 
 <AuthorizeView>
@@ -250,7 +251,8 @@ else*@
             {
                 // Jeśli operacja usuwania zakończyła się sukcesem, odśwież listę wizyt
                 //VisitList = await apiBroker.GetAllVisitsAsync();
-                var VisitList = await visitService.GetAllVisitsAsync();
+                //var VisitList = await visitService.GetAllVisitsAsync();
+                navManager.NavigateTo("visits", false);
                 Console.WriteLine("Visit has been successfully deleted");
             }
             else

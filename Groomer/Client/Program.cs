@@ -5,6 +5,8 @@ using Groomer.Client.Service;
 using Groomer.Client.Service.Customers;
 using Groomer.Client.Service.Dogs;
 using Groomer.Client.Service.Visits;
+using Majorsoft.Blazor.Components.CssEvents;
+using Majorsoft.Blazor.Components.Notifications;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -38,11 +40,13 @@ builder.Services.AddOidcAuthentication(options =>
     builder.Configuration.Bind("oidc", options.ProviderOptions);
 });
 builder.Services.AddScoped<ITestService, TestService>();
+builder.Services.AddCssEvents(); //powidomienia pushNotificatons
+builder.Services.AddNotifications(); //powidomienia pushNotificatons
 
 //logger
 //builder.Configuration.AddConfiguration(builder.Configuration.GetSection("Logging")); //add section from appsetings
 //loger level on Environment
-if(builder.HostEnvironment.IsDevelopment())
+if (builder.HostEnvironment.IsDevelopment())
 {
     builder.Logging.SetMinimumLevel(LogLevel.Information);
 }
