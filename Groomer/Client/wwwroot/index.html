@@ -61,11 +61,18 @@
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- fullCalendar 2.2.5 -->
     <script src="../plugins/moment/moment.min.js"></script>
-    <script src="../plugins/fullcalendar/main.js"></script> 
+    <script src="../plugins/fullcalendar/main.js"></script>
 
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script>
+        window.blazorCulture =
+        {
+            get: () => window.localStorage['BlazorCulture'],
+            set: (value) => window.localStorage['BlazorCulture'] = value
+        };
+    </script>
 </body>
 
 </html>

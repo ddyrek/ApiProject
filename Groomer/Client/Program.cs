@@ -10,6 +10,8 @@ using Majorsoft.Blazor.Components.Notifications;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.JSInterop;
+using System.Globalization;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#wrapper");
@@ -42,6 +44,7 @@ builder.Services.AddOidcAuthentication(options =>
 builder.Services.AddScoped<ITestService, TestService>();
 builder.Services.AddCssEvents(); //powidomienia pushNotificatons
 builder.Services.AddNotifications(); //powidomienia pushNotificatons
+builder.Services.AddLocalization(); //Lokalizacja dla multilang
 
 //logger
 //builder.Configuration.AddConfiguration(builder.Configuration.GetSection("Logging")); //add section from appsetings
@@ -59,4 +62,16 @@ else if (builder.HostEnvironment.IsProduction())
     builder.Logging.SetMinimumLevel(LogLevel.Error);
 }
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+
+var jsInterop = host.Services.GetRequiredService<IJSRuntime>();
+
+var result = await jsInterop.InvokeAsync<string>("blazorCulture.get");
+if (result != null)
+{
+    var culture = new CultureInfo(result);
+    CultureInfo.DefaultThreadCurrentCulture = culture;
+    CultureInfo.DefaultThreadCurrentUICulture = culture;
+}
+
+await host.RunAsync();
