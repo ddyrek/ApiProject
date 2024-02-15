@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Groomer.Client", "Groomer\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Groomer.Shared", "Groomer\Shared\Groomer.Shared.csproj", "{5E4EBFC4-ADE7-4DC3-83C6-80346B774A51}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dawid.Components", "Dawid.Components\Dawid.Components.csproj", "{89F3C193-EB90-4440-9536-DA7DEE5DFB63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{5E4EBFC4-ADE7-4DC3-83C6-80346B774A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E4EBFC4-ADE7-4DC3-83C6-80346B774A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E4EBFC4-ADE7-4DC3-83C6-80346B774A51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F3C193-EB90-4440-9536-DA7DEE5DFB63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F3C193-EB90-4440-9536-DA7DEE5DFB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F3C193-EB90-4440-9536-DA7DEE5DFB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F3C193-EB90-4440-9536-DA7DEE5DFB63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

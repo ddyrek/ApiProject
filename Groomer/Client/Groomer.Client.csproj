@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Dawid.Components\Dawid.Components.csproj" />
     <ProjectReference Include="..\Shared\Groomer.Shared.csproj" />
   </ItemGroup>
 
