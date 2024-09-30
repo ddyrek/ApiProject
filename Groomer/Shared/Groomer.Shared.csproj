@@ -13,6 +13,7 @@
   <ItemGroup>
     <Folder Include="Customers\Queries\AllCustomersQuery\" />
     <Folder Include="Dogs\Commands\" />
+    <Folder Include="Inext\Json\" />
   </ItemGroup>
 
   <ItemGroup>

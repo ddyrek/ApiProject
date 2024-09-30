@@ -1,0 +1,147 @@
+﻿@page "/ktmprop"
+@using Groomer.Client.Models
+@using Groomer.Client.Components
+@using Groomer.Shared.JM.Queries.JM_UzytkownicyQuery;
+@using Groomer.Shared.JM.Queries.JM_ZamowieniaWQuery
+@inject HttpClient Http;
+
+<AuthorizeView>
+    <Authorized>
+        <h1>JM_Zamowienia - orders propertis compare</h1>
+        @*         @if (fullZamowieniaW == null || fullZamowieniaW. == null || fullUser.JmUzytkownicy.Count == 0)
+        {
+        <p>No Todo Items found.</p>
+        Console.WriteLine(fullUser.JmUzytkownicy);
+        } *@
+        @if (fullZamowieniaW == null)
+        {
+            <p>fullZamowieniaW is null.</p>
+        }
+        else if (fullZamowieniaW.JmZamowieniaW == null)
+        {
+            <p>JM_ZAMOWIENIA_W is null.</p>
+        }
+        else if (fullZamowieniaW.JmZamowieniaW.Count == 0)
+        {
+            <p>No JM_Zamowienia_W items found.</p>
+        }
+        else
+        {
+            
+                @* Logowanie informacji do konsoli *@
+                //Console.WriteLine($"Processing KTM: {item.WYR_KTM}");
+                //sortedListA = item.WYR_WERSJA.OrderBy(x => x).ToList();
+                @* sortedListB = ListaJoHandel.OrderBy(x => x).ToList();
+                <p>ZAN_NUMER: @item.ZAN_NUMER</p>
+                <p>WYR_KTM: @item.WYR_KTM</p>
+                <p>WYR_LP WWL_NAZWA: @item.WWL_LP, @item.WWL_NAZWA</p>
+                <p>WYR_TXT:@item.WWW_TXT</p>
+                <p>WWW_INT: @item.WWW_INT</p>
+                <p>WWW_DEC: @item.WWW_DEC</p>
+                <p>WYR_WERSJA: @item.WYR_WERSJA</p> *@
+
+
+                <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                    <thead>
+                        <tr>
+                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Właściovości: activate to sort column descending">Właściwości: ( @fullZamowieniaW.JmZamowieniaW.Count() )</th>
+                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Wartość:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in fullZamowieniaW.JmZamowieniaW)
+                    {
+                        <tr class="odd">
+                            <td class="dtr-control sorting_1" tabindex="0">WWL_LP:</td>
+                            <td class="dtr-control sorting_1" tabindex="0">@item.WWL_LP</td>
+                        </tr>
+                        <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">WWL_NAZWA:</td>
+                                <td class="dtr-control sorting_1" tabindex="0">@item.WWL_NAZWA</td>
+                        </tr>
+                        <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">WWW_TEXT:</td>
+                                <td class="dtr-control sorting_1" tabindex="0">@item.WWW_TXT</td>
+                        </tr>
+                        <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">WWW_INT:</td>
+                                <td class="dtr-control sorting_1" tabindex="0">@item.WWW_INT</td>
+                        </tr>
+                        <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">WWW_DEC:</td>
+                                <td class="dtr-control sorting_1" tabindex="0">@item.WWW_DEC</td>
+                        </tr>
+                        <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">ZAN_NUMER:</td>
+                                <td class="dtr-control sorting_1" tabindex="0">@item.ZAN_NUMER</td>
+                        </tr>
+                        <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">WYR_KTM:</td>
+                                <td class="dtr-control sorting_1" tabindex="0">@item.WYR_KTM</td>
+                        </tr>
+                        <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">WYR_WERSJA</td>
+                                <td class="dtr-control sorting_1" tabindex="0">@item.WYR_WERSJA</td>
+                        </tr>
+                        <tr> <td></td><td></td></tr>
+                    }
+
+                    </tbody>
+                    @* <tfoot>
+                        <tr>
+                            <th rowspan="1" colspan="1">User A: ( @sortedListA.Count() )</th>
+                            <th rowspan="1" colspan="1">USER B: ( @sortedListB.Count() )</th>
+                        </tr>
+                    </tfoot> *@
+                </table>
+            @* } *@
+            @* Logowanie dodatkowych informacji *@
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>I'm sorry, I can't display any claims until you log in</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private JmZamowieniaWVm? fullZamowieniaW;
+    //private string data;
+
+    List<long> ListaJoHandel = new List<long>() { 145, 150, 66, 68, 67 };
+    //druga lista jednostek organizacyjnych drugiego usera
+
+    private List<long> sortedListA;
+    private List<long> sortedListB;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var json = await Http.GetStringAsync("https://localhost:7088/JmZamowieniaW.json");
+            //Console.WriteLine("Received JSON: " + json); // Logowanie JSON-a
+
+            var options = new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            fullZamowieniaW = System.Text.Json.JsonSerializer.Deserialize<JmZamowieniaWVm>(json, options);
+
+            if (fullZamowieniaW == null)
+            {
+                Console.WriteLine("Deserialization returned null.");
+            }
+            else if (fullZamowieniaW.JmZamowieniaW == null)
+            {
+                Console.WriteLine("JM_UZYTKOWNICY is null.");
+            }
+            else
+            {
+                Console.WriteLine($"Deserialized {fullZamowieniaW.JmZamowieniaW.Count} users.");
+                StateHasChanged();  // Aktualizacja stanu komponentu
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+
+}

@@ -1,0 +1,145 @@
+﻿@page "/unitcompare"
+@using Groomer.Client.Models
+@using Groomer.Client.Components
+@using Groomer.Shared.JM.Queries.JM_JednostkiOrgQuery
+@using Groomer.Shared.JM.Queries.JM_UzytkownicyQuery;
+@inject HttpClient Http;
+
+<AuthorizeView>
+    <Authorized>
+        <h1>JM_User - units compare</h1>
+        @*         @if (fullUser == null || fullUser.JmUzytkownicy == null || fullUser.JmUzytkownicy.Count == 0)
+        {
+        <p>No Todo Items found.</p>
+        Console.WriteLine(fullUser.JmUzytkownicy);
+        } *@
+        @if (fullUser == null)
+        {
+            <p>fullUser is null.</p>
+        }
+        else if (fullUser.JmUzytkownicy == null)
+        {
+            <p>JmUzytkownicy is null.</p>
+        }
+        else if (fullUser.JmUzytkownicy.Count == 0)
+        {
+            <p>No JM_UZYTKOWNICY items found.</p>
+        }
+        else
+        {
+            @foreach (var item in fullUser.JmUzytkownicy)
+            {
+                @* Logowanie informacji do konsoli *@
+                Console.WriteLine($"Processing user: {item.UZY_LOGIN}");
+                sortedListA = item.UZY_JO_HANDEL.OrderBy(x => x).ToList();
+                sortedListB = ListaJoHandel.OrderBy(x => x).ToList();
+
+                
+                <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                    <thead>
+                        <tr>
+                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Jednostki organizacyjne (UZY_JO_HANDEL): activate to sort column descending">User A - @item.UZY_LOGIN: ( @sortedListA.Count() )</th>
+                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">USER B: ( @sortedListB.Count() )</th>
+                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Lista brakujacych: activate to sort column ascending">Brakujące w B : ( @sortedListA.Except(sortedListB).Count() ) </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--Metoda Zip łączy elementy z dwóch kolekcji w pary, a jeśli jedna kolekcja jest dłuższa, nadmiarowe elementy są ignorowane-->
+                        @foreach (var jo in sortedListA.Zip(sortedListB, (first, second) => new { First = first, Second = second }))
+                        {
+                            <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">@jo.First</td>
+                                <td class="dtr-control sorting_1" tabindex="0">@jo.Second</td>
+                                <td></td>
+                            </tr>
+                        }
+
+                        @foreach (var jo in sortedListA.Except(sortedListB))
+                        {
+                            <tr class="odd">
+                                <td class="dtr-control sorting_1" tabindex="0">@jo</td>
+                                <td></td>
+
+                                <td class="dtr-control sorting_1" tabindex="0">@jo -
+                                    @{
+                                        var jednostka = jednostki?.JednostkiOrg?.Find(x => x.JDO_SYMBOL == jo.ToString());
+                                        if (jednostka != null)
+                                        {
+                                            @jednostka.JDO_NAZWA
+                                            // Upewnij się, że używasz właściwości, która ma sens w wyświetlaniu
+                                        }
+                                        else
+                                        {
+                                            <text>Brak danych</text>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th rowspan="1" colspan="1">User A: ( @sortedListA.Count() )</th>
+                            <th rowspan="1" colspan="1">USER B: ( @sortedListB.Count() )</th>
+                            <th rowspan="1" colspan="1">Brakujące w B : ( @sortedListA.Except(sortedListB).Count() )</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+            @* Logowanie dodatkowych informacji *@  
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>I'm sorry, I can't display any claims until you log in</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private JmUzytkownicyVm? fullUser;
+    private JmJednostkiOrgVm? jednostki;
+    //private string data;
+
+    List<long> ListaJoHandel = new List<long>() { 50186, 50190, 50187, 50188, 50189, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 176, 167, 168, 169, 170, 171, 172, 173, 174, 175, 196, 183, 50183, 50185, 50164, 66, 70, 67, 68, 69, 50151, 50192, 186, 192, 200, 190, 182, 199, 184, 185, 187, 188, 189, 191, 193, 194, 195, 197, 198, 201, 202, 203, 205, 50156, 50116 };
+    //druga lista jednostek organizacyjnych drugiego usera
+
+    private List<long> sortedListA = new List<long>();
+    private List<long> sortedListB = new List<long>();
+    private List<long> jedno = new List<long>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var jsonUnitsOrg = await Http.GetStringAsync("https://localhost:7088/jednostkiOrg.json");
+            var json = await Http.GetStringAsync("https://localhost:7088/data.json");
+            //Console.WriteLine("Received JSON: " + json); // Logowanie JSON-a
+
+            var options = new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            fullUser = System.Text.Json.JsonSerializer.Deserialize<JmUzytkownicyVm>(json, options);
+            jednostki = System.Text.Json.JsonSerializer.Deserialize<JmJednostkiOrgVm>(jsonUnitsOrg, options);
+            Console.WriteLine($"JednostkiOrg count: {jednostki?.JednostkiOrg?.Count}");
+
+
+            if (fullUser == null)
+            {
+                Console.WriteLine("Deserialization returned null.");
+            }
+            else if (fullUser.JmUzytkownicy == null)
+            {
+                Console.WriteLine("JM_UZYTKOWNICY is null.");
+            }
+            else
+            {
+                Console.WriteLine($"Deserialized {fullUser.JmUzytkownicy.Count} users.");
+                StateHasChanged();  // Aktualizacja stanu komponentu
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+
+}

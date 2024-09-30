@@ -1,0 +1,89 @@
+﻿@page "/inext"
+@using Groomer.Client.Models
+@using Groomer.Client.Components
+@using Groomer.Shared.Inext.Queries.DetailInextFullStateQuery
+@inject HttpClient Http
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Inext - lista</h1>
+        <a href="addKontrahent">Add new</a>
+        @if (fullState == null)
+        {
+            <p>No Todo Items found.</p>
+        }
+        else
+        {
+            <ul>
+                @foreach (var item in fullState.Params)
+                {
+                    <li>@item.Zones</li>
+                    <li>@item.ValueCode</li>
+                    <li>@item.Code</li>
+                    <li>@item.Min</li>
+                    <li>@item.ExtInfo</li>
+                    <li>@item.Hidden</li>
+                    <li>@item.Max</li>
+                    <li>@item.Value</li>
+                    <li>@item.ValueLabel</li>
+                    <li>@item.Write</li>
+                }
+            </ul>
+            @* <KontrahentTable Kontrahenci="@fullState"></KontrahentTable> *@
+        }
+        @*<KontrahentTable Kontrahenci="@kontrahenci"></KontrahentTable>*@
+    </Authorized>
+    <NotAuthorized>
+        <p>I'm sorry, I can't display any claims until you log in</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private InextFullStateDetailVm fullState;
+    private string data;
+    //public List<KontrahenciDto> kontrahenci { get; set; }
+
+    //wypełnienie Listy przy inicjalizacji strony
+    //protected override async Task OnIniatalizedAsync()
+    protected override async Task OnInitializedAsync()
+    {
+    //kontrahenci = new List<KontrahenciDto>()
+    //{
+    //new KontrahenciDto {NazwaFirmy = "Tuti Fruti"},
+    //new KontrahenciDto {NazwaFirmy = "Mops"}
+    //};
+
+        //fullState = await Http.GetFromJsonAsync<InextFullStateDetailVm>("https://inext.compit.pl/api/gates/31729/devices/16167/full_state");
+        
+        var json = await Http.GetStringAsync("https://localhost:7088/data.json");
+        var options = new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        fullState = System.Text.Json.JsonSerializer.Deserialize<InextFullStateDetailVm>(json, options);
+        Console.WriteLine(json);
+        //Console.WriteLine(kontrahenci.Count);
+    }
+
+    private async Task GetRequestWithBearerToken()
+    {
+        // Ustaw token autoryzacji Bearer
+        var bearerToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJDb21waXQiLCJleHAiOjE3MTUyNDEyNzcsImlhdCI6MTcxMjY0OTI3NywiaXNzIjoiQ29tcGl0IiwianRpIjoiMGVmNzI3MmQtNzllNy00NDc0LTliZGQtM2Q3MjQ2MGM2ZWJkIiwibmJmIjoxNzEyNjQ5Mjc2LCJzdWIiOiI3NTI2IiwidGVzdCI6InR0dCIsInR5cCI6ImFjY2VzcyJ9.axNu5Xob0hNHC_3p70Z_KkU8D9CxNARWsxWnjAim370YzV-sBMs3L07tdb_FWw2l4KuilixxwOKLEhLk14nuzw";
+        Http.DefaultRequestHeaders.Authorization = new  System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", bearerToken);
+
+        // Wysyłanie zapytania GET
+        var response = await Http.GetAsync("https://inext.compit.pl/api/current_user");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            // Przetwarzanie odpowiedzi
+        }
+        else
+        {
+            // Obsługa błędów
+        }
+    }
+
+    public class InextFullStateList
+    {
+        public List<InextFullStateDetailVm> fullState { get; set; }
+    }
+}
